@@ -1,0 +1,99 @@
+<?php  
+@session_start(); 
+//@session_destroy();
+include("../../../PHP/Includes/FusionCharts.php"); 
+include("../../../DBConn.php"); 
+ ?>
+<!DOCTYPE html> 
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>ระบบดูแลผู้ป่วยจิตเวชร่วมกับเครือข่ายอย่างไร้รอยต่อ</title> 
+ 	<link rel="stylesheet"  href="../../../setting/demos/css/themes/default/jquery.mobile-1.2.0-alpha.1.css" />
+<!-- 	<link rel="stylesheet" href="../demos/docs/_assets/css/jqm-docs.css"/> -->
+	<script src="../../../setting/demos/js/jquery.js"></script>
+<!--  	<script src="../demos/docs/_assets/js/jqm-docs.js"></script>-->
+ <script src="../../../setting/demos/docs/_assets/js/jqm-docs.js"></script>
+  <link rel="stylesheet" href="../../../setting/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css"/>
+  <script src="../../../setting/demos/js/jquery.mobile-1.2.0-alpha.1.js"></script>  
+     <link rel="stylesheet" href="../../../form/font.css"/>
+  
+	<script src="../../../setting/jquery.validate.js"></script>
+	<script src="../../../setting/main.js"></script>
+ 	<link rel="stylesheet"  href="../../../setting/app.css" />	 
+	<LINK REL="SHORTCUT ICON" HREF="../../../setting/icons/png/Sync.png">  
+ </head> 
+ <div data-role="page" data-theme="b" id="page-1">
+ 
+	
+ <div data-role='header' data-position='fixed'   data-theme='b'>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <!-- <IMG SRC="setting/icons/page/sinchronize2.png" class='spinLoading'  width='20' hight='20'> --><IMG SRC="../../../setting/img/logo-head.png" WIDTH="300" HEIGHT="40" BORDER="0" ALT="">
+  <H1>ระบบดูแลผู้ป่วยจิตเวชร่วมกับเครือข่ายอย่างไร้รอยต่อ
+</H1>  <a href='../../../refresh.php?menu=1' data-icon='home' data-iconpos='notext' data-rel='page' data-transition='fade'>Home</a>
+
+ <a href="#popupLogin" data-rel="popup"  data-transition='fade' data-icon="lock" data-position-to="window" data-role="button" data-inline="true" data-theme=''>Login</a>
+	
+
+	 <script type="text/javascript"><!--
+         $("body").ready(function(){
+             var browser;
+             if($.browser.mozilla)
+                   browser = "<IMG SRC='../../setting/icons/page/firefox.png' width='36'height='36' >Firefox";
+             else if($.browser.msie)
+                   browser = "<IMG SRC='../../setting/icons/page/ie.png' width='36'height='36' >Internet Explorer";
+             else if($.browser.opera)
+                   browser = "Opera";
+             else if($.browser.safari)
+                   browser = "<IMG SRC='../../setting/icons/page/chrome.png' width='36'height='36' >Chrome ";
+             else
+                   browser = "Unknown";
+
+             $('#browserName').append(browser);
+         });
+ </script>
+
+ <!-- <span id="browserName">Your Browser: </span>  -->
+ <?php function detect_mobile()
+{ if(preg_match('/(alcatel|amoi|android|avantgo|blackberry|benq|cell|cricket|docomo|elaine|htc
+|iemobile
+|iphone|ipad|ipaq|ipod|j2me|java|chrome|opera|midp|mini|mmp|mobi|motorola|nec-|nokia|palm|panasonic|philips|phone|sagem|sharp
+|sie-|smartphone|sony|symbian|t-mobile|telus|up\.browser|up\.link|vodafone|wap|webos|wireless|xda|xoom|zte)/i', $_SERVER['HTTP_USER_AGENT']))
+return true;
+else
+return false;
+}
+?>
+<?php $mobile = detect_mobile();
+if($mobile == true){ }else{ echo "<span id='browserName'><FONT SIZE='red' COLOR='red'>บราวเซอร์ของคุณคือ: </span>  ระบบไม่รองรับการทำงานของบราวเซอร์นี้  </FONT>แนะนำให้ใช้บราวเซอร์ <IMG SRC='setting/icons/page/chrome.png' width='36'height='36' >Chrome <a href='https://www.google.com/intl/th/chrome/browser/?hl=th&brand=CHMB&utm_campaign=th&utm_source=th-ha-sea-th-sk&utm_medium=ha' data-role='button'data-inline='true' data-theme='b' data-icon='download-alt'>ดาวน์โหลดที่นี่</a> "; }
+ ?>
+ 
+<?php  
+//--------------แสดงวันที่------------------------
+include'../../../function/date_thai.php';
+	 $datenow=date("Y-m-d");
+	 $eng_date=strtotime($datenow); 
+	
+ //--------------------------------------------
+?>
+ 
+  <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">  
+ 	<form action="../../../login/process.php" method="post" id="registerForm" name='registerForm' enctype="multipart/form-data">
+ 
+				<div style="padding:10px 20px;">
+				  <h2>เข้าสู่ระบบ</h2>
+
+		          <label for="un" class="ui-hidden-accessible">ชื่อที่ใช้งาน:</label>
+		          <input type="text" name="user_name" id="user_name" value="" placeholder="ชื่อที่ใช้งาน" data-theme="a" class='required' title='กรุณากรอกชื่อที่ใช้งาน'/>
+
+		          <label for="pw" class="ui-hidden-accessible">รหัสผ่าน:</label>
+		          <input type="password" name="password" id="password" value="" placeholder="รหัสผ่าน" data-theme="a"  class='required' title='กรุณากรอกรหัสผ่าน' />
+				<br>
+		    	  <button type="submit" data-theme="b" data-icon="lock"data-iconpos="right" >Login</button>
+ 				</div>
+			</form>
+</div>
+ 
+<?php   echo thai_date($eng_date); ?>
+ 
+ </div> <!-- end header -->

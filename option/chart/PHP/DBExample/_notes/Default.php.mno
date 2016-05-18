@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:group_id;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_Recordset2" value="name:hos_id;datatype:int,name:hos_name;datatype:blob,name:hos_report;datatype:blob" />
+	<infoitem key="UD_count1" value="name:count1;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count2" value="name:count2;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count3" value="name:count3;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count4" value="name:count4;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count5" value="name:count5;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count6" value="name:count6;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count7" value="name:count7;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count8" value="name:count8;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count9" value="name:count9;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count10" value="name:count10;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count11" value="name:count11;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count12" value="name:count12;datatype:int,name:group_name;datatype:blob" />
+	<infoitem key="UD_count13" value="name:count13;datatype:int,name:group_name;datatype:blob" />
+</info>
