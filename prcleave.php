@@ -114,7 +114,7 @@ $leave_no="$Y/$Ln";
     
     $date_end=date('Y-m-d', strtotime("$date_e+1 days "));
     $insert_event=mysql_query("insert into tbl_event set event_title='$Event[fullname]',event_start='$date_s',event_end='$date_end',event_allDay='true',
-            empno='$empno',workid='$Workid[workid]',typela='$typel'");
+            empno='$empno',workid='$Workid[workid]',typela='$typel',process='0'");
     
     if($typel=='1'){
         $L_day=  mysql_query("select * from leave_day where empno='$empno'");

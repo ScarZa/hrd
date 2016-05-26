@@ -338,7 +338,9 @@
                                     <li class="divider"></li>
                                     <li><a href="backup.php" onclick="return confirm('กรุณายืนยันการสำรองข้อมูลอีกครั้ง !!!')"><img src='images/backup-restore.ico' width='25'> สำรองข้อมูล</a></li>
                                     <li><a href="#" onClick="window.open('openDB.php','','width=400,height=350'); return false;" title="ข้อมูลสำรอง"><img src='images/database.ico' width='25'> ข้อมูลสำรอง</a></li>
-                                        <?php }?>
+                                    <li class="divider"></li>
+                                    <li><a href="#" onClick="return popup('fullcalendar/fullcalendar4.php', popup, 820, 690);" title="ดูกิจกรรมส่วนตัว"><img src='images/calendar-clock.ico' width='25'> ปฏิทินกิจกรรมส่วนตัว</a></li>
+ <?php }?>
                                     <li class="divider"></li>
                                     <li><a href="#" onClick="return popup('about.php', popup, 550, 700);" title="เกี่ยวกับเรา"><img src='images/Paper Mario.ico' width='25'> เกี่ยวกับเรา</a></li>
                                     <li class="divider"></li> 
