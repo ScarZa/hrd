@@ -61,7 +61,7 @@ for($i=0;$i<=count($event);$i++){  ?>
 <?php }?>
 </div>
 <div align="center">
-    <a href="#" class="btn btn-success">เพิ่มกิจกรรม</a>
+    <a href="../add_privatet_calendra.php?method=add_event" class="btn btn-success">เพิ่มกิจกรรม</a>
 </div><br>
     
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
