@@ -1,11 +1,9 @@
 <?php @session_start(); ?>
-<?php include 'connection/connect.php'; ?>
-<?php if($_REQUEST['method']!='add_event'){
+<?php include 'connection/connect.php'; 
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
-}}
-?>
+}?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -90,7 +88,7 @@ if (empty($_SESSION[user])) {
                     </select>
                 </div> 
                 </div>
-                <?php if(empty($method)){?>
+                <?php if(!$method){?>
                 <input type="hidden" name="method" value="add_event">
                 <center>
                 <input type="submit" class="btn btn-success" value="ตกลง">

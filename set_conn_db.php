@@ -43,7 +43,7 @@ if($_REQUEST['method']!=$check){
              	</div>
                       <div class="form-group"> 
                 <label>Password &nbsp;</label>
-                <input type="text" class="form-control" name="password" id="password" placeholder="password" required>
+                <input type="text" class="form-control" name="password" id="password" placeholder="password">
              	</div>
                       <div class="form-group"> 
                 <label>Database name &nbsp;</label>
