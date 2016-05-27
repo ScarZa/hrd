@@ -9,7 +9,7 @@ if($_GET['gData']){
     $i_event=0; 
     $code_color=array("1"=>"#416cbb","2"=>"#d92727","3"=>"#1e6c06","4"=>"purple","5"=>"#00a6ba","6"=>"orange","7"=>"#4e5252");
     $q="SELECT * FROM tbl_event WHERE date(event_start)>='".$_GET['start']."'  ";    
-    $q.=" AND date(event_end)<='".$_GET['end']."' and isnull(process) ORDER by event_id";    
+    $q.=" AND date(event_end)<='".$_GET['end']."' and process='0' ORDER by event_id";    
     $qr=mysql_query($q) or die(mysql_error());  
     
     $sql_leave=  mysql_query("SELECT COUNT(idla) as count_leave FROM typevacation") or die(mysql_error());

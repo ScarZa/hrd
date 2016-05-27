@@ -44,8 +44,7 @@
     </style>
 </head>
 <body>
-
-<br><br>
+<center><u><h3>ปฏิทินกิจกรรมส่วนตัว</h3></u></center>
 <div style="margin:auto;width:800px;">
  <div id='calendar'></div>
  </div>

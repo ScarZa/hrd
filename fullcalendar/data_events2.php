@@ -13,7 +13,7 @@ if($_GET['gData']){
          inner join emppersonal em on em.empno=tb.empno
          inner join department d on d.depId=em.depid
          WHERE date(event_start)>='".$_GET['start']."' AND date(event_end)<='".$_GET['end']."' 
-         and d.main_dep='$main_dep' and isnull(tb.process) ORDER by event_id";    
+         and d.main_dep='$main_dep' and tb.process='0' ORDER by event_id";    
     $qr=mysql_query($q) or die(mysql_error()); 
     
     $code_color=array("1"=>"#416cbb","2"=>"#d92727","3"=>"#1e6c06","4"=>"purple","5"=>"#00a6ba","6"=>"orange","7"=>"#4e5252");
