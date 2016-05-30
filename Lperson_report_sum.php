@@ -142,10 +142,9 @@ if (empty($_SESSION[user])) {
 (select SUM(t.total) from timela t WHERE t.`status`='N' and e1.empno=t.empno and $code3 and t.datela between '$take_date1' and '$take_month2' and e1.status ='1') sum_t,
 (SELECT SUM(w.amount) FROM `work` w WHERE $code1 and e1.empno=w.enpid and w.typela='3' and ((w.begindate between '$take_date1' and '$take_date2') or  (w.enddate between '$take_date1' and '$take_date2')) and w.statusla='Y' and w.regis_leave!='N') leave_total
 from emppersonal e1
-LEFT OUTER JOIN leave_day ld ON e1.empno=ld.empno
-LEFT OUTER JOIN `work` w on w.depId=e1.depid
 $code2
-where w.statusla='Y' and $code1 and ((w.begindate between '$take_date1' and '$take_date2') or  (w.enddate between '$take_date1' and '$take_date2')) and e1.status ='1'
+LEFT OUTER JOIN leave_day ld ON e1.empno=ld.empno
+where $code1 and e1.status ='1'
 GROUP BY e1.empno
 order by e1.empno");
 

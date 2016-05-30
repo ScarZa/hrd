@@ -83,7 +83,9 @@ if (empty($_SESSION[user])) {
                         }
                          if($_SESSION[Status]=='ADMIN'){
                 if($_REQUEST[method]=='Lperson_dep'){ 
-               $depno=$_REQUEST[dep];}else{$depno='';}
+               $depno=$_REQUEST[dep];
+               $code_mdep2="and e.depid='$depno'";
+                }else{$depno='';}
                          }elseif ($_SESSION[Status]=='SUSER') {
                              $depno=$_SESSION[dep];
                              $code_mdep2="and e.depid='$depno'";
@@ -102,13 +104,14 @@ LEFT OUTER JOIN posid p1 ON p1.posId=e.posid
 $code_mdep1
 WHERE e.status='1' $code_mdep2
 ORDER BY position";
+                if($_SESSION[Status]!='ADMIN'){
              if ($_SESSION[Status]=='SUSER') {   
                 $sql_dep=  mysql_query("select depName as name from department where depId='$depno'");
              }elseif ($_SESSION[Status]=='USUSER') {
                  $sql_dep=  mysql_query("select dep_name as name from department_group where main_dep='$mdepno'");
              }   
 $depname = mysql_fetch_assoc($sql_dep);
-                }
+                }}
                 $qr = mysql_query($q);
                 if ($qr == '') {
                     exit();
@@ -134,13 +137,13 @@ $depname = mysql_fetch_assoc($sql_dep);
                 echo mysql_error();
                 ?>
 
-                    <? include_once ('option/funcDateThai.php'); ?>
+                    <?php include_once ('option/funcDateThai.php'); ?>
                  <table align="center" width="100%" border="1">
-                    <? if ($_REQUEST[method]=='Lperson_dep') { ?>
+                    <?php if ($_REQUEST[method]=='Lperson_dep') { ?>
                         <tr>
                             <td colspan="5" align="center"><?= $depname[name]?></td>
                         </tr>
-<? } ?>
+<?php } ?>
                     <tr align="center" bgcolor="#898888">
                         <td width="22" align="center"><b>ลำดับ</b></td>
                         <td width="22" align="center"><b>เลขที่</b></td>
@@ -150,7 +153,7 @@ $depname = mysql_fetch_assoc($sql_dep);
                         
                     </tr>
 
-                    <?
+                    <?php
                     $i = 1;
                     while ($result = mysql_fetch_assoc($qr)) {
                         ?>
@@ -162,7 +165,7 @@ $depname = mysql_fetch_assoc($sql_dep);
                             <td align="center"><?= $result[position]; ?></td>
                             <td align="center"><?= $result[type]; ?></td>
                          </tr>
-                    <? $i++;
+                    <?php $i++;
                 }
                 ?>
 
