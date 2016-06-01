@@ -56,7 +56,7 @@ if (empty($_SESSION[user])) {
                <div class="form-group">
                 <label for="massege"> ข้อความ</label>
                 <div class="col-lg-12">
-                    <input class="form-control" type="text" name="massege" id="massege" placeholder="ข้อความที่ต้องการให้แสดง" value="<?= $event['event_title']?>" required>
+                    <textarea class="form-control" type="text" name="massege" id="massege" placeholder="ข้อความที่ต้องการให้แสดง" rows="6"><?= $event['event_title']?></textarea>
                 </div></div> 
                 <label for="massege"> วันที่เริ่ม</label>
                 <div class="form-group">              
