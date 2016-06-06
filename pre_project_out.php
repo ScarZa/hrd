@@ -144,10 +144,9 @@ INNER JOIN emppersonal e ON p.empno=e.empno
             </div>
         </div><?php if($_REQUEST['method']=='back'){?>
                 <a href="http://rploei.go.th/hrd/fullcalendar/fullcalendar3.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินไปราชการ</a>
-                <?php if($_SESSION[Status]=='ADMIN'){?>
                 <br>หรือ<br>
                 <a href="http://rploei.go.th/hrd/fullcalendar/fullcalendar4.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินกิจกรรมส่วนตัว</a>
-        <?php }}?>
+        <?php }?>
     </div>
 </div>
 <?php include 'footer.php'; ?>

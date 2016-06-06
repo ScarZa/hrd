@@ -43,6 +43,9 @@
         $db_name=$_POST['db_name'];
         $strText4 = "$db_name\r\n";
         fwrite($objFopen, $strText4);
+        $db_port=$_POST['port'];
+        $strText5 = "$db_port\r\n";
+        fwrite($objFopen, $strText5);
         if ($objFopen) {
             echo "บันทึกเรียบร้อย";
         } else {

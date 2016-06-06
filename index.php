@@ -7,7 +7,7 @@ if(!$db or !$con){
     ?>
 <center>
     <h3>ยังไม่ได้ตั้งค่า Config <br>กรุณาตั้งค่า Config เพื่อเชื่อมต่อฐานข้อมูล</h3>
-    <a href="#" class="btn btn-danger" onClick="return popup('set_conn_db.php?method=<?= $check?>', popup, 400, 500);" title="Config Database">Config Database</a>
+    <a href="#" class="btn btn-danger" onClick="return popup('set_conn_db.php?method=<?= $check?>', popup, 400, 515);" title="Config Database">Config Database</a>
     
 </center>
 <?php }  else {

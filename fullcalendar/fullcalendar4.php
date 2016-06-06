@@ -52,17 +52,23 @@
 <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <?php
 include '../connection/connect_calendra.php';
+if($_SESSION[Status]=='ADMIN'){
 $event= array("0"=>"ลา","1"=>"ไปราชการ","2"=>"","3"=>"","4"=>"ขึ้นเวร","5"=>"อื่นๆ");
 $code_color=array("0"=>"#d92727","1"=>"#416cbb","2"=>"#1e6c06","3"=>"#00a6ba","4"=>"purple","5"=>"orange","6"=>"#4e5252");
-
+}  else {
+$event= array("0"=>"ลา","1"=>"ไปราชการ");
+$code_color=array("0"=>"#d92727","1"=>"#416cbb");
+    
+}
 for($i=0;$i<=count($event);$i++){  ?>
 <a style="background-color:<?= $code_color[$i]?>; color: white"><?= $event[$i]?></a> 
 <?php }?>
 </div>
+<?php if($_SESSION[Status]=='ADMIN'){?>
 <div align="center">
     <a href="../add_privatet_calendra.php" class="btn btn-success">เพิ่มกิจกรรม</a>
 </div><br>
-    
+<?php }?>    
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lib/moment.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/fullcalendar.min.js"></script>

@@ -11,9 +11,10 @@ $dbhost = trim($conn_db[0]);
 $dbuser = trim($conn_db[1]);
 $dbpass = trim($conn_db[2]);
 $dbname = trim($conn_db[3]);
+$dbport = trim($conn_db[4]);
 }
 if($conn_db){
-$con = mysql_connect("$dbhost","$dbuser","$dbpass");
+$con = mysql_connect("$dbhost:$dbport","$dbuser","$dbpass");
 if($con){
 $db = mysql_select_db("$dbname",$con);
 mysql_query("SET NAMES 'utf8'", $con);

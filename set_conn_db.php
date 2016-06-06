@@ -43,11 +43,15 @@ if($_REQUEST['method']!=$check){
              	</div>
                       <div class="form-group"> 
                 <label>Password &nbsp;</label>
-                <input type="text" class="form-control" name="password" id="password" placeholder="password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="password">
              	</div>
                       <div class="form-group"> 
                 <label>Database name &nbsp;</label>
                 <input type="text" class="form-control" name="db_name" id="db_name" placeholder="database name" required>
+                      </div>
+                      <div class="form-group"> 
+                <label>Port &nbsp;</label>
+                <input type="text" class="form-control" name="port" id="port" placeholder="MySql Port" required>
                       </div>
                     <div class="form-group"> 
                         <center>

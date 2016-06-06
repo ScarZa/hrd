@@ -14,9 +14,10 @@ $dbhost = trim($conn_db[0]);
 $dbuser = trim($conn_db[1]);
 $dbpass = trim($conn_db[2]);
 $dbname = trim($conn_db[3]);
+$dbport = trim($conn_db[4]);
 
 if($conn_db){
-$db=new mysqli($dbhost,$dbuser,$dbpass,$dbname);
+$db=new mysqli($dbhost,$dbuser,$dbpass,$dbname,$dbport);
 if($db->connect_errno) die ('Connect Failed! :'.mysqli_connect_error ());
 $db->set_charset('utf8');
 }
