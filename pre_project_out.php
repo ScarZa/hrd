@@ -142,10 +142,13 @@ INNER JOIN emppersonal e ON p.empno=e.empno
                     </tr>
                 </table>
             </div>
-        </div><?php if($_REQUEST['method']=='back'){?>
-                <a href="http://rploei.go.th/hrd/fullcalendar/fullcalendar3.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินไปราชการ</a>
+        </div><?php 
+        $select_url=  mysql_query("select url from hospital");
+        $url=  mysql_fetch_assoc($select_url);
+        if($_REQUEST['method']=='back'){?>
+                <a href="<?= $url['url']?>hrd/fullcalendar/fullcalendar3.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินไปราชการ</a>
                 <br>หรือ<br>
-                <a href="http://rploei.go.th/hrd/fullcalendar/fullcalendar4.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินกิจกรรมส่วนตัว</a>
+                <a href="<?= $url['url']?>hrd/fullcalendar/fullcalendar4.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินกิจกรรมส่วนตัว</a>
         <?php }?>
     </div>
 </div>
