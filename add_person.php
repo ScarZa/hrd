@@ -174,10 +174,10 @@ function nextbox(e, id) {
 			 </select>
 			 </div>
                     <div class="form-group">
-         			<label>ฝ่ายงาน &nbsp;</label>
+         			<label>หน่วยงาน &nbsp;</label>
  				<select name="dep" id="dep" required  class="form-control"  onkeydown="return nextbox(event, 'line');"> 
 				<?php	$sql = mysql_query("SELECT *  FROM department order by depId");
-				 echo "<option value=''>--ฝ่ายงาน--</option>";
+				 echo "<option value=''>--หน่วยงาน--</option>";
 				 while( $result = mysql_fetch_assoc( $sql ) ){
           if($result[depId]==$edit_person[depid]){$selected='selected';}else{$selected='';}
 				 echo "<option value='$result[depId]' $selected>$result[depName] </option>";
