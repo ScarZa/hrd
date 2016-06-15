@@ -73,7 +73,7 @@ if($total>=1){
 }   
 $total_p=ceil($total/$e_page);   
 $before_p=($chk_page*$e_page)+1;  
-echo mysqli_error();
+echo mysqli_error($db);
     ?>
     <div class="row">
                     <div class="col-lg-12">
@@ -100,7 +100,7 @@ echo mysqli_error();
                                         <a href="regularity.php?method=delete&regu_id=<?= $topic_regu[regu_id]?>"  title="ลบระเบียบ" onclick="if(confirm('ยืนยันการลบ ระเบียบที่ <?= $topic_regu[regu_id] ?>&nbsp;ออกจากรายการ ')) return true; else return false;">   
                                             <img src="images/file_delete.ico" width="20"></a></div>  
                                 <?php }}  if($total>0){
-                        echo mysqli_error(); ?>
+                        echo mysqli_error($db); ?>
 <div class="browse_page">
  
  <?php   
