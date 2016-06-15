@@ -1,5 +1,5 @@
 localhost
 root
-6529
+usbw
 hrd
 3307

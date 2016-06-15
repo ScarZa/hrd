@@ -22,9 +22,18 @@
         <link rel="stylesheet" href="option/css/stylelist.css">
         <script src="option/js/excellentexport.js"></script>
     </head>
-    <?php $regu_id=$_REQUEST['regu_id'];
+    <?php
+    if(!empty($_GET['method'])){
+    $method=$_GET['method'];
+    if($method=='delete'){
+    $regu_id=$_REQUEST['regu_id'];
+    $del_regu= mysqli_query($db, "delete from regularity WHERE regu_id='$regu_id'");
+    mysqli_fetch_assoc($del_regu);
+    }elseif ($method=='edit') {
+    $regu_id=$_REQUEST['regu_id'];
     $sql_regu=  mysqli_query($db,"SELECT regu_id, topic_regu FROM regularity WHERE regu_id='$regu_id'");
     $regu=  mysqli_fetch_assoc($sql_regu);
+    }}
     ?>
     <body>
 <div class="row">  
