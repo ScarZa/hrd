@@ -93,7 +93,7 @@ echo mysql_error();
  <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">  
  <TR bgcolor='#898888'>
 					<th width='10%'><CENTER>ลำดับ</CENTER></th>
-					<th width='36%'><CENTER>ศูนย์/กลุ่มงาน</CENTER></th>
+					<th width='36%'><CENTER>หน่วยงาน</CENTER></th>
                                         <th width='36%'><CENTER>ฝ่าย</CENTER></th>
 					<th width='18%'><CENTER>แก้ไข | ลบฝ่าย | ลบงาน</CENTER></th>
  </TR>
