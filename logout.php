@@ -1,8 +1,7 @@
 <?php @session_start(); 
 include 'header.php';
-echo	 "<p>&nbsp;</p>	"; 
-echo	 "<p>&nbsp;</p>	";
-echo "<div class='bs-example'>
+echo "<DIV  align='center'><IMG src='images/tororo_run.gif' width='300'></DIV><p>&nbsp;</p>
+    <div class='bs-example'>
 	  <div class='progress progress-striped active'>
 	  <div class='progress-bar' style='width: 100%'></div>
 </div>";
@@ -12,6 +11,6 @@ echo "<div class='alert alert-dismissable alert-danger'>
 </div>";								
 session_destroy();
 
- echo "<meta http-equiv='refresh' content='2;url=./'/>";
+ echo "<meta http-equiv='refresh' content='1;url=./'/>";
 ?>
  

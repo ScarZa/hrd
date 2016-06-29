@@ -5,9 +5,9 @@ $user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE
 $user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_ENCODED)));
 
 include 'header.php';
-echo	 "<p>&nbsp;</p>	"; 
-echo	 "<p>&nbsp;</p>	";
-echo "<div class='bs-example'>
+echo "<DIV  align='center'><IMG src='images/tororo_dance.gif' width='300'>
+    <p>&nbsp;</p>
+    <div class='bs-example'>
 	  <div class='progress progress-striped active'>
 	  <div class='progress-bar' style='width: 100%'></div>
 </div>";
@@ -48,7 +48,7 @@ if (empty($id)) {
     // require'myfunction/savelog.php';
     //	  echo "<input type='hidden' name='acc_id' value='$acc_username'> ";
 
-   echo "<meta http-equiv='refresh' content='0;url=./' />";
+   echo "<meta http-equiv='refresh' content='1;url=./' />";
 }
  include 'footer.php';
 ?>

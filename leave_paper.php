@@ -40,7 +40,7 @@ ty.nameLa as namela,w.tel as telephone
             inner join department d1 on e1.depid=d1.depId
             inner join department_group d2 on d2.main_dep=d1.main_dep
             inner join posid p2 on e1.posid=p2.posId
-						INNER JOIN typevacation ty on ty.idla=w.typela
+            INNER JOIN typevacation ty on ty.idla=w.typela
             where w.enpid='$empno' and w.workid='$workid'");
     $work=  mysql_fetch_assoc($sql);
     
@@ -312,7 +312,7 @@ where p.empno='$empno' and p.workid='$workid' order by print_id desc");
                                  </div>
                                      
                                       </div>
-<?php
+<?php 
 $time_re=  date('Y_m_d');
 $reg_date=$work[reg_date];
 $html = ob_get_contents();

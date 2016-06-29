@@ -151,7 +151,7 @@ if ($_SESSION[check_trainout] == '') {
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-         WHERE (memberbook LIKE '%$Search_word%' or projectName LIKE '%$Search_word%') and  Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30'
+         WHERE (memberbook LIKE '%$Search_word%' or projectName LIKE '%$Search_word%') and  Beginedate  BETWEEN '$Y-10-01' and '$y-09-30'
              GROUP BY t.tuid
          order by Beginedate desc";
                     } elseif($_SESSION[Status]=='USER') {
