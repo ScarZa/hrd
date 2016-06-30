@@ -428,7 +428,10 @@ order by count_leave DESC limit 10 ");
                 <div class="panel-body">
                     <?php
                     $sql_nameperson = mysql_query("SELECT dg.dep_name as dep_name
-FROM  department_group dg order by dg.main_dep");
+FROM  department_group dg 
+inner join department d on dg.main_dep = d.main_dep 
+inner join emppersonal em on d.depId = em.depid
+order by dg.main_dep");
                     $sql_person = mysql_query("SELECT d.main_dep,dg.dep_name as dep_name,COUNT(d.depId) as sum,
 COUNT(d1.depId) as d1,
 COUNT(d2.depId) as d2,
