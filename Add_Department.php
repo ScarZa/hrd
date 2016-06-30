@@ -25,10 +25,10 @@ function fncSubmit()
 </script>-->
  <div class="row">
           <div class="col-lg-12">
-            <h1><font color="blue">ตั้งค่าฝ่าย/ศูนย์/กลุ่มงาน</font></h1>
+            <h1><font color="blue">ตั้งค่าฝ่าย/หน่วยงาน</font></h1>
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
-              <li class="active"><i class="fa fa-gear"></i> ตั้งค่าฝ่าย/ศูนย์/กลุ่มงาน</li>
+              <li class="active"><i class="fa fa-gear"></i> ตั้งค่าฝ่าย/หน่วยงาน</li>
             </ol>
           </div>
         </div><!-- /.row -->
@@ -73,7 +73,7 @@ function fncSubmit()
     <div class="col-lg-12">
               <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">เพิ่มศูยน์/กลุ่มงาน</h3>
+                    <h3 class="panel-title">เพิ่มหน่วยงาน</h3>
                     </div>
                   <div class="panel-body">
  
@@ -93,7 +93,7 @@ function fncSubmit()
 			 </div><br><br> 
  	
                     <div class="form-group">	
-			<label>ศูยน์/กลุ่มงาน </label>
+			<label>หน่วยงาน </label>
 			<input type='text' name='name'  id='name_dep' placeholder='ศูยน์/กลุ่มงาน' class='form-control'  value='<?php echo $resultGet[depName];?>'onkeydown="return nextbox(event, 'save');" required>
 			 </div> 
 			 

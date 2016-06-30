@@ -109,7 +109,7 @@ include_once ('option/funcDateThai.php');
                                             <td align="center" width="10%"><b>เลขที่คำสั่ง</b></td>
                                             <td align="center" width="10%"><b>วันที่เริ่มงาน</b></td>
                                             <td align="center" width="20%"><b>ตำแหน่ง</b></td>
-                                            <td align="center" width="10%"><b>กลุ่มงาน</b></td>
+                                            <td align="center" width="10%"><b>หน่วยงาน</b></td>
                                             <td align="center" width="10%"><b>สายงาน</b></td>
                                             <td align="center" width="10%"><b>ประเภทพนักงาน</b></td>
                                             <td align="center" width="10%"><b>วุฒิที่บรรจุ</b></td>
