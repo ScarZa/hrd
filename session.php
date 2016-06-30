@@ -1,6 +1,6 @@
 <?PHP @session_start(); ?>
 <META content="text/html; charset=utf8" http-equiv=Content-Type>
-<DIV  align="center"><IMG src="images/tororo_run.gif" width="350"></DIV>
+<DIV  align="center"><IMG src="images/tororo_exercise.gif" width="350"></DIV>
 <?php
 if ($_POST[checkdate] == '1' and $_POST[check_date01]!='')  {
     $_SESSION[checkdate] = $_POST[checkdate];

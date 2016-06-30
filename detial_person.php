@@ -35,7 +35,11 @@ if (empty($_SESSION[user])) {
 if ($_SESSION[Status]=='USER' or $_SESSION[Status]=='SUSER'  or $_SESSION[Status]=='USUSER') {
     $empno = $_SESSION[user];
     } }      
-    $detial = mysql_query("SELECT *,e7.statusname as emp_status,e6.statusname as wstatus from emppersonal e1
+    $detial = mysql_query("SELECT *,e7.statusname as emp_status,e6.statusname as wstatus,
+CONCAT(TIMESTAMPDIFF(year,e1.birthdate,NOW()),' ปี ',
+timestampdiff(month,e1.birthdate,NOW())-(timestampdiff(year,e1.birthdate,NOW())*12),' เดือน ',
+FLOOR(TIMESTAMPDIFF(DAY,e1.birthdate,NOW())%30.4375),' วัน')AS age        
+from emppersonal e1
 INNER JOIN pcode p1 on e1.pcode=p1.pcode
 INNER JOIN district d1 on e1.tambol=d1.DISTRICT_ID
 INNER JOIN amphur a1 on e1.empure=a1.AMPHUR_ID
@@ -43,7 +47,7 @@ INNER JOIN province p2 on e1.provice=p2.PROVINCE_ID
 LEFT OUTER JOIN educate e5 on e1.empno=e5.empno
 INNER JOIN emstatus e6 on e1.`status`=e6.statusid
 INNER JOIN empstatus e7 on e1.emp_status=e7.`status`
-where e1.empno='$empno' order by e5.educate desc");
+where e1.empno='$empno' GROUP BY e1.empno order by e5.educate desc");
     
     $tophis=mysql_query("SELECT wh.his_id, wh.empcode, wh.dateBegin, po.posname, d1.depName, et.StucName, etp.TypeName, ed.eduname, d2.dep_name 
 FROM work_history wh 
@@ -113,7 +117,7 @@ WHERE em.empno='$empno' order by ed2.educate desc");
                                     </tr>
                                     <tr>
                                         <td>วัน เดือน ปีเกิด :
-<?= DateThai1($Detial[birthdate]); ?></td>
+<?= DateThai1($Detial[birthdate]); ?>  &nbsp;&nbsp; อายุ : &nbsp;<?= $Detial['age']; ?> </td>
                                     </tr>
                                     <tr>
                                         <td>หมายเลขบัตรประชาชน :&nbsp;<?= $Detial[idcard]; ?> &nbsp;&nbsp; สถานะภาพ :
