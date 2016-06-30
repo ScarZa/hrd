@@ -431,6 +431,7 @@ order by count_leave DESC limit 10 ");
 FROM  department_group dg 
 inner join department d on dg.main_dep = d.main_dep 
 inner join emppersonal em on d.depId = em.depid
+GROUP BY dg.main_dep
 order by dg.main_dep");
                     $sql_person = mysql_query("SELECT d.main_dep,dg.dep_name as dep_name,COUNT(d.depId) as sum,
 COUNT(d1.depId) as d1,
