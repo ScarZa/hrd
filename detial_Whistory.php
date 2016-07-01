@@ -28,7 +28,10 @@ $name_detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname)
                             where e1.empno='$empno'");
 
 
-    $detial = mysql_query("SELECT wh.his_id, wh.empcode, wh.dateBegin, po.posname, d1.depName, et.StucName, etp.TypeName, ed.eduname 
+    $detial = mysql_query("SELECT wh.his_id, wh.empcode, wh.dateBegin, po.posname, d1.depName, et.StucName, etp.TypeName, ed.eduname ,
+CONCAT(TIMESTAMPDIFF(year,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w)),' ปี ',
+timestampdiff(month,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w))-(timestampdiff(year,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w))*12),'  เดือน ',
+FLOOR(TIMESTAMPDIFF(DAY,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w))%30.4375),'  วัน')AS age
 FROM work_history wh 
 INNER JOIN posid po on po.posId=wh.posid
 INNER JOIN department d1 on d1.depId=wh.depid
@@ -105,9 +108,10 @@ include_once ('option/funcDateThai.php');
                                             </tr>
 <?php } ?>
                                         <tr align="center" bgcolor="#898888">
-                                            <td align="center" width="6%"><b>ลำดับ</b></td>
+                                            <td align="center" width="5%"><b>ลำดับ</b></td>
                                             <td align="center" width="10%"><b>เลขที่คำสั่ง</b></td>
                                             <td align="center" width="10%"><b>วันที่เริ่มงาน</b></td>
+                                            <td align="center" width="10%"><b>ระยะเวลาทำงาน</b></td>
                                             <td align="center" width="20%"><b>ตำแหน่ง</b></td>
                                             <td align="center" width="10%"><b>หน่วยงาน</b></td>
                                             <td align="center" width="10%"><b>สายงาน</b></td>
@@ -127,6 +131,7 @@ include_once ('option/funcDateThai.php');
                                                 <td align="center"><?= ($chk_page * $e_page) + $i ?></td>
                                                 <td align="center"><?= $result[empcode]; ?></td>
                                                 <td align="center"><?= DateThai1($result[dateBegin]) ?></td>
+                                                <td align="center"><?= $result['age']; ?></td>
                                                 <td align="center"><?= $result[posname]; ?></td>
                                                 <td align="center"><?= $result[depName]; ?></td>
                                                 <td align="center"><?= $result[StucName]; ?></td>
