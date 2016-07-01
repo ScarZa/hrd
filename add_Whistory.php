@@ -137,7 +137,20 @@ if (empty($_SESSION[user])) {
                         }
  		?>
                 <input value='<?=$dateBegin?>' type="text" id="datepicker-th-2"  placeholder='รูปแบบ 22/07/2557' class="form-control" name="swday" id="swday" onkeydown="return nextbox(event, 'teducat')">
-             	</div><br>
+             	</div>
+                    <?php if($_REQUEST[method]=='edit_his'){?>
+                    <div class="form-group"> 
+                <label>วันที่สิ้สุดปฏิบัติงานในตำแหน่ง &nbsp;</label>
+                <?php
+ 		if($_GET[method]!=''){
+ 			$dateEnd_w=$edit_person['dateEnd_w'];
+ 			edit_date($dateEnd_w);
+                        }
+ 		?>
+                <input value='<?=$dateEnd_w?>' type="text" id="datepicker-th-3"  placeholder='รูปแบบ 22/07/2557' class="form-control" name="dateEnd_w" id="dateEnd_w" onkeydown="return nextbox(event, 'teducat')">
+             	</div>
+                    <?php }?>
+                    <br>
                     <div class="form-group" align="center">
                         <input type="hidden" name="empno" value="<?= $empno?>">
                         <?php if($_REQUEST[method]=='edit_his'){?>

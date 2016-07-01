@@ -49,7 +49,10 @@ INNER JOIN emstatus e6 on e1.`status`=e6.statusid
 INNER JOIN empstatus e7 on e1.emp_status=e7.`status`
 where e1.empno='$empno' GROUP BY e1.empno order by e5.educate desc");
     
-    $tophis=mysql_query("SELECT wh.his_id, wh.empcode, wh.dateBegin, po.posname, d1.depName, et.StucName, etp.TypeName, ed.eduname, d2.dep_name 
+    $tophis=mysql_query("SELECT wh.his_id, wh.empcode, wh.dateBegin, po.posname, d1.depName, et.StucName, etp.TypeName, ed.eduname, d2.dep_name,
+        CONCAT(TIMESTAMPDIFF(year,wh.dateBegin,NOW()),' ปี ',
+timestampdiff(month,wh.dateBegin,NOW())-(timestampdiff(year,wh.dateBegin,NOW())*12),' เดือน ',
+FLOOR(TIMESTAMPDIFF(DAY,wh.dateBegin,NOW())%30.4375),' วัน')AS age
 FROM work_history wh 
 INNER JOIN posid po on po.posId=wh.posid
 INNER JOIN department d1 on d1.depId=wh.depid
@@ -153,7 +156,7 @@ WHERE em.empno='$empno' order by ed2.educate desc");
                             </div>
                             <div class="panel-body">
                                 เลขที่คำสั่ง : <?= $Tophis[empcode]; ?><br>
-                                วันที่เริ่มงาน : <?= DateThai1($Tophis[dateBegin]); ?>&nbsp;&nbsp;ตำแหน่ง : <?= $Tophis[posname]; ?><br>
+                                วันที่เริ่มงาน : <?= DateThai1($Tophis[dateBegin]); ?>&nbsp;&nbsp;ระยะเวลา : <?= $Tophis['age']?>&nbsp;&nbsp;ตำแหน่ง : <?= $Tophis[posname]; ?><br>
                                 ฝ่ายงาน : <?= $Tophis[dep_name]; ?>&nbsp;&nbsp; กลุ่มงาน : <?= $Tophis[depName]; ?>&nbsp;&nbsp; สายงาน : <?= $Tophis[StucName]; ?>
                                 <br>ประเภทพนักงาน : <?= $Tophis[TypeName]; ?>&nbsp;&nbsp; 
                                 วุฒิที่บรรจุ : <?= $Tophis[eduname]; ?>
