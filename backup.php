@@ -1,8 +1,8 @@
 <?php include 'header.php';
-function backup_tables($host,$user,$pass,$name,$tables = '*')
+function backup_tables($host,$user,$pass,$name,$port,$tables = '*')
 {
 
-    $link = mysql_connect($host,$user,$pass) or die("can not connect database");
+    $link = mysql_connect("$host:$port","$user","$pass") or die("can not connect database");
     mysql_select_db($name,$link);
     mysql_query("SET NAMES 'utf8'");
 
@@ -27,7 +27,7 @@ function backup_tables($host,$user,$pass,$name,$tables = '*')
         $result = mysql_query('SELECT * FROM '.$table);
         $num_fields = mysql_num_fields($result);
 
-        $return.= 'DROP TABLE '.$table.';';
+        $return.= 'DROP TABLE IF EXISTS '.$table.';';
         $row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
         $return.= "\n\n".$row2[1].";\n\n";
 
@@ -55,7 +55,7 @@ function backup_tables($host,$user,$pass,$name,$tables = '*')
     fclose($handle);
 }
 
-backup_tables($dbhost,$dbuser,$dbpass,$dbname);
+backup_tables($dbhost,$dbuser,$dbpass,$dbname,$dbport);
     echo "<script>alert('การสำรองข้อมูลสำเสร็จแล้วจ้า!')</script>";
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
 
