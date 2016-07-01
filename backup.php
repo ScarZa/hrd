@@ -58,6 +58,5 @@ function backup_tables($host,$user,$pass,$name,$port,$tables = '*')
 backup_tables($dbhost,$dbuser,$dbpass,$dbname,$dbport);
     echo "<script>alert('การสำรองข้อมูลสำเสร็จแล้วจ้า!')</script>";
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
-
-            include 'footer.php';
+    include 'footer.php';
 ?>
