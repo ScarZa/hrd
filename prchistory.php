@@ -82,9 +82,11 @@ include 'connection/connect_i.php';
     }else{}   
 }else if ($_POST[method] == 'update_Whistory') {
     $his=$_REQUEST[his];
-    
+    $dateEnd_w_conv = $_POST['dateEnd_w'];
+    $dateEnd_w ='';
+    insert_date($dateEnd_w_conv,$dateEnd_w);
     $edit_his=  mysqli_query($db,"update work_history set empcode='$order', posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
-                         education='$educat', dateBegin='$swday' where his_id='$his' and empno='$empno'");
+                         education='$educat', dateBegin='$swday', dateEnd_w='$dateEnd_w' where his_id='$his' and empno='$empno'");
     $edit_emp=  mysqli_query($db,"update emppersonal set pid='$order', posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
                          education='$educat', dateBegin='$swday' where empno='$empno'");
     if ($edit_his == false) {

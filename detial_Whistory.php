@@ -29,9 +29,9 @@ $name_detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname)
 
 
     $detial = mysql_query("SELECT wh.his_id, wh.empcode, wh.dateBegin, po.posname, d1.depName, et.StucName, etp.TypeName, ed.eduname ,
-CONCAT(TIMESTAMPDIFF(year,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w)),' ปี ',
-timestampdiff(month,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w))-(timestampdiff(year,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w))*12),'  เดือน ',
-FLOOR(TIMESTAMPDIFF(DAY,wh.dateBegin,IF(wh.dateEnd_w=0000-00-00,NOW(),wh.dateEnd_w))%30.4375),'  วัน')AS age
+CONCAT(TIMESTAMPDIFF(year,wh.dateBegin,IF((wh.dateEnd_w=0000-00-00 OR ISNULL(wh.dateEnd_w)),NOW(),wh.dateEnd_w)),' ปี ',
+timestampdiff(month,wh.dateBegin,IF((wh.dateEnd_w=0000-00-00 OR ISNULL(wh.dateEnd_w)),NOW(),wh.dateEnd_w))-(timestampdiff(year,wh.dateBegin,IF((wh.dateEnd_w=0000-00-00 OR ISNULL(wh.dateEnd_w)),NOW(),wh.dateEnd_w))*12),'  เดือน ',
+FLOOR(TIMESTAMPDIFF(DAY,wh.dateBegin,IF((wh.dateEnd_w=0000-00-00 OR ISNULL(wh.dateEnd_w)),NOW(),wh.dateEnd_w))%30.4375),'  วัน')AS age
 FROM work_history wh 
 INNER JOIN posid po on po.posId=wh.posid
 INNER JOIN department d1 on d1.depId=wh.depid
