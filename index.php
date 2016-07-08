@@ -686,18 +686,14 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
     }
     $sql = "select tp.*,CONCAT(em.firstname,' ',em.lastname) as fullname,em.photo as photo from topic_post tp
         inner join emppersonal em on em.empno=tp.empno_post
-        where empno_status='ADMIN' order by topic_id desc";
+        where empno_status='ADMIN' order by topic_id desc limit 5";
     $qr = mysqli_query($db, $sql);
-    $topic_post = mysqli_fetch_assoc($qr);
-    if ($topic_post[photo_post] != '') {
-        $photo_post = $topic_post[photo_post];
-        $folder_post = "post/";
-    } 
+    
     
 
     $sql2 = "select re.*,CONCAT(em.firstname,' ',em.lastname) as fullname,em.photo as photo from regularity re
         inner join emppersonal em on em.empno=re.empno_regu
-        order by regu_id desc limit 5";
+        order by regu_id desc limit 3";
     $qr2 = mysqli_query($db, $sql2);
     
     $sql3=  mysqli_query($db, "SELECT regu_file  FROM regularity WHERE regu_id='1'");
@@ -746,14 +742,20 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
                                 <h3 class="panel-title"><center><u><h3><b>ประกาศ/ข่าวประชาสัมพันธ์</b></h3></u></center></h3>
                             </div>
                             <div class="panel-body">
-                                <?php if(!empty($topic_post)){
+                          <?php               while ($topic_post = mysqli_fetch_assoc($qr)) {
+    if ($topic_post[photo_post] != '') {
+        $photo_post = $topic_post[photo_post];
+        $folder_post = "post/";
+    } 
+                                if(!empty($topic_post)){
                                     $sql_comm=mysqli_query($db,"select count(topic_id) as comm from comment where topic_id='".$topic_post['topic_id']."'");
                                     $comm=  mysqli_fetch_assoc($sql_comm);
                                     ?>
                                 <p><h4><b><font color='red'>ประกาศที่ <?= $topic_post[topic_id] ?></font></b></h4>
                                 <b>ผู้ประกาศ</b> คุณ<?= $topic_post['fullname'] ?>  <b>ประกาศเมื่อ</b> <?= DateThai1($topic_post['post_date']) ?> <b>มีผู้สอบถาม <font color='red'><?= $comm['comm']?></font> คน</b><p>
                                     <a href="comm_page.php?post=<?= $topic_post['topic_id']?>"><h4><li><?= $topic_post['post']?></li></h4></a>
-                                    <?php    $file_name = $photo_post ;
+                                    <?php    if(!empty($photo_post)){
+                                    $file_name = $photo_post ;
                                             $info = pathinfo( $file_name , PATHINFO_EXTENSION ) ;
                                             if($info=='jpg' or $info=='JPG' or $info=='bmp' or $info=='BMP' or $info=='png' or $info=='PNG'){?>
                                                 <a href="comm_page.php?post=<?= $topic_post['topic_id']?>"><center>
@@ -761,8 +763,10 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
                                                     </center></a>
                                           <?php  }else{?>
                                                 <a href="<?= $folder_post . $photo_post ?>"><i class="fa fa-download"></i> ดาวน์โหลดเอกสาร</a>
-                                          <?php  } ?>
-                                <?php }?>
+                                    <?php  }} ?>
+                          <?php } 
+ echo "<hr>";
+                                          }?>
                             </div>
                         </div></div></div>
             </div>

@@ -140,8 +140,8 @@ while ($topic_post = mysqli_fetch_assoc($qr)) {
        
     echo "<a href='comm_page.php?post=$topic_post[topic_id]'><b>ประกาศที่ $topic_post[topic_id]....</b>$topic_post[post]<br>
             <b>ประกาศโดย</b> คุณ$topic_post[fullname] <b>มีผู้สอบถาม <font color='red'>".$comm['comm']."</font> คน</b><p>";
-    if ($topic_post[photo_post] != '') {
-                                    $pic = $topic_post[photo_post];
+    if ($topic_post['photo_post'] != '') {
+                                    $pic = $topic_post['photo_post'];
                                     $fol = "post/";
                                     
                                             $file_name = $pic ;
