@@ -686,14 +686,14 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
     }
     $sql = "select tp.*,CONCAT(em.firstname,' ',em.lastname) as fullname,em.photo as photo from topic_post tp
         inner join emppersonal em on em.empno=tp.empno_post
-        where empno_status='ADMIN' order by topic_id desc limit 5";
+        where empno_status='ADMIN' order by topic_id desc limit 3";
     $qr = mysqli_query($db, $sql);
     
     
 
     $sql2 = "select re.*,CONCAT(em.firstname,' ',em.lastname) as fullname,em.photo as photo from regularity re
         inner join emppersonal em on em.empno=re.empno_regu
-        order by regu_id desc limit 3";
+        order by regu_id desc limit 5";
     $qr2 = mysqli_query($db, $sql2);
     
     $sql3=  mysqli_query($db, "SELECT regu_file  FROM regularity WHERE regu_id='1'");
@@ -743,11 +743,14 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
                             </div>
                             <div class="panel-body">
                           <?php               while ($topic_post = mysqli_fetch_assoc($qr)) {
-    if ($topic_post[photo_post] != '') {
-        $photo_post = $topic_post[photo_post];
+                                    if(!empty($topic_post)){
+                                    if (!empty($topic_post['photo_post'])) {
+        $photo_post = $topic_post['photo_post'];
         $folder_post = "post/";
-    } 
-                                if(!empty($topic_post)){
+    } else{
+        $photo_post = '';
+        $folder_post = '';
+    }
                                     $sql_comm=mysqli_query($db,"select count(topic_id) as comm from comment where topic_id='".$topic_post['topic_id']."'");
                                     $comm=  mysqli_fetch_assoc($sql_comm);
                                     ?>
