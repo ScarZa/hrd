@@ -1,7 +1,7 @@
 //<!-------code ajax load page ตอน link page------->
 var HttPRequest = false;
 
-function doCallAjax(url) {
+function doMethod(url) {
     HttPRequest = false;
     if (window.XMLHttpRequest) { // Mozilla, Safari,...
         HttPRequest = new XMLHttpRequest();

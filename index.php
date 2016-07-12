@@ -765,10 +765,10 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
                                                         <embed src='<?= $folder_post . $photo_post?>' mce_src='<?= $folder_post . $photo_post?>' width='100%' height=''>
                                                     </center></a>
                                           <?php  }else{?>
-                                    <a href="<?= $folder_post . $photo_post ?>"><i class="fa fa-download"></i> ดาวน์โหลดเอกสาร</a>
+                                    <a href="<?= $folder_post . $photo_post ?>"  target="_blank"><i class="fa fa-download"></i> ดาวน์โหลดเอกสาร</a>
                                     <?php  }} ?>
                           <?php if (!empty($topic_post['link'])){
-     echo "<a href='".$topic_post['link']."' target='_blank'> <h4><i class='fa fa-link'></i> รายละเอียด </h4></a>";
+     echo "<a href='".$topic_post['link']."' target='_blank'> <i class='fa fa-link'></i> รายละเอียด </a>";
                           } }
  echo "<hr>";
                                           }?>
