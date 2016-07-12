@@ -69,7 +69,11 @@ if($_REQUEST['method']=='check_comm'){
                           <embed src="<?= $folder_post . $photo_post ?>" mce_src="<?= $folder_post . $photo_post ?>" width="400" height="100%"></a>
                                             <?php }else {?>
                             <a href="<?= $folder_post . $photo_post ?>" target="_blank"><i class="fa fa-download"></i> ดาวน์โหลดเอกสาร</a>
-                            <?php  }}?>
+                            <?php  }}
+                            if (!empty($topic_post['link'])){
+     echo "<a href='".$topic_post['link']."' target='_blank'><i class='fa fa-link'></i>  รายละเอียด </a>";
+                          }
+                            ?>
                             <br>
                       <hr width=90% size=5 color=770088>
                       <form class="" role="form" action='prcpost.php' enctype="multipart/form-data" method='post'>

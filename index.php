@@ -593,7 +593,7 @@ GROUP BY d.main_dep order by dg.main_dep");
                 <div class="panel-body">
                     <center>อบรมภายนอก/ไปราชการในปีงบประมาณ <?= $years ?></center><br>
                     <div class="table-responsive">
-                        <table class="table table-striped tablesorter divider" align="center" width="100%" border="0" cellspacing="0" cellpadding="0" rules="rows" frame="below">
+                        <table class="table table-striped table-responsive tablesorter divider" align="center" width="100%" border="0" cellspacing="0" cellpadding="0" rules="rows" frame="below">
                             <thead>
                                 <tr align="center" bgcolor="#898888">
                             <TH><CENTER>เดือน</CENTER> </TH>
@@ -686,7 +686,7 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
     }
     $sql = "select tp.*,CONCAT(em.firstname,' ',em.lastname) as fullname,em.photo as photo from topic_post tp
         inner join emppersonal em on em.empno=tp.empno_post
-        where empno_status='ADMIN' order by topic_id desc limit 3";
+        where empno_status='ADMIN' order by topic_id desc limit 5";
     $qr = mysqli_query($db, $sql);
     
     
@@ -765,9 +765,11 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
                                                         <embed src='<?= $folder_post . $photo_post?>' mce_src='<?= $folder_post . $photo_post?>' width='100%' height=''>
                                                     </center></a>
                                           <?php  }else{?>
-                                                <a href="<?= $folder_post . $photo_post ?>"><i class="fa fa-download"></i> ดาวน์โหลดเอกสาร</a>
+                                    <a href="<?= $folder_post . $photo_post ?>"><i class="fa fa-download"></i> ดาวน์โหลดเอกสาร</a>
                                     <?php  }} ?>
-                          <?php } 
+                          <?php if (!empty($topic_post['link'])){
+     echo "<a href='".$topic_post['link']."' target='_blank'> <h4><i class='fa fa-link'></i> รายละเอียด </h4></a>";
+                          } }
  echo "<hr>";
                                           }?>
                             </div>

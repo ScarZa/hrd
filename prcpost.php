@@ -51,7 +51,8 @@ include 'connection/connect_i.php';
     
 if($_POST[method]=='post'){
     
-    $post=$_POST[post];
+    $post=$_POST['post'];
+    $link=$_POST['link'];
     $date_pos=date("Y-m-d H:m:s");
 
 function removespecialchars($raw) {
@@ -67,8 +68,8 @@ if (trim($_FILES["image"]["name"] != "")) {
     $image ='';
 }
 
-$sql=$db->prepare('insert into topic_post set empno_post=? , post=? , post_date=? , photo_post=? , empno_status=?');
-$sql->bind_param('issss',$empno,$post,$date_pos, $image,$Status);
+$sql=$db->prepare('insert into topic_post set empno_post=? , post=? , post_date=? , photo_post=? , link=? , empno_status=?');
+$sql->bind_param('isssss',$empno,$post,$date_pos, $image,$link,$Status);
 $sql->execute();
 if (empty($sql)) {
     echo "<p>";
@@ -85,6 +86,7 @@ if (empty($sql)) {
 }elseif($_POST[method]=='edit_post'){
     $topic_id=$_POST[topic_id];
     $post=$_POST[post];
+    $link=$_POST['link'];
     $date_pos=date("Y-m-d H:m:s");
 
 function removespecialchars($raw) {
@@ -100,12 +102,12 @@ if (trim($_FILES["image"]["name"] != "")) {
     $image ='';
 }
 if($image ==''){
-$sql=$db->prepare('update topic_post set post=? , post_date=? where topic_id=?');
-$sql->bind_param('ssi',$post,$date_pos,$topic_id);
+$sql=$db->prepare('update topic_post set post=? , post_date=? , link=? where topic_id=?');
+$sql->bind_param('sssi',$post,$date_pos,$link,$topic_id);
 $sql->execute();    
 }else{
-$sql=$db->prepare('update topic_post set post=? , post_date=? , photo_post=? where topic_id=?');
-$sql->bind_param('sssi',$post,$date_pos, $image,$topic_id);
+$sql=$db->prepare('update topic_post set post=? , post_date=? , photo_post=?,link=? where topic_id=?');
+$sql->bind_param('ssssi',$post,$date_pos, $image, $link,$topic_id);
 $sql->execute();
 }
 if (empty($sql)) {

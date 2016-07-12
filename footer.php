@@ -4,7 +4,7 @@
    }?>
 
     </div><!-- /#wrapper -->
-     
+     <script src="option/ajax.js"></script> 
     <!-- Bootstrap core JavaScript -->
     <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
  	<script type="text/javascript" src="DatePicker/js/jquery-1.4.4.min.js"></script>

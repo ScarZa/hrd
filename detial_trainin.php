@@ -105,7 +105,8 @@ where p.empno='$empno' and p.status_out='Y'  and p.begin_date BETWEEN '$y-10-01'
                         inner join trainingin t on p.pjid=t.idpi
                         where type_id='$empno' and (bdate between '$date01' and '$date02') and (edate between '$date01' and '$date02') order by p.bdate desc");
 
-            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME 
+            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME,
+                t.stdate,t.etdate
     from plan_out p 
         inner join training_out t on t.tuid=p.idpo
         inner join province p2 on p2.PROVINCE_ID=t.provenID
@@ -166,7 +167,8 @@ where p0.empno='$empno' and p0.status_out='Y' and (p0.begin_date between '$date0
                         inner join trainingin t on p.pjid=t.idpi
                         where type_id='$empno' and p.bdate BETWEEN '$Y-10-01' and '$y-09-30' order by p.bdate desc");
 
-            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME 
+            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME,
+                t.stdate,t.etdate
     from plan_out p 
         inner join training_out t on t.tuid=p.idpo
         inner join province p2 on p2.PROVINCE_ID=t.provenID
@@ -333,6 +335,7 @@ $Count_pj = mysql_fetch_assoc($count_pj);
                                             <td width="25%" rowspan="2" align="center"><b>โครงการ</b></td>
                                             <td width="20%" rowspan="2" align="center" bgcolor="#898888"><b>หน่วยงานที่จัด/สถานที่</b></td>
                                             <td width="10%" rowspan="2" align="center"><b>ตั้งแต่</b></td>
+                                            <td width="10%" rowspan="2" align="center"><b>วันเดินทาง</b></td>
                                             <td colspan="5" align="center"><b>ค่าใช้จ่าย</b><b></b></td>
                                             <td width="8%" rowspan="2" align="center"><b>รวมค่าใช้จ่าย<br>(บาท)</b></td>
                                             <td width="7%" rowspan="2" align="center"><b>ระยะเวลา<br>(ชม.)</b></td>
@@ -353,6 +356,7 @@ while ($result = mysql_fetch_assoc($detiatl)) {
                                                 <td><a href="#" onclick="return popup('pre_project_out.php?id=<?= $result[idpo] ?>', popup, 700, 450);"><?= $result[projectName]; ?></a></td>
                                                 <td align="center"><a href="#" onclick="return popup('pre_project_out.php?id=<?= $result[idpo] ?>', popup, 700, 450);"><?= $result[anProject]; ?> / <?= $result[stantee]; ?> จ. <?= $result[PROVINCE_NAME]; ?></a></td>
                                                 <td align="center"><?= DateThai1($result[Beginedate]); ?><br> ถึง <br><?= DateThai1($result[endDate]); ?></td>
+                                                <td align="center"><?= DateThai1($result[stdate]); ?><br> ถึง <br><?= DateThai1($result[etdate]); ?></td>
                                                 <td align="center"><?= $result[abode]; ?></td>
                                                 <td align="center"><?= $result[reg]; ?></td>
                                                 <td align="center"><?= $result[allow]; ?></td>
@@ -368,7 +372,7 @@ while ($result = mysql_fetch_assoc($detiatl)) {
                                             }
                                             ?>
                                         <tr>
-                                            <td colspan="4" align="center" bgcolor="#898888"><b>รวม</b></td>
+                                            <td colspan="5" align="center" bgcolor="#898888"><b>รวม</b></td>
 <?php
 $Sum = mysql_fetch_assoc($sum_abode);
 ?>

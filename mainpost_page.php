@@ -20,10 +20,10 @@ $db->close();
 
 }elseif($_REQUEST[edit_id]!=''){
 $edit_id=$_REQUEST[edit_id];
-$sql=$db->prepare("select empno_post,post from topic_post where topic_id=?");
+$sql=$db->prepare("select empno_post,post,link from topic_post where topic_id=?");
 $sql->bind_param("i",$edit_id);
 $sql->execute();
-$sql->bind_result($empno_post,$post);
+$sql->bind_result($empno_post,$post,$link);
 $sql->fetch();
 $db->close();
 
@@ -49,10 +49,15 @@ $db->close();
                       ข้อความ 
                       <textarea class="form-control" name="post" required="" cols="50" rows="5" placeholder="กรุณาใส่ข้อความที่ต้องการประชาสัมพันธ์"><?= $post;?></textarea>
                   </div><br><br>
+                  <div class="form-group">
+                          Link
+                          <input type="text" name="link" id="link" size="50" class="form-control" value="<?= $link?>" placeholder="https://sample.com">
+                      </div><br><br>
                       <div class="form-group">
                           รูปภาพที่ต้องการประชาสัมพันธ์
                           <input type="file" name="image" class="form-control">
                       </div><br><br>
+                      
                       <div class="form-group" align="center">
                       <?php
                       if(empty($edit_id)){?>
@@ -156,6 +161,9 @@ while ($topic_post = mysqli_fetch_assoc($qr)) {
                                 }else{
                                     echo "</a>";
                                 }
+                                    if ($topic_post['link'] != '') {
+                                        echo "<a href='".$topic_post['link']."' target='_blank'><i class='fa fa-link'></i>  รายละเอียด </a>";
+                                    }
                                 if($empno_poster==$topic_post[empno_post] or $_SESSION[Status]=='ADMIN'){?> 
                                 <div align='right'>
                                 <a href='mainpost_page.php?edit_id=<?=$topic_post[topic_id]?>' title='แก้ไขประชาสัมพันธ์'><img src='images/file_edit.ico' width='20'></a>
