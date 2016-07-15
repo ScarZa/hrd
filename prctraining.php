@@ -179,12 +179,9 @@ foreach ($check_ps as $key => $value) {
         
         $event=  mysql_query("select CONCAT(firstname,' ',lastname) as fullname from emppersonal where empno='$empno_ID'");
         $Event=mysql_fetch_assoc($event);
-        $event2=  mysql_query("select url from hospital");
-        $Event2=  mysql_fetch_assoc($event2);
-        $Events=$Event2['url'];
         $date_end=date('Y-m-d', strtotime("$dateE+1 days "));
         $insert_event=mysql_query("insert into tbl_event set event_title='$Event[fullname]',event_start='$dateS',event_end='$date_end',event_allDay='true',
-            empno='$empno_ID',workid='$project_id',typela='$Ptype',process='1', event_url='$Events/hrd/pre_project_out.php?id=$project_id&method=back'");
+            empno='$empno_ID',workid='$project_id',typela='$Ptype',process='1', event_url='../pre_project_out.php?id=$project_id&method=back'");
     
     if ($add and $insert_event == false) {
         echo "<p>";

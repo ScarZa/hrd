@@ -47,9 +47,7 @@
 	
                    $event_id=  mysql_query("select event_id from tbl_event where empno='$empno' and workid='0' order by event_id desc limit 1");
                    $Event_id=  mysql_fetch_assoc($event_id);
-                   $event=  mysql_query("select url from hospital");
-                   $Event=  mysql_fetch_assoc($event);
-                   $event_url=$Event['url']."/hrd/add_privatet_calendra.php?id=".$Event_id['event_id']."&method=edit_event";
+                   $event_url="../add_privatet_calendra.php?id=".$Event_id['event_id']."&method=edit_event";
                    
                    $update_event=mysql_query("update tbl_event set event_url='$event_url' where event_id='".$Event_id['event_id']."'");
  							if($insert_event==false){
