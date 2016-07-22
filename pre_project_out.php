@@ -96,6 +96,7 @@ $Project_detial = mysql_fetch_assoc($sql_pro);
                                 </tr>
                             </table>
                             <?php
+                            if(empty($_GET['method'])){
                                 $sql_pro_name = mysql_query("SELECT *, CONCAT(e.firstname,' ',e.lastname) as fullname 
                                     FROM plan_out p
 INNER JOIN emppersonal e ON p.empno=e.empno
@@ -131,7 +132,7 @@ INNER JOIN emppersonal e ON p.empno=e.empno
                                     <img src="images/Symbol_-_Check.ico" width="20"  title="สรุปแล้ว">
                                     <?php }?></td>
                                     <?php if($_SESSION[Status]=='ADMIN' and $_REQUEST['method']!='back'){?>
-                                    <td align="center"><a href="person_trainout.php?method=edit&&id=<?=$Project_Name[empno];?>&&pro_id=<?=$Project_detial[tuid];?>"><img src='images/tool.png' width='25'></a></td>
+                                    <td align="center"><a href="pre_project_out.php?method=edit&&empno=<?=$Project_Name[empno];?>&&id=<?=$Project_detial[tuid];?>"><img src='images/tool.png' width='25'></a></td>
                                     <td align="center"><a href='pre_project_out.php?del_id=<?=$Project_Name[empno];?>&&id=<?=$Project_detial[tuid];?>' onClick="return confirm('กรุณายืนยันการลบอีกครั้ง !!!')"><img src='images/bin1.png' width='25'></a></td>
                                     <?php }?>
                                 </tr>
@@ -139,6 +140,24 @@ INNER JOIN emppersonal e ON p.empno=e.empno
                 }
                 ?>
                             </table>
+                            <?php }else{
+                                $empno=$_GET['empno'];
+                                $add_emp=  mysql_query("SELECT id_plan,begin_date,end_date,amount FROM plan_out WHERE empno=$empno AND idpo=$project_id");
+                                $planout=  mysql_fetch_assoc($add_emp);
+                                echo "<form action='prctraining.php' method='post' name='form' enctype='multipart/form-data' id='form'>";
+                                echo "<lable for='begin_date'>วันที่เข้าร่วม</lable>";
+                                echo "&nbsp; <input type='date' name='begin_date' id='begin_date' value='".$planout['begin_date']."'> &nbsp;";
+                                echo "<lable for='end_date'>ถึง</lable>";
+                                echo "&nbsp; <input type='date' name='end_date' id='end_date' value='".$planout['end_date']."'> &nbsp;";
+                                echo "<lable for='amount'>จำนวน</lable>";
+                                echo "&nbsp; <input type='text' name='amount' id='amount' size='1' value='".$planout['amount']."'> &nbsp; วัน";
+                                echo "<input type='hidden' name='method' value='edit_date_out'>";
+                                echo "<input type='hidden' name='id_plan' value='".$planout['id_plan']."'>";
+                                echo "<input type='hidden' name='empno' value='".$empno."'>";
+                                echo "<input type='hidden' name='idpo' value='".$project_id."'>";
+                                echo "&nbsp; <input type='submit' name='submit' class='btn-warning' value='แก้ไข'>";
+                                echo "</form>";
+                            }?>
                         </td>
                     </tr>
                 </table>
@@ -147,7 +166,7 @@ INNER JOIN emppersonal e ON p.empno=e.empno
         $select_url=  mysql_query("select url from hospital");
         $url=  mysql_fetch_assoc($select_url);
         if($_REQUEST['method']=='back'){?>
-                <a href="fullcalendar/fullcalendar3.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินไปราชการ</a>
+        <a href="fullcalendar/fullcalendar3.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินไปราชการ</a>
                 <br>หรือ<br>
                 <a href="fullcalendar/fullcalendar4.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินกิจกรรมส่วนตัว</a>
         <?php }?>

@@ -338,6 +338,49 @@ if($image==''){
         echo "	<span class='glyphicon glyphicon-remove'></span>";
         echo "<a href='person_trainout.php?id=$empno&pro_id=$idpo' >กลับ</a>";
     } 
+            echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=pre_person_trainout.php?id=$idpo'>";
+         }
+         elseif ($_POST['method'] == 'edit_date_out') {
+             $id_plan=$_POST['id_plan'];
+             $begin_date=$_POST['begin_date'];
+             $end_date=$_POST['end_date'];
+             $amount=$_POST['amount'];
+             $empno=$_POST['empno'];
+             $idpo=$_POST['idpo'];
+             
+             $update_out=  mysql_query("update plan_out set begin_date='$begin_date',end_date='$end_date',amount='$amount'
+                 where id_plan=$id_plan");
+             if ($update_out == false) {
+        echo "<p>";
+        echo "Update not complete" . mysql_error();
+        echo "<br />";
+        echo "<br />";
+
+        echo "	<span class='glyphicon glyphicon-remove'></span>";
+        echo "<a href='pre_project_out.php?method=edit&empno=$empno&id=$idpo' >กลับ</a>";
+    } 
             echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=pre_project_out.php?id=$idpo'>";
          }
+         elseif ($_POST['method'] == 'edit_date_in') {
+             $pid=$_POST['pid'];
+             $bdate=$_POST['bdate'];
+             $edate=$_POST['edate'];
+             $amount=$_POST['amount'];
+             $empno=$_POST['empno'];
+             $pjid=$_POST['pjid'];
+             
+             $update_in=  mysql_query("update plan set bdate='$bdate',edate='$edate',amount='$amount'
+                 where pid=$pid");
+             if ($update_in == false) {
+        echo "<p>";
+        echo "Update not complete" . mysql_error();
+        echo "<br />";
+        echo "<br />";
+
+        echo "	<span class='glyphicon glyphicon-remove'></span>";
+        echo "<a href='pre_project.php?method=edit&empno=$empno&id=$pjid' >กลับ</a>";
+    } 
+            echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=pre_project.php?id=$pjid'>";
+         }
+         
 ?>

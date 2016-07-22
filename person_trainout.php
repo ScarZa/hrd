@@ -34,8 +34,8 @@ if (empty($_SESSION[user])) {
    include 'header.php'; 
 }
     include_once ('option/funcDateThai.php');
-    $empno=$_REQUEST[id];
-    $project_id=$_REQUEST[pro_id];
+    $empno=$_REQUEST['id'];
+    $project_id=$_REQUEST['pro_id'];
 
     ?>
 <?php if(empty($_SESSION[user])){echo "<meta http-equiv='refresh' content='0;url=index.php'/>";exit();} ?>
@@ -62,7 +62,7 @@ function nextbox(e, id) {
                <h1><font color='blue'>  สรุปรายงานการเข้าร่วม ประชุม/อบรม/สัมมนาและศึกษาดูงานภายนอกหน่วยงาน </font></h1> 
                <?php if($_REQUEST[method]=='edit') {?>
             <ol class="breadcrumb alert-success">
-              <li><a href="pre_project_out.php?id=<?=$project_id?>"><i class="fa fa-home"></i> รายละเอียดโครงการ</a></li>
+              <li><a href="pre_person_trainout.php?id=<?=$project_id?>"><i class="fa fa-home"></i> รายละเอียดโครงการ</a></li>
               <li class="active"><i class="fa fa-edit"></i> สรุปรายงานการเข้าร่วม ประชุม/อบรม/สัมมนา</li>
               </ol>
                <?php }else{?>

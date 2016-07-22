@@ -28,7 +28,7 @@ if (empty($_SESSION[user])) {
         <script src="option/js/excellentexport.js"></script>
         </head>
     <body>
-<?
+<?php
 if ($_REQUEST['del_id'] != "") { //ถ้า ค่า del_id ไม่เท่ากับค่าว่างเปล่า
     $del_id = $_REQUEST['del_id'];
     $del_pro = $_REQUEST['del_pro'];
@@ -40,16 +40,16 @@ if ($_REQUEST['del_id'] != "") { //ถ้า ค่า del_id ไม่เท่
 <div class="row">
     <div class="col-lg-12">
         <h1><font color='blue'>  รายละเอียดโครงการ </font></h1>
-        <?if($_SESSION[Status]=='ADMIN'){?>
+        <?php if($_SESSION[Status]=='ADMIN'){?>
         <ol class="breadcrumb alert-success">
             <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
             <li><a href="pre_trainin.php"><i class="fa fa-home"></i> บันทึกการฝึกอบรมภายในหน่วยงาน</a></li>
             <li class="active"><i class="fa fa-edit"></i> รายละเอียดโครงการ</li>
         </ol>
-        <?}?>
+        <?php }?>
     </div>
 </div>
-<?
+<?php
 include_once ('option/funcDateThai.php');
 $project_id = $_REQUEST[id];
 $sql_pro = mysql_query("SELECT t.*, CONCAT(e.firstname,' ',e.lastname) as fullname,p.PROVINCE_NAME FROM trainingin t
@@ -92,7 +92,8 @@ $Project_detial = mysql_fetch_assoc($sql_pro);
                                     <td>&nbsp;</td>
                                 </tr>
                             </table>
-                            <?
+                            <?php
+                            if(empty($_GET['method'])){
                                 $sql_pro_name = mysql_query("SELECT p.*, CONCAT(e.firstname,' ',e.lastname) as fullname FROM plan p
 INNER JOIN emppersonal e ON p.type_id=e.empno
  WHERE p.pjid='$project_id'");
@@ -106,11 +107,12 @@ INNER JOIN emppersonal e ON p.type_id=e.empno
                                     <th>ชื่อ-นามสกุล</th>
                                     <th>วันที่เข้าร่วม</th>
                                     <th>จำนวนชั่วโมง</th>
-                                    <?if($_SESSION[Status]=='ADMIN'){?>
+                                    <?php if($_SESSION[Status]=='ADMIN'){?>
+                                    <th>แก้ไข</th>
                                     <th>ลบ</th>
-                                    <?}?>
+                                    <?php }?>
                                 </tr>
-                                <?
+                                <?php
                     $i = 1;
                     while ($Project_Name = mysql_fetch_assoc($sql_pro_name)) {
                         ?>
@@ -118,14 +120,33 @@ INNER JOIN emppersonal e ON p.type_id=e.empno
                                     <td><?=$Project_Name[fullname]?></td>
                                     <td align="center"><?=DateThai1($Project_Name[bdate])?> ถึง <?=DateThai1($Project_Name[edate])?></td>
                                     <td align="center"><?=$Project_Name[amount]?></td>
-                                    <?if($_SESSION[Status]=='ADMIN'){?>
+                                    <?php if($_SESSION[Status]=='ADMIN'){?>
+                                    <td align="center"><a href="pre_project.php?method=edit&&empno=<?=$Project_Name['type_id'];?>&&id=<?=$Project_Name['pjid']?>"><img src='images/tool.png' width='25'></a></td>
                                     <td align="center"><a href='pre_project.php?del_id=<?=$Project_Name[type_id];?>&del_pro=<?=$Project_Name[pjid];?>&id=<?=$Project_Name[pjid];?>' onClick="return confirm('กรุณายืนยันการลบอีกครั้ง !!!')"><img src='images/bin1.png' width='25'></a></td>
-                                    <?}?>
+                                    <?php }?>
                                 </tr>
-                                <? $i++;
+                                <?php $i++;
                 }
                 ?>
                             </table>
+                            <?php }else {
+                                $empno=$_GET['empno'];
+                                $add_emp=  mysql_query("SELECT pid,amount,bdate,edate FROM plan WHERE type_id=$empno AND pjid=$project_id");
+                                $planout=  mysql_fetch_assoc($add_emp);
+                                echo "<form action='prctraining.php' method='post' name='form' enctype='multipart/form-data' id='form'>";
+                                echo "<lable for='begin_date'>วันที่เข้าร่วม</lable>";
+                                echo "&nbsp; <input type='date' name='bdate' id='begin_date' value='".$planout['bdate']."'> &nbsp;";
+                                echo "<lable for='end_date'>ถึง</lable>";
+                                echo "&nbsp; <input type='date' name='edate' id='end_date' value='".$planout['edate']."'> &nbsp;";
+                                echo "<lable for='amount'>จำนวน</lable>";
+                                echo "&nbsp; <input type='text' name='amount' id='amount' size='1' value='".$planout['amount']."'> &nbsp; ชั่วโมง";
+                                echo "<input type='hidden' name='method' value='edit_date_in'>";
+                                echo "<input type='hidden' name='pid' value='".$planout['pid']."'>";
+                                echo "<input type='hidden' name='empno' value='".$empno."'>";
+                                echo "<input type='hidden' name='pjid' value='".$project_id."'>";
+                                echo "&nbsp; <input type='submit' name='submit' class='btn-warning' value='แก้ไข'>";
+                                echo "</form>";
+                            }?>
                         </td>
                     </tr>
                 </table>
@@ -133,4 +154,4 @@ INNER JOIN emppersonal e ON p.type_id=e.empno
         </div>
     </div>
 </div>
-<? include 'footer.php'; ?>
+<?php include 'footer.php'; ?>

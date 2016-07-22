@@ -1,6 +1,6 @@
 <?php include 'header.php';?>
 <?php if(empty($_SESSION[user])){echo "<meta http-equiv='refresh' content='0;url=index.php'/>";exit();} ?>
-<?
+<?php
     $trainin_id = $_REQUEST['id'];
 ?>
 <div class="row">
@@ -67,10 +67,10 @@ function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){
 		echo "<a href='$urlfile?id=".$trainin_id."&&s_page=$pNext".$querystr."'  class='naviPN'>Next</a>";
 	}
 }   
- if($_POST[method]=='txtKeyword'){
-$_SESSION[Keyword_addT]=$_POST[txtKeyword];
+ if($_POST['method']=='txtKeyword'){
+$_SESSION['Keyword_addT']=$_POST['txtKeyword'];
  }
-$Search_word=($_SESSION[Keyword_addT]);
+$Search_word=($_SESSION['Keyword_addT']);
  if($Search_word != ""){
 //คำสั่งค้นหา
      $q="select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname, d.depName as dep from emppersonal e1 
@@ -108,7 +108,7 @@ $total_p=ceil($total/$e_page);
 $before_p=($chk_page*$e_page)+1;  
 echo mysql_error();
 ?>
- <? $project=  mysql_query("select * from trainingin where idpi='$trainin_id'");
+ <?php $project=  mysql_query("select * from trainingin where idpi='$trainin_id'");
     $Project=  mysql_fetch_assoc($project);
       include_once ('option/funcDateThai.php');?>
   
@@ -117,19 +117,19 @@ echo mysql_error();
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td width="50%" align="right"><b>เลขที่โครงการ : &nbsp;</b></td>
-        <td width="50%">&nbsp; <?=$Project[in1]?></td>
+        <td width="50%">&nbsp; <?=$Project['in1']?></td>
       </tr>
       <tr>
         <td align="right"><b>ชื่อโครงการ  : &nbsp;</b></td>
-        <td>&nbsp; <?=$Project[in2]?></td>
+        <td>&nbsp; <?=$Project['in2']?></td>
       </tr>
       <tr>
         <td align="right"><b>หน่วยงานที่จัด : &nbsp;</b></td>
-        <td>&nbsp; <?=$Project[in3]?></td>
+        <td>&nbsp; <?=$Project['in3']?></td>
       </tr>
       <tr>
         <td align="right"><b>ช่วงเวลาที่จัด : &nbsp;</b></td>
-        <td>&nbsp; <?=DateThai1($Project[dateBegin])?> ถึง <?=DateThai1($Project[dateEnd])?></td>
+        <td>&nbsp; <?=DateThai1($Project['dateBegin'])?> ถึง <?=DateThai1($Project['dateEnd'])?></td>
       </tr>
     </table>
 <br>
@@ -147,7 +147,7 @@ echo mysql_error();
                                 <th align="center" width="10%">จำนวนชั่วโมง</th>
                             </tr>
                             
-                            <?
+                            <?php
                              $i=1;
                              $c=0;
 while($result=mysql_fetch_assoc($qr)){?>
@@ -155,26 +155,26 @@ while($result=mysql_fetch_assoc($qr)){?>
                                 <td align="center"><?=($chk_page*$e_page)+$i?></td>
                                 <td align="center">
                                     <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$c?>" />
-                                    <input type="hidden" name="empno[]" id="empno[]" value="<?=$result[empno]?>"
+                                    <input type="hidden" name="empno[]" id="empno[]" value="<?=$result['empno']?>"
                                 </td>
-                                <td><?=$result[fullname];?></td>
-                                <td align="center"><?=$result[posname];?></td>
-                                <td align="center"><?=$result[dep];?></td>
+                                <td><?=$result['fullname'];?></td>
+                                <td align="center"><?=$result['posname'];?></td>
+                                <td align="center"><?=$result['dep'];?></td>
                                 <td align="center">
-                                    <input type="date" name="dates[]" id="dates[]" value='<?=$Project[dateBegin]?>'>
+                                    <input type="date" name="dates[]" id="dates[]" value='<?=$Project['dateBegin']?>'>
                                 </td>
                                 <td align="center">
-                                    <input type="date" name="datee[]" id="datee[]" value='<?=$Project[dateEnd]?>'>
+                                    <input type="date" name="datee[]" id="datee[]" value='<?=$Project['dateEnd']?>'>
                                 </td>
                                 <td align="center" width="11%">
-                                    <input type="text" name="amount[]" id="amount[]" value='<?=$Project[in9]?>' size="2">
+                                    <input type="text" name="amount[]" id="amount[]" value='<?=$Project['in9']?>' size="2">
                                 </td>
                           </tr>
-    <? $i++;
+    <?php $i++;
     $c++; } ?>
                                 
                         </table>
-<input type="hidden" name="id" value="<?=$Project[idpi]?>">
+<input type="hidden" name="id" value="<?=$Project['idpi']?>">
 <input type="hidden" name="method" value="add_pro_trainin">
 </form>
 <?php if($total>0){
@@ -196,4 +196,4 @@ echo mysql_error();
           </div>
 </div>
 
-    <? include 'footer.php';?>
+    <?php include 'footer.php';?>

@@ -169,6 +169,7 @@ echo mysql_error();
                                 <th align="center" width="21%">ตำแหน่ง</th>
                                 <th align="center" width="15%">บันทึก</th>
                                 <th align="center" width="15%">พิมพ์สรุป</th>
+                                <th align="center" width="15%">แก้ไข</th>
                             </tr>
                             
                             <?php
@@ -194,6 +195,7 @@ while($result=mysql_fetch_assoc($qr)){?>
                                     <a href="#" onclick="return popup('conclude_page2.php?id=<?=$result[empno]?>&&pro_id=<?=$project_id?>',popup,700,900);">หน้า2</a>
 <?php }?>
                                 </td>
+                                <td align="center"><a href="person_trainout.php?method=edit&&id=<?= $result[empno];?>&&pro_id=<?=$project_id?>"><img src='images/tool.png' width='25'></a></td>
         </tr>
     <?php $i++; } ?>
                                 
