@@ -18,12 +18,12 @@ $con = mysql_connect("$dbhost:$dbport","$dbuser","$dbpass");
 if($con){
 $db = mysql_select_db("$dbname",$con);
 mysql_query("SET NAMES 'utf8'", $con);
-mysql_query("SET character_set_results=utf8");
-mysql_query("SET character_set_client='utf8'");
-mysql_query("SET character_set_connection='utf8'");
-mysql_query("collation_connection = utf8_unicode_ci");
-mysql_query("collation_database = utf8_unicode_ci");
-mysql_query("collation_server = utf8_unicode_ci");
+mysql_query("SET character_set_results=utf8", $con);
+mysql_query("SET character_set_client='utf8'", $con);
+mysql_query("SET character_set_connection='utf8'", $con);
+mysql_query("collation_connection = utf8_unicode_ci", $con);
+mysql_query("collation_database = utf8_unicode_ci", $con);
+mysql_query("collation_server = utf8_unicode_ci", $con);
 }
 }
 ?>
