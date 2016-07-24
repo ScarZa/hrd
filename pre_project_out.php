@@ -96,7 +96,7 @@ $Project_detial = mysql_fetch_assoc($sql_pro);
                                 </tr>
                             </table>
                             <?php
-                            if(empty($_GET['method'])){
+                            if(empty($_GET['empno'])){
                                 $sql_pro_name = mysql_query("SELECT *, CONCAT(e.firstname,' ',e.lastname) as fullname 
                                     FROM plan_out p
 INNER JOIN emppersonal e ON p.empno=e.empno
