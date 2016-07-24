@@ -60,8 +60,13 @@ if($_REQUEST['method']=='check_comm'){
                   <div class="panel-body">
                       <img src='<?= $folder . $photo ?>' width="65"> <b><?= $topic_post[fullname]?></b>  <font color='gray'>ประกาศเมื่อ <?= DateThai1($topic_post[post_date])?></font><br>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <?= $topic_post[post]?><br><br>
-                            <?php if (!empty($topic_post[photo_post])) {
+                            <?= $topic_post[post]?><br>
+                            <?php
+                                                        if (!empty($topic_post['link'])){
+     echo "<a href='".$topic_post['link']."' target='_blank'><i class='fa fa-link'></i>  รายละเอียด </a><br><br>";
+                          }
+
+                            if (!empty($topic_post[photo_post])) {
                             $file_name = $photo_post ;
                                             $info = pathinfo( $file_name , PATHINFO_EXTENSION ) ;
                                             if($info=='jpg' or $info=='JPG' or $info=='bmp' or $info=='BMP' or $info=='png' or $info=='PNG'){?>
@@ -70,9 +75,6 @@ if($_REQUEST['method']=='check_comm'){
                                             <?php }else {?>
                             <a href="<?= $folder_post . $photo_post ?>" target="_blank"><i class="fa fa-download"></i> ดาวน์โหลดเอกสาร</a>
                             <?php  }}
-                            if (!empty($topic_post['link'])){
-     echo "<a href='".$topic_post['link']."' target='_blank'><i class='fa fa-link'></i>  รายละเอียด </a>";
-                          }
                             ?>
                             <br>
                       <hr width=90% size=5 color=770088>

@@ -145,6 +145,9 @@ while ($topic_post = mysqli_fetch_assoc($qr)) {
        
     echo "<a href='comm_page.php?post=$topic_post[topic_id]'><b>ประกาศที่ $topic_post[topic_id]....</b>$topic_post[post]<br>
             <b>ประกาศโดย</b> คุณ$topic_post[fullname] <b>มีผู้สอบถาม <font color='red'>".$comm['comm']."</font> คน</b><p>";
+                                        if ($topic_post['link'] != '') {
+                                        echo "<a href='".$topic_post['link']."' target='_blank'><i class='fa fa-link'></i>  รายละเอียด </a> <br>";
+                                    }
     if ($topic_post['photo_post'] != '') {
                                     $pic = $topic_post['photo_post'];
                                     $fol = "post/";
@@ -161,9 +164,6 @@ while ($topic_post = mysqli_fetch_assoc($qr)) {
                                 }else{
                                     echo "</a>";
                                 }
-                                    if ($topic_post['link'] != '') {
-                                        echo "<a href='".$topic_post['link']."' target='_blank'><i class='fa fa-link'></i>  รายละเอียด </a>";
-                                    }
                                 if($empno_poster==$topic_post[empno_post] or $_SESSION[Status]=='ADMIN'){?> 
                                 <div align='right'>
                                 <a href='mainpost_page.php?edit_id=<?=$topic_post[topic_id]?>' title='แก้ไขประชาสัมพันธ์'><img src='images/file_edit.ico' width='20'></a>
