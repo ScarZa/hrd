@@ -41,7 +41,9 @@ if (!$db or ! $con) {
         <li class="active"><i class="fa fa-home"></i> หน้าหลัก</li>
     </ol>
     <?php if ($_SESSION[user] != '') { ?>
-        <div align="right"><a href="mainpost_page.php" class="btn btn-info" title="ประกาศข่าว/ประชาสัมพันธ์">ประชาสัมพันธ์</a>
+        <div align="right">
+            <a href="#" class="btn btn-success" onClick="return popup('total_regularity.php', popup, 650, 600);" title="ดูระเบียบ/ข้อบังคับ">ระเบียบ</a>
+            <a href="mainpost_page.php" class="btn btn-info" title="ประกาศข่าว/ประชาสัมพันธ์">ประชาสัมพันธ์</a>
             <a href="#" class="btn btn-primary" onClick="return popup('fullcalendar/fullcalendar3.php', popup, 820, 650);" title="ดูวันลาไปราชการ">ปฏิทินไปราชการ</a>
             <a href="#" class="btn btn-warning" onClick="return popup('fullcalendar/fullcalendar2.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">ปฏิทินการลา</a>
         <?php if ($_SESSION[Status] == 'ADMIN') { ?>
