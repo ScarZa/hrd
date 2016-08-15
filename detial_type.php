@@ -36,17 +36,23 @@ if (empty($_SESSION[user])) {
                     </div>
                     <div class="panel-body">
                         <?php
-                            $sql=  mysql_query("SELECT COUNT(e.emptype) AS sum,
-(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='1' and e.status='1') d1,
-(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='2' and e.status='1') d2,
-(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='3' and e.status='1') d3,
-(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='4' and e.status='1') d4,
-(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='5' and e.status='1') d5,
-(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='6' and e.status='1') d6,
-(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='7' and e.status='1') d7
+                         $date_total=$_POST['date_total'];
+                         if(empty($date_total)){
+                             $code='';
+                         }  else {
+                             $code="and (e.dateBegin BETWEEN '1947-01-01' AND '$date_total' AND (e.dateEnd > '$date_total' or e.dateEnd='0000-00-00'))";
+                         }
+                            $sql=  mysql_query("SELECT COUNT(e.empno) AS sum,
+(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='1' and e.status='1' $code) d1,
+(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='2' and e.status='1' $code) d2,
+(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='3' and e.status='1' $code) d3,
+(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='4' and e.status='1' $code) d4,
+(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='5' and e.status='1' $code) d5,
+(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='6' and e.status='1' $code) d6,
+(SELECT COUNT(e.emptype) FROM emppersonal e WHERE e.emptype='7' and e.status='1' $code) d7
 FROM emppersonal e
 INNER JOIN emptype e2 on e.emptype=e2.EmpType
-where e.status='1'");
+where e.status='1' $code");
                             $detial_type=  mysql_fetch_assoc($sql);
                             
                             
@@ -102,12 +108,11 @@ where e.status='1'");
                         </form>
                         <?php
                         include 'option/funcDateThai.php';
-                        $date_total=$_POST['date_total'];
                         
-                       $total=  mysql_query("SELECT COUNT(empno) as total FROM emppersonal em 
-WHERE dateBegin BETWEEN '1947-01-01' AND '$date_total' AND (dateEnd > '$date_total' or dateEnd='0000-00-00')");
-                       $total_person=  mysql_fetch_assoc($total);
                         if(!empty($date_total)) {
+                            $total=  mysql_query("SELECT COUNT(empno) as total FROM emppersonal  
+WHERE status='1' and (dateBegin BETWEEN '1947-01-01' AND '$date_total' AND (dateEnd > '$date_total' or dateEnd='0000-00-00'))");
+                       $total_person=  mysql_fetch_assoc($total);
                         ?>
                         <center><b>วันที่ <?= DateThai2($date_total)?> มีบุคลากรทั้งหมด <font color="red"><?= $total_person['total']?></font> คน</b></center>
                         <?php }?>
