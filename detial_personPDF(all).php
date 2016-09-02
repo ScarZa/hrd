@@ -44,9 +44,9 @@ $name_detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname)
                             inner join department d1 on e1.depid=d1.depId
                             inner join posid p2 on e1.posid=p2.posId
                             where e1.empno='$empno'");
-if ($_POST['method'] == 'check_detial_leave' and !empty($_POST['check_date01'])) {
-    $date01 = $_POST['check_date01'];
-    $date02 = $_POST['check_date02'];
+if ($_GET['method'] == 'check_detial_leave' and !empty($_GET['check_date01'])) {
+    $date01 = $_GET['check_date01'];
+    $date02 = $_GET['check_date02'];
 
     $detial = mysql_query("SELECT * from work w1
                         inner join typevacation t1 on w1.typela=t1.idla
@@ -62,8 +62,8 @@ where p.empno='$empno' and p.status_out='Y' and (begin_date between '$date01' an
                         inner join trainingin t on p.pjid=t.idpi
                         where type_id='$empno' and (bdate between '$date01' and '$date02') and (edate between '$date01' and '$date02') order by p.bdate desc");
 
-} elseif(!empty($_POST['year'])){
-        $y = $_POST['year'] - 543;
+} elseif(!empty($_GET['year'])){
+        $y = $_GET['year'] - 543;
         $Y = $y - 1;
         $detial = mysql_query("SELECT * from work w1
                         inner join typevacation t1 on w1.typela=t1.idla
@@ -114,51 +114,14 @@ include_once ('option/funcDateThai.php');
 ?>
 <div class="row">
     <div class="col-lg-12">
-        <h1><font color='blue'>  รายละเอียดข้อมูลต่างๆของบุคลากร </font></h1> 
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">ข้อมูลบุคลากร</h3>
             </div>
             <div class="panel-body">
-                <div class="col-xs-12">
-                <div class="row alert alert-info alert-dismissable"  align="right">
-                    <form method="post" action="detial_person(all).php" class="navbar-form navbar-right">
-                            <div class="col-xs-3"> เลือกช่วงเวลา : </div>
-                            <div class="col-xs-4 form-group">
-                                <input type="date"   name='check_date01' class="form-control"> 
-                            </div>
-                            <div class="col-xs-4 form-group">
-                                <input type="date"   name='check_date02' class="form-control">
-                            </div>
-                            <input type="hidden" name="method" value="check_detial_leave">
-                            <input type="hidden" name="id" value="<?= $empno ?>">
-                            <div class="col-xs-1">
-                            <button type="submit" class="btn btn-success">ตกลง</button>
-                            </div>
-                        </form>
-                </div></div>
-                <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
-                    <div class="col-xs-4 col-md-4 col-lg-4"></div>
-                        <div class="col-xs-6 col-md-6 col-lg-6 form-group"> 
-                            <select name='year'  class="form-control">
-                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
-                                <?php
-                                for ($i = 2558; $i <= 2565; $i++) {
-                                    echo "<option value='$i'>$i</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    <input type="hidden" name="id" value="<?= $empno ?>">
-                    <div class="col-xs-2 col-md-2 col-lg-2"><button type="submit" class="btn btn-success">ตกลง</button></div>
-                    </form>
-                <a href="#" class="btn btn-danger" onClick="window.open('detial_personPDF(all).php?id=<?= $empno; ?>&amp;year=<?= $_POST['year']?>','','width=700,height=900'); return false;" title="พิมพ์สรุป"><i class="fa fa-print"></i> Export to PDF</a> 
-                <a class="btn btn-success" download="conclude_total<?=$empno?>_<?= $y?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');"><i class="fa fa-print"></i> Export to Excel</a><br><br>
-                 <table  id="datatable" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <?php  require_once('option/library/MPDF54/mpdf.php'); //ที่อยู่ของไฟล์ mpdf.php ในเครื่องเรานะครับ
+ob_start(); // ทำการเก็บค่า html นะครับ*/?>
+                <table  id="datatable" width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td><font size="3">ชื่อ นามสกุล :
                             <?= $NameDetial[fullname]; ?>
@@ -170,8 +133,7 @@ include_once ('option/funcDateThai.php');
 <?= $NameDetial[dep]; ?>
                             <br />
 <br>
-                            </font>
-                        </td>
+                            </font></td>
                     </tr>
                     <tr>
                         <td>
@@ -264,9 +226,9 @@ while ($result2 = mysql_fetch_assoc($detiatl)) {
                                     <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">
                                     <tr align="center" bgcolor="#898888">
                                         <td align="center" width="5%"><b>ลำดับ</b></td>
-                                        <td width="60%" align="center" bgcolor="#898888"><b>ชื่อโครงการ</b></td>
-                                        <td align="center" width="15%"><b>ตั้งแต่</b></td>
-                                        <td align="center" width="15%"><b>ถึง</b></td>
+                                        <td width="40%" align="center" bgcolor="#898888"><b>ชื่อโครงการ</b></td>
+                                        <td align="center" width="25%"><b>ตั้งแต่</b></td>
+                                        <td align="center" width="25%"><b>ถึง</b></td>
                                         <td align="center" width="5%"><b>ชั่วโมง</b></td>
                                     </tr>
                                     <?php
@@ -274,11 +236,11 @@ while ($result2 = mysql_fetch_assoc($detiatl)) {
                                     while ($result = mysql_fetch_assoc($detial_tin)) {
                                         ?>
                                         <tr>
-                                            <td align="center"><?= ($chk_page * $e_page) + $i ?></td>
-                                            <td><?= $result[in2]; ?></td>
-                                            <td align="center"><?= DateThai1($result[bdate]); ?></td>
-                                            <td align="center"><?= DateThai1($result[edate]); ?></td>
-                                            <td align="center"><?= $result[amount]; ?></td>
+                                            <td align="center" width="5%"><?= ($chk_page * $e_page) + $i ?></td>
+                                            <td width="40%"><?= $result[in2]; ?></td>
+                                            <td align="center" width="25%"><?= DateThai1($result[bdate]); ?></td>
+                                            <td align="center" width="25%"><?= DateThai1($result[edate]); ?></td>
+                                            <td align="center" width="5%"><?= $result[amount]; ?></td>
                                         </tr>
 
     <?php $i++;
@@ -294,7 +256,18 @@ while ($result2 = mysql_fetch_assoc($detiatl)) {
     </div>
 </div>
 </div>
- <?php
+        <?php
+$time_re=  date('Y');
+$reg_date=$work[reg_date];
+$html = ob_get_contents();
+ob_clean();
+$pdf = new mPDF('th', 'A4', '10', 'THSaraban');
+$pdf->SetAutoFont();
+$pdf->SetDisplayMode('fullpage');
+$pdf->WriteHTML($html, 2);
+$pdf->Output("MyPDF/conclude_total$empno_$time_re.pdf");
+echo "<meta http-equiv='refresh' content='0;url=MyPDF/conclude_total$empno_$time_re.pdf' />";
+
    if($con){
    mysql_close($con);
    }?>
