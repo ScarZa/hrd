@@ -117,6 +117,7 @@ echo mysql_error();
                                 <th align="center" width="10%">เลขที่</td>
                                 <th align="center" width="25%">ชื่อ-นามสกุล</th>
                                 <th align="center" width="20%">ตำแหน่ง</th>
+                                <th align="center" width="12%">รายละเอียด</th>
                                 <th align="center" width="12%">บัตรพนักงาน</th>
                                 <th align="center" width="15%">แก้ไข</th>
                                 <th align="center" width="15%">ลบ</th>
@@ -130,6 +131,7 @@ while($result=mysql_fetch_assoc($qr)){?>
                                 <td align="center"><?=$result[pid];?></td>
                                 <td><a href="#" onClick="window.open('detial_person.php?id=<?=$result[empno]?>','','width=700,height=500'); return false;" title="Code PHP Popup"><?=$result[fullname];?></a></td>
                                 <td align="center"><?=$result[posname];?></td>
+                                <td align="center" width="12%"><a href=""><a href="#" onClick="window.open('detial_person(all).php?id=<?=$result[empno];?>','','width=850,height=1000'); return false;" title="รายละเอียด"><img src='images/kwrite.ico' width='30'></a></td>
                                 <td align="center" width="12%"><a href=""><a href="#" onClick="window.open('card.php?id=<?=$result[empno];?>','','width=400,height=500'); return false;" title="บัตรพนักงาน"><img src='images/phonebook.ico' width='30'></a></td>
                                 <td align="center" width="12%"><a href="add_person.php?method=edit&&id=<?=$result[empno];?>"><img src='images/tool.png' width='30'></a></td>
                                 <td align="center" width="12%"><a href='pre_person.php?del_id=<?=$result[empno];?>' onClick="return confirm('กรุณายืนยันการลบอีกครั้ง !!!')"><img src='images/bin1.png' width='30'></a></td>
