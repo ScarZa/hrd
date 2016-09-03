@@ -280,10 +280,7 @@ while ($result2 = mysql_fetch_assoc($detiatl)) {
                                             <td align="center"><?= DateThai1($result[edate]); ?></td>
                                             <td align="center"><?= $result[amount]; ?></td>
                                         </tr>
-
-    <?php $i++;
-}
-?>
+        <?php $i++; } ?>
                                 </table>
                                 </div>
                             </div>
