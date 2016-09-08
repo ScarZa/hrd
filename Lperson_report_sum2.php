@@ -145,7 +145,7 @@ from emppersonal e1
 LEFT OUTER JOIN leave_day ld ON e1.empno=ld.empno
 LEFT OUTER JOIN `work` w on w.depId=e1.depid
 $code2
-where w.statusla='Y' and $code1 and e1.status ='1'
+where w.statusla='Y' and $code1 and ((w.begindate between '$take_date1' and '$take_date2') or  (w.enddate between '$take_date1' and '$take_date2')) and e1.status ='1'
 GROUP BY e1.empno
 order by e1.empno");
 

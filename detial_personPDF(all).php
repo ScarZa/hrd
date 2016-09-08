@@ -223,10 +223,11 @@ while ($result2 = mysql_fetch_assoc($detiatl)) {
                                     <h3 class="panel-title">ข้อมูลการอบรมภายใน</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">
+                                    <!--<table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">-->
+                                    <table align="center" width="100%" border="0">
                                     <tr align="center" bgcolor="#898888">
                                         <td align="center" width="5%"><b>ลำดับ</b></td>
-                                        <td width="40%" align="center" bgcolor="#898888"><b>ชื่อโครงการ</b></td>
+                                        <td width="40%" align="center"><b>ชื่อโครงการ</b></td>
                                         <td align="center" width="25%"><b>ตั้งแต่</b></td>
                                         <td align="center" width="25%"><b>ถึง</b></td>
                                         <td align="center" width="5%"><b>ชั่วโมง</b></td>

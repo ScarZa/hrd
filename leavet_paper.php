@@ -156,7 +156,7 @@ $time_re=  date('Y_m_d');
 $reg_date=$work[reg_date];
 $html = ob_get_contents();
 ob_clean();
-$pdf = new mPDF('th', 'A4', '10', 'THSaraban');
+$pdf = new mPDF('th', 'A4', '11', 'THSaraban');
 $pdf->SetAutoFont();
 $pdf->SetDisplayMode('fullpage');
 $pdf->WriteHTML($html, 2);
