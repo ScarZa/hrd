@@ -94,9 +94,20 @@
         
     
     </head>
-
-    <body Onload="bodyOnload();">
-
+<?php
+                     if (!empty($_GET['popup'])){
+                      $project_place= $_GET['project_place'];  
+                      $province=  $_GET['province'];
+                      $stdate=$_GET['stdate'];
+                      $etdate=$_GET['etdate'];
+                      $amount=$_GET['amount'];
+                      $cod_popup="window.open('popup_request_car.php?project_place=$project_place&province=$province&stdate=$stdate&etdate=$etdate&amount=$amount','','width=600,height=650'); return false;";
+                      
+                      ?>
+    <body onload="<?= $cod_popup?>">
+                     <?php }else{ ?>
+    <body Onload="bodyOnload();">    
+                     <?php }?>
         <!--<div id="wrapper">-->
             <!-- Sidebar -->
             <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -118,7 +129,7 @@
                     }
                     ?>
                     <a class="navbar-brand logo-mini" href="./"><img alt="Brand" src="images/kuser.ico" width='35'> 
-                        <font color='#ffff00'><b>HRD S</b>ystem V.1.7</font>
+                        <font color='#ffff00'><b>HRD S</b>ystem V.1.8</font>
                     </a>
                 </div>
                     </div>
@@ -298,6 +309,7 @@
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/trainin.ico' width='25'> ประวัติระบบฝึกอบรม <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
+                                        <li><a href="add_project_out.php"><img src='images/add.ico' width='25'></i> บันทึกโครงการฝึกอบรมภายนอก</a></li>
                                         <li><a href="pre_trainout.php"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายนอก</a></li>
                                         <li class="divider"></li>
                                         <li><a href="detial_trainin.php"><img src='images/training.ico' width='25'> ประวัติระบบฝึกอบรม</a></li>

@@ -22,18 +22,18 @@ function nextbox(e, id) {
 
         <div class="row">
           <div class="col-lg-12">
-              <? if($_REQUEST[method]=='edit'){?>
+              <?php if($_REQUEST[method]=='edit'){?>
             <h1><font color='blue'>  แก้ไขข้อมูลบุคลากร </font></h1> 
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
               <li><a href="pre_person.php"><i class="fa fa-edit"></i> ข้อมูลพื้นฐาน</a></li>
               <li class="active"><i class="fa fa-edit"></i> แก้ไขข้อมูลบุคลากร</li>
-              <?}else{?>
+              <?php }else{?>
             <h1><img src='images/adduser.ico' width='75'><font color='blue'>  เพิ่มข้อมูลบุคลากร </font></h1> 
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
               <li class="active"><i class="fa fa-edit"></i> เพิ่มข้อมูลบุคลากร</li>
-              <?}?>
+              <?php }?>
             </ol>
           </div>
       </div>

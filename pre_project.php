@@ -40,13 +40,6 @@ if ($_REQUEST['del_id'] != "") { //ถ้า ค่า del_id ไม่เท่
 <div class="row">
     <div class="col-lg-12">
         <h1><font color='blue'>  รายละเอียดโครงการ </font></h1>
-        <?php if($_SESSION[Status]=='ADMIN'){?>
-        <ol class="breadcrumb alert-success">
-            <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
-            <li><a href="pre_trainin.php"><i class="fa fa-home"></i> บันทึกการฝึกอบรมภายในหน่วยงาน</a></li>
-            <li class="active"><i class="fa fa-edit"></i> รายละเอียดโครงการ</li>
-        </ol>
-        <?php }?>
     </div>
 </div>
 <?php
@@ -93,7 +86,7 @@ $Project_detial = mysql_fetch_assoc($sql_pro);
                                 </tr>
                             </table>
                             <?php
-                            if(empty($_GET['method'])){
+                            if(empty($_GET['method']) or $_GET['method']!='edit'){
                                 $sql_pro_name = mysql_query("SELECT p.*, CONCAT(e.firstname,' ',e.lastname) as fullname FROM plan p
 INNER JOIN emppersonal e ON p.type_id=e.empno
  WHERE p.pjid='$project_id'");
@@ -129,7 +122,7 @@ INNER JOIN emppersonal e ON p.type_id=e.empno
                 }
                 ?>
                             </table>
-                            <?php }else {
+                            <?php }elseif(!empty($_GET['method']) and $_GET['method']=='edit') {
                                 $empno=$_GET['empno'];
                                 $add_emp=  mysql_query("SELECT pid,amount,bdate,edate FROM plan WHERE type_id=$empno AND pjid=$project_id");
                                 $planout=  mysql_fetch_assoc($add_emp);
@@ -152,6 +145,13 @@ INNER JOIN emppersonal e ON p.type_id=e.empno
                 </table>
             </div>
         </div>
+        <?php 
+        $select_url=  mysql_query("select url from hospital");
+        $url=  mysql_fetch_assoc($select_url);
+        if($_REQUEST['method']=='back'){?><center>
+                   <a href="fullcalendar/fullcalendar5.php"><img src="images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทินอบรมภายใน</a>
+</center>
+        <?php }?>
     </div>
 </div>
 <?php include 'footer.php'; ?>

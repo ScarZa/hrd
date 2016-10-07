@@ -95,19 +95,19 @@ if($date >= $bdate and $date <= $edate){
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-         WHERE (memberbook LIKE '%$Search_word%' or projectName LIKE '%$Search_word%') and  Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30'
+         WHERE (memberbook LIKE '%$Search_word%' or projectName LIKE '%$Search_word%') and  t.Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30'
              GROUP BY t.tuid
          order by Beginedate desc";
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where p.empno='".$_SESSION['user']."' and  Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30'
+where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30') and t.chek='1'
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30'
+where t.Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30'
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }
@@ -130,13 +130,14 @@ order by Beginedate desc";
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
-                                where (Beginedate between '$date01' and '$date02') and (endDate between '$date01' and '$date02') and p.empno='".$_SESSION['user']."'
+                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION['user']."'
+                                    or t.nameAdmin='".$_SESSION['user']."') and t.chek='1'
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
-                                where (Beginedate between '$date01' and '$date02') and (endDate between '$date01' and '$date02')
+                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02')
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }
@@ -151,19 +152,19 @@ if ($_SESSION[check_trainout] == '') {
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-         WHERE (memberbook LIKE '%$Search_word%' or projectName LIKE '%$Search_word%') and  Beginedate  BETWEEN '$Y-10-01' and '$y-09-30'
+         WHERE (memberbook LIKE '%$Search_word%' or projectName LIKE '%$Search_word%') and  t.Beginedate  BETWEEN '$Y-10-01' and '$y-09-30'
              GROUP BY t.tuid
          order by Beginedate desc";
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where p.empno='".$_SESSION['user']."' and  Beginedate  BETWEEN '$Y-10-01' and '$y-09-30'
+where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$Y-10-01' and '$y-09-30') and t.chek='1'
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where Beginedate  BETWEEN '$Y-10-01' and '$y-09-30'
+where t.Beginedate  BETWEEN '$Y-10-01' and '$y-09-30'
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }
@@ -179,20 +180,21 @@ order by Beginedate desc";
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count, p.status_out as status_out from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-                                where (Beginedate between '$date01' and '$date02') and (endDate between '$date01' and '$date02')
+                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02')
                                 and (memberbook LIKE '%$Search_word%' or projectName LIKE '%$Search_word%')
                                 GROUP BY t.tuid
                                 order by Beginedate desc";
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count, p.status_out as status_out from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
-                                where (Beginedate between '$date01' and '$date02') and (endDate between '$date01' and '$date02') and p.empno='".$_SESSION['user']."'
+                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION['user']."'
+                                or t.nameAdmin='".$_SESSION['user']."') and t.chek='1'
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count, p.status_out as status_out from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
-                                where (Beginedate between '$date01' and '$date02') and (endDate between '$date01' and '$date02')
+                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02')
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }
@@ -236,16 +238,19 @@ order by Beginedate desc";
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="5%" align="center"><b>เลขที่หนังสือ</b></td>
-                        <td width="40%" align="center"><b>โครงการ</b></td>
-                        <td width="19%" align="center"><b>หน่วยงานผู้จัด</b></td>
+                        <td width="30%" align="center"><b>โครงการ</b></td>
+                        <td width="15%" align="center"><b>หน่วยงานผู้จัด</b></td>
                         <td width="15%" align="center"><b>วันที่จัด</b></td>
                         <td width="6%" align="center"><b>จำนวนผู้เข้าร่วม</b></td>
-                        <td width="6%" align="center"><b>สรุป</b></td>                      
-                        <?php if($_SESSION[Status]=='ADMIN'){?>
                         <td width="6%" align="center"><b>บันทึก</b></td>
+                        <td width="6%" align="center"><b>สถานะโครงการ</b></td>
+                         <?php if($_SESSION[Status]=='ADMIN'){?>
+                        <td width="6%" align="center"><b>สรุป</b></td>
                         <td width="6%" align="center"><b>แก้ไข</b></td>
                         <?php }  else {?>
-                        <td width="6%" align="center"><b>สถานะ</b></td>                    
+                        <th align="center" width="7%">พิมพ์คำขอ</th>
+                        <td width="6%" align="center"><b>สรุป</b></td>
+                        <td width="6%" align="center"><b>สถานะการสรุป</b></td>                    
                          <?php }?>
                     </tr>
 
@@ -261,11 +266,27 @@ order by Beginedate desc";
                             <td align="center"><?= $result[anProject]; ?></td>
                             <td align="center"><?= DateThai1($result[Beginedate]);?> <b>ถึง</b> <?= DateThai1($result[endDate]);?></td>
                             <td align="center"><?= $result[count]; ?></td>
-                            <td align="center"><a href="pre_person_trainout.php?id=<?= $result[tuid]; ?>"><img src='images/Sum.png' width='30'></a></td>
-                            <?php if($_SESSION[Status]=='ADMIN'){?>
                             <td align="center"><a href="add_trainout.php?id=<?= $result[tuid]; ?>"><img src='images/save_add.png' width='30'></a></td>
-                            <td align="center"><a href="add_project_out.php?method=edit&&id=<?=$result[tuid];?>"><img src='images/tool.png' width='30'></a></td>
+                            <td align="center">
+                           <?php if($result['hboss']=='W'){ ?>
+                            <a href="#" onClick="return popup('pre_project_out.php?id=<?= $result[tuid]; ?>',popup,700,500);" title="รออนุมัติ"><i class="fa fa-spinner fa-spin"></i></a>
+                            <?php } elseif ($result['hboss']=='Y') {?>
+                                    <img src="images/Symbol_-_Check.ico" width="20"  title="อนุมัติ">
+                                     <?php } elseif ($result['hboss']=='N') {?>
+                                    <img src="images/button_cancel.ico" width="20" title="ไม่อนุมัติ">
+                                     <?php }?>
+                                        </td>
+                                <?php if($_SESSION[Status]=='ADMIN'){?>
+                            <td align="center"><a href="pre_person_trainout.php?id=<?= $result[tuid]; ?>"><img src='images/Sum.png' width='30'></a></td>
+                            <td align="center"><a href="add_project_out.php?method=edit&&id=<?=$result['tuid'];?>"><img src='images/tool.png' width='30'></a></td>
                             <?php }else{?>
+                            <td align="center">
+                                    <?php if(empty($result['status_out'])){ echo '...';}else {?>
+                                    <a href="#" onclick="return popup('approval_page1.php?id=<?=$_SESSION[user]?>&&pro_id=<?=$result['tuid']?>',popup,700,900);">หน้า1</a>.,.
+                                    <a href="#" onclick="return popup('approval_page2.php?id=<?=$_SESSION[user]?>&&pro_id=<?=$result['tuid']?>',popup,700,900);">หน้า2</a>
+                            <?php }?>
+                            </td>
+                            <td align="center"><a href="pre_person_trainout.php?id=<?= $result[tuid]; ?>"><img src='images/Sum.png' width='30'></a></td>
                             <td align="center">
                             <?php if($result['status_out']!='Y'){ ?>
                                 <i class="fa fa-2x fa-spinner fa-spin" title="รอการสรุป"></i>

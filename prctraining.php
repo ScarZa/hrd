@@ -17,18 +17,33 @@ echo "<div class='alert alert-dismissable alert-success'>
 	  <a class='alert-link' target='_blank' href='#'><center>กำลังดำเนินการ</center></a> 
 </div>";
     $admin=$_SESSION[user];
-
-    $reg_date = $_POST[reg_date];
+if($_SESSION[Status]=='ADMIN'){
+    $take_date_conv = $_POST['reg_date'];
+    $reg_date='';
+    insert_date(&$take_date_conv,&$reg_date);
+    $check='0';
+}else{
+    $reg_date = date('Y-m-d');
+    $check='1';
+}
     $project_no = $_POST[project_no];
     $project_name = $_POST[project_name];
     $project_dep = $_POST[project_dep];
     $project_obj = $_POST[project_obj];
     $project_place = $_POST[project_place];
     $province = $_POST[province];
-    $Pdates = $_POST[Pdates];
-    $Pdatee = $_POST[Pdatee];
-    $stdate=$_POST[stdate];
-    $etdate=$_POST[etdate];
+    $take_date_conv = $_POST['Pdates'];
+    $Pdates='';
+    insert_date(&$take_date_conv,&$Pdates);
+    $take_date_conv = $_POST['Pdatee'];
+    $Pdatee='';
+    insert_date(&$take_date_conv,&$Pdatee);
+    $take_date_conv = $_POST['stdate'];
+    $stdate='';
+    insert_date(&$take_date_conv,&$stdate);
+    $take_date_conv = $_POST['etdate'];
+    $etdate='';
+    insert_date(&$take_date_conv,&$etdate);
     $Hoscar=$_POST[Hos_car];
     $amountd = $_POST[amountd];
     $amounth = $_POST[amounth];
@@ -55,7 +70,11 @@ echo "<div class='alert alert-dismissable alert-success'>
                    in9='$amounth', in10='$format', in11='$persen', in12='$barrier', in13='$further',
                       in14='$comment', mp='$cost', m1='$meals', m2='$expert', m3='$travel', m4='$material', in15='$source',
                          in16='$type_know', adminadd='$respon', in18='$note' ");
-    if ($add == false) {
+    $insert_id=mysql_insert_id();
+    $date_end=date('Y-m-d', strtotime("$Pdatee+1 days "));
+            $insert_event=mysql_query("insert into tbl_event set event_title='$project_no',event_start='$Pdates',event_end='$date_end',event_allDay='true',
+            empno='$respon',workid='$insert_id',typela='$format',process='6', event_url='../pre_project.php?id=$insert_id&method=back'");
+    if ($add and $insert_event == false) {
         echo "<p>";
         echo "Insert not complete" . mysql_error();
         echo "<br />";
@@ -75,6 +94,11 @@ $edit = mysql_query("update trainingin set reg_date='$reg_date', in1='$project_n
                       in14='$comment', mp='$cost', m1='$meals', m2='$expert', m3='$travel', m4='$material', in15='$source',
                          in16='$type_know', adminadd='$respon', in18='$note'
                              where idpi='$idpi'");
+$date_end=date('Y-m-d', strtotime("$Pdatee+1 days "));
+$update_event=mysql_query("update tbl_event set event_title='$project_no',event_start='$Pdates',event_end='$date_end',
+            empno='$respon',typela='$format'
+        where workid='$idpi'");
+
 
     if ($edit == false) {
         echo "<p>";
@@ -203,7 +227,8 @@ foreach ($check_ps as $key => $value) {
     $add = mysql_query("insert into training_out set datein='$reg_date', memberbook='$project_no', projectName='$project_name', anProject='$project_dep',
                 stantee='$project_place', provenID='$province', Beginedate='$Pdates', endDate='$Pdatee', stdate='$stdate', etdate='$etdate', Hos_car='$Hoscar', amount='$amountd',
                    dt='$format', m1='$cost', m2='$meals', m3='$expert', m4='$travel', m5='$material', budget='$source',
-                         material='$type_know', nameAdmin='$admin', empno='$admin'");
+                         material='$type_know', nameAdmin='$admin',hboss='W', empno='$admin',chek='$check'");
+    $insert_id=mysql_insert_id();
     if ($add == false) {
         echo "<p>";
         echo "Insert not complete" . mysql_error();
@@ -213,8 +238,12 @@ foreach ($check_ps as $key => $value) {
         echo "	<span class='glyphicon glyphicon-remove'></span>";
         echo "<a href='add_project_out.php' >กลับ</a>";
     } else {
-            echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=pre_trainout.php'>";
-        }
+        if($Hoscar=='Y' and $format=='8'){?>
+          <META HTTP-EQUIV='Refresh' CONTENT='2;URL=add_trainout.php?id=<?=$insert_id?>&popup=true&project_place=<?= $project_place?>&province=<?=$province?>
+                &stdate=<?=$stdate?>&etdate=<?=$etdate?>&amount=<?=$amountd?>'>  
+       <?php }else{
+            echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=add_trainout.php?id=$insert_id'>";
+    }}
     }else if ($_POST[method] == 'edit_trainout') {
     
         $idpi=$_REQUEST[edit_id];
@@ -379,8 +408,24 @@ if($image==''){
 
         echo "	<span class='glyphicon glyphicon-remove'></span>";
         echo "<a href='pre_project.php?method=edit&empno=$empno&id=$pjid' >กลับ</a>";
-    } 
+    }else{ 
             echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=pre_project.php?id=$pjid'>";
-         }
+    }
+         }elseif ($_POST['method']=='approve_trainout') {
+             $project_id=$_POST['pro_id'];
+             $hboss=$_POST['hboss'];
+             $approve_out=mysql_query("update training_out set hboss='$hboss',approver='$_SESSION[user]' where tuid='$project_id'");
+             if ($approve_out == false) {
+        echo "<p>";
+        echo "Approve not complete" . mysql_error();
+        echo "<br />";
+        echo "<br />";
+
+        echo "	<span class='glyphicon glyphicon-remove'></span>";
+        echo "<a href='pre_project_out.php?id=$project_id' >กลับ</a>";
+    }else{ ?>
+       <center><a href="#" class="btn btn-primary" onclick="javascript:window.parent.opener.document.location.href='pre_trainout.php'; window.close();">ปิดหน้าต่าง</a></center> 
+    <?php }
+        }
          
 ?>

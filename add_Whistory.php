@@ -49,7 +49,7 @@ if (empty($_SESSION[user])) {
           <div class="col-lg-12">
               <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">เพิ่มประวัติการศึกษา</h3>
+                    <h3 class="panel-title">เพิ่มประวัติการทำงาน</h3>
                     </div>
                 <div class="panel-body">
                     <table align="center" width='100%'>

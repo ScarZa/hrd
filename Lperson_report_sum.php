@@ -49,6 +49,16 @@ if (empty($_SESSION[user])) {
             }?>
 			 </select>
     </div> 
+    <div class="form-group">
+        <select name='year'  class="form-control">
+                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
+                                <?php
+                                for ($i = 2558; $i <= 2565; $i++) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+        </select>                        
+    </div>
                 <input type="hidden"   name='method' class="form-control" value='Lperson_date' >
                 <input type="hidden"   name='screen' class="form-control" value='<?= $screen?>' >
 			<button type="submit" class="btn btn-success">ตกลง</button>
@@ -56,27 +66,45 @@ if (empty($_SESSION[user])) {
                                            
 </form></div> <br><br></div>
 
- <?php         
+ <?php         if (!empty($_REQUEST['year'])) {
+                $year = $_POST['year'] - 543;}
+                $year_now=date("Y");
                 include 'option/funcDateThai.php';
                 include 'option/function_date.php';
-    if($date >= $bdate and $date <= $edate){
+                if (!empty($_POST['year']) or !empty($_GET['year'])) {
+                    
+    if($date >= $bdate and $date <= $edate){//ถ้าช่วงที่ใช้งานอยู่ปัจจุบันอยู่ในช่วงเดือน ตุลาคม - ธันวาคม
                 $take_month=$_POST['month'];
                 $depno=$_POST['dep'];
-                       
-               
-                             $y= $Yy;
-                             $Y= date("Y");
-                             $take_month1="$Y-$take_month-01";
-                             if($take_month=='4' or $take_month=='6' or $take_month=='9' or $take_month=='11'){
-                               $take_month2="$Y-$take_month-30";  
+                
+                if($take_month=='1' or $take_month=='2' or $take_month=='3' or $take_month=='4' or $take_month=='5' or $take_month=='6' or $take_month=='7' or $take_month=='8' or $take_month=='9'){
+                             $take_month1="$y-$take_month-01";
+                             if($take_month=='4' or $take_month=='6' or $take_month=='9'){
+                            $take_month2="$y-$take_month-30";  
                              }elseif ($take_month=='2') {
-                               $take_month2="$Y-$take_month-29"; 
+                            $take_month2="$y-$take_month-29"; 
                             }else{
-                             $take_month2="$Y-$take_month-31";
+                             $take_month2="$y-$take_month-31";
                             }
                              $take_date1="$Y-10-01";
-                             $take_date2="$y-09-30";
-    }  else {
+                             $take_date2="$y-09-30"; 
+                }elseif($take_month=='10' or $take_month=='11' or $take_month=='12') {
+                    $take_month1="$Y-$take_month-01";
+                    if($take_month=='11'){
+                        $take_month2="$Y-$take_month-30"; 
+                    }else{
+                        $take_month2="$Y-$take_month-31";
+                            }
+                            $take_date1="$Y-10-01";
+                            $take_date2="$y-09-30";
+                }
+                                    $yen = date("Y")+1;
+                                    $Yst = date("Y");
+                                                                     
+    }  else {//ถ้าช่วงที่ใช้งานอยู่ปัจจุบันอยู่ในช่วงเดือน มกราคม - กันยายน
+                                    $yen = date("Y")+1;
+                                    $Yst = date("Y");    
+        
                 $take_month=$_POST['month'];
                 $depno=$_POST['dep'];
                 
@@ -109,8 +137,11 @@ if (empty($_SESSION[user])) {
                  $this_year=$y;
                  $ago_year=$Y;   
                 }
-    }  
-    if($screen=='1'){
+    }        
+                            $date_start = "$Yst-10-01";
+                            $date_end = "$yen-09-30"."<br>";
+                }
+                                if($screen=='1'){
         $code1="e1.depid='$depno'";
         $code2="LEFT OUTER JOIN department d on w.depId=d.depId";
         $code3="t.depId='$depno'";
@@ -140,7 +171,8 @@ if (empty($_SESSION[user])) {
 (select SUM(w.amount) from `work` w where (w.typela='4' or w.typela='5') and e1.empno=w.enpid and $code1 and ((w.begindate between '$take_date1' and '$take_month2') or  (w.enddate between '$take_date1' and '$take_month2')) and w.statusla='Y' and e1.status ='1') sum_maternity_total,
 (SELECT COUNT(t.total)  from timela t WHERE t.`status`='N' and e1.empno=t.empno and $code3 and t.datela between '$take_date1' and '$take_month2' and e1.status ='1') amonut_t,
 (select SUM(t.total) from timela t WHERE t.`status`='N' and e1.empno=t.empno and $code3 and t.datela between '$take_date1' and '$take_month2' and e1.status ='1') sum_t,
-(SELECT SUM(w.amount) FROM `work` w WHERE $code1 and e1.empno=w.enpid and w.typela='3' and ((w.begindate between '$take_date1' and '$take_date2') or  (w.enddate between '$take_date1' and '$take_date2')) and w.statusla='Y' and w.regis_leave!='N') leave_total
+(SELECT SUM(w.amount) FROM `work` w WHERE $code1 and e1.empno=w.enpid and w.typela='3' and ((w.begindate between '$take_date1' and '$take_date2') or  (w.enddate between '$take_date1' and '$take_date2')) and w.statusla='Y' and w.regis_leave!='N') leave_total,
+(SELECT SUM(w.amount) FROM `work` w WHERE $code1 and e1.empno=w.enpid and w.typela='3' and ((w.begindate between '$date_start' and '$date_end') or  (w.enddate between '$date_start' and '$date_end')) and w.statusla='Y' and w.regis_leave!='N') nowleave    
 from emppersonal e1
 LEFT OUTER JOIN leave_day ld ON e1.empno=ld.empno
 LEFT OUTER JOIN `work` w on w.depId=e1.depid
@@ -148,8 +180,7 @@ $code2
 where w.statusla='Y' and $code1 and e1.status ='1'
 GROUP BY e1.empno
 order by e1.empno");
-
-    
+   
 $sql_dep=  mysql_query($code4);
 $depname = mysql_fetch_assoc($sql_dep);
 
@@ -232,13 +263,25 @@ $depname = mysql_fetch_assoc($sql_dep);
                             <td align="center"><?= $result['amonut_leave_total']; ?></td>
                             <td align="center"><?= $result['sum_leave_total']; ?></td>
                             <td align="center"><?= $result['amonut_vacation_total']; ?></td>
-                            <td align="center"><?= $result['sum_vacation_total']; ?></td>
+                            <td align="center"><?= $result['sum_vacation_total']?></td>
                             <td align="center"><?= $result['amonut_maternity_total']; ?></td>
                             <td align="center"><?= $result['sum_maternity_total']; ?></td>
-                            <td align="center"><?=$sum_total-10?></td>
+                    <?php 
+                                compareDate($take_date1, $date_start);
+                                //compareDate("$Y-10-01", $date_start);
+                    if($Yst == $Y) {?>
+                            <td align="center"><?= ($sum_total-10)?></td>
                             <td align="center">10</td>
                             <td align="center"><?=$sum_total?></td>
-                            <td align="center"><?=$sum_total-$result['sum_vacation_total']?></td>
+                            <td align="center"><?=$result['L3']?></td>
+                           
+                    <?php }else {?>
+                            
+                            <td align="center"><?= ($sum_total-10)-$result['leave_total']?></td>
+                            <td align="center">10</td>
+                            <td align="center"><?=$sum_total-$result['leave_total']?></td>
+                            <td align="center"><?=$result['L3']-$result['leave_total']?></td>
+                    <?php }?>
                             <td align="center"><?= $result['sum_t']; ?></td>
                         </tr>
                     <?php $i++;

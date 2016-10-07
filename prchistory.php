@@ -69,7 +69,7 @@ include 'connection/connect_i.php';
     
     $add_his= mysqli_query($db,"insert into work_history set empno='$empno', empcode='$order', posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
                          education='$educat', dateBegin='$swday'");
-    mysqli_query($db, "update emppersonal set pid='$order', posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
+    mysqli_query($db, "update emppersonal set posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
                          education='$educat', dateBegin='$swday' where empno='$empno'");
     if ($add_his==false) {
         echo "<p>";
@@ -87,7 +87,7 @@ include 'connection/connect_i.php';
     insert_date($dateEnd_w_conv,$dateEnd_w);
     $edit_his=  mysqli_query($db,"update work_history set empcode='$order', posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
                          education='$educat', dateBegin='$swday', dateEnd_w='$dateEnd_w' where his_id='$his' and empno='$empno'");
-    $edit_emp=  mysqli_query($db,"update emppersonal set pid='$order', posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
+    $edit_emp=  mysqli_query($db,"update emppersonal set empcode='$order', pid='$order', posid='$posid', depid='$dep', empstuc='$line', emptype='$pertype',
                          education='$educat', dateBegin='$swday' where empno='$empno'");
     if ($edit_his == false) {
         echo "<p>";

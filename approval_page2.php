@@ -34,7 +34,7 @@ inner join pcode p2 on e1.pcode=p2.pcode
 inner join plan_out po on po.empno=e1.empno
 where e1.posid=p1.posId and e1.status ='1' and po.idpo='$project_id'
 ORDER BY empno");
-    require_once('option/library/MPDF54/mpdf.php'); //ที่อยู่ของไฟล์ mpdf.php ในเครื่องเรานะครับ
+   require_once('option/library/MPDF54/mpdf.php'); //ที่อยู่ของไฟล์ mpdf.php ในเครื่องเรานะครับ
 ob_start(); // ทำการเก็บค่า html นะครับ*/
     ?>
     
@@ -52,25 +52,19 @@ while($team=  mysql_fetch_assoc($sql_person)){?>
         <?php $i++; } ?>
     </table>
     <br><br><br>
-    <b>
-        <u>หมายเหตุ</u><br>&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. ให้ส่งรายงานนี้ภายใน 15 วัน หลังเสร็จสิ้นการประชุม/อบรม/สัมมนา/ดูงาน<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. โปรดสรุปสาระสำคัญเพื่อเป็น<u>สาระสำคัญ</u>สำหรับเผยแพร่แก่ จนท. อื่น ตามแบบฟอร์ม One Page Information<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. กรณีมีเอกสารแจกที่น่าสนใจ ขอโปรดอนบมาด้วยเพื่อนำเสนอผู้อำนายการ และอาจสำเนาส่งฝ่าย/งานที่เกี่ยวข้องเพิ่มเติม (ตัวจริงจะคืนเจ้าของ)<br>
-    </b>
     <br><br><br>
-    <div align="right">F-AD-111-04</div>
+    <div align="right">F-AD-100-03</div>
     <?php
 $time_re=  date('Y_m_d');
 $reg_date=$work[reg_date];
 $html = ob_get_contents();
 ob_clean();
-$pdf = new mPDF('th', 'A4', '10', 'THSaraban');
+$pdf = new mPDF('th', 'A4', '11', 'THSaraban');
 $pdf->SetAutoFont();
 $pdf->SetDisplayMode('fullpage');
 $pdf->WriteHTML($html, 2);
-$pdf->Output("MyPDF/conclude1$empno$Code.pdf");
-echo "<meta http-equiv='refresh' content='0;url=MyPDF/conclude1$empno$Code.pdf' />";
+$pdf->Output("MyPDF/approval2.pdf");
+echo "<meta http-equiv='refresh' content='0;url=MyPDF/approval2.pdf' />";
 ?>
 </body>
 </html>

@@ -69,7 +69,7 @@ for($i=0;$i<=count($event);$i++){  ?>
     <a href="../add_privatet_calendra.php" class="btn btn-success">เพิ่มกิจกรรม</a>
 </div><br>
 <?php }?>    
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
+<script src="js/fullcalendar-2.1.1/lib/jquery.min.js"></script>    
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lib/moment.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/fullcalendar.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lang/th.js"></script>

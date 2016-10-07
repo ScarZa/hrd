@@ -41,10 +41,16 @@ if (!$db or ! $con) {
         <li class="active"><i class="fa fa-home"></i> หน้าหลัก</li>
     </ol>
     <?php if ($_SESSION[user] != '') { ?>
+<div class="col-lg-2 col-xs-6 row">
+    <?php ?>
+                <a href="<?= $resultHos['url'] ?>service&support/process/from_hrd.php?fullname=<?=$_SESSION[fname].' '.$_SESSION[lname]?>
+                   &id=<?= $_SESSION[user]?>&dep=<?= $_SESSION[dep]?>" class="btn btn-warning" target="_blank">โปรมแกรมสนับสนุน</a>       
+            </div>
         <div align="right">
             <a href="#" class="btn btn-success" onClick="return popup('total_regularity.php', popup, 650, 600);" title="ดูระเบียบ/ข้อบังคับ">ระเบียบ</a>
             <a href="mainpost_page.php" class="btn btn-info" title="ประกาศข่าว/ประชาสัมพันธ์">ประชาสัมพันธ์</a>
             <a href="#" class="btn btn-primary" onClick="return popup('fullcalendar/fullcalendar3.php', popup, 820, 650);" title="ดูวันลาไปราชการ">ปฏิทินไปราชการ</a>
+            <a href="#" class="btn btn-info" onClick="return popup('fullcalendar/fullcalendar5.php', popup, 820, 650);" title="ดูวันลาไปราชการ">ปฏิทินอบรมภายใน</a>
             <a href="#" class="btn btn-warning" onClick="return popup('fullcalendar/fullcalendar2.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">ปฏิทินการลา</a>
         <?php if ($_SESSION[Status] == 'ADMIN') { ?>
                 <a href="#" class="btn btn-danger" onClick="return popup('fullcalendar/fullcalendar1.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">ปฏิทินการลา</a><?php } ?>

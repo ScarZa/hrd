@@ -16,7 +16,7 @@
                     },
                     editable: true,
                     theme: true,
-                    events: "data_events2.php?gData=1",
+                    events: "data_events5.php?gData=1",
                     loading: function(bool) {
                         if (bool)
                             $('#loading').show();
@@ -52,11 +52,11 @@
 <div align="center">
 <?php
 include '../connection/connect_calendra.php';
-$leave=  mysql_query("SELECT nameLa FROM typevacation ORDER BY idla ASC") or die(mysql_error());
-$code_color=array("1"=>"#416cbb","2"=>"#d92727","3"=>"#1e6c06","4"=>"purple","5"=>"#00a6ba","6"=>"orange","7"=>"#4e5252");
+$train=  mysql_query("SELECT tName FROM trainingtype ORDER BY tid ASC") or die(mysql_error());
+$code_color=array("1"=>"orange","2"=>"violet","3"=>"green","4"=>"red","5"=>"yellowgreen","6"=>"blue","7"=>"brown","8"=>"purple");
 $i=1;
-while ($row = mysql_fetch_array($leave)) {  ?>
-<a style="background-color:<?= $code_color[$i]?>; color: white"><?= $row['nameLa']?></a> 
+while ($row = mysql_fetch_array($train)) {  ?>
+<a style="background-color:<?= $code_color[$i]?>; color: white"><?= $row['tName']?></a> 
 <?php $i++; }?>
 </div>
     
@@ -64,6 +64,6 @@ while ($row = mysql_fetch_array($leave)) {  ?>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lib/moment.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/fullcalendar.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lang/th.js"></script>
-<script type="text/javascript" src="script2.js"></script>            
+<script type="text/javascript" src="script5.js"></script>            
 </body>
 </html>

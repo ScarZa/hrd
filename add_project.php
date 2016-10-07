@@ -21,28 +21,29 @@ function nextbox(e, id) {
 
         <div class="row">
           <div class="col-lg-12">
-              <? if($_REQUEST[method]=='edit'){?>
+              <?php if($_REQUEST[method]=='edit'){?>
             <h1><font color='blue'>  แก้ไขข้อมูลโครงการ </font></h1> 
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
               <li><a href="pre_trainin.php"><i class="fa fa-edit"></i> บันทึกการฝึกอบรมภายในหน่วยงาน</a></li>
               <li class="active"><i class="fa fa-edit"></i> แก้ไขข้อมูลโครงการ</li>
-              <?}else{?>
+              <?php }else{?>
             <h1><font color='blue'>  เพิ่มข้อมูลโครงการ </font></h1> 
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
               <li class="active"><i class="fa fa-edit"></i> เพิ่มข้อมูลโครงการ</li>
-              <?}?>
+              <?php }?>
             </ol>
           </div>
       </div>
-<?
+<?php
     if($_REQUEST[method]=='edit'){
         $edit_id=$_REQUEST[id];
         $edit_per=  mysql_query("select * from trainingin t1 
             where t1.idpi='$edit_id'");
         $edit_person=  mysql_fetch_assoc($edit_per);
     }
+    include_once'option/DatePicker/index.php';
 ?>
 <form class="navbar-form navbar-left" role="form" action='prctraining.php' enctype="multipart/form-data" method='post' onSubmit="return Check_txt()">
 <div class="row">
@@ -53,8 +54,12 @@ function nextbox(e, id) {
                     </div>
                 <div class="panel-body">
                     <div class="form-group"> 
+                        <?php if($_GET[method]!=''){
+ 			$take_date1=$edit_person['reg_date'];
+ 			edit_date($take_date1);
+                        } ?>
                 <label>วันที่เขียนโครงการ &nbsp;</label>
-                <input value='<?=$edit_person[reg_date];?>' placeholder="รูปแบบ 2015-01-31" type="date" class="form-control" name="reg_date" id="reg_date" onkeydown="return nextbox(event, 'address')" required>
+                <input value='<?=$take_date1?>' placeholder="รูปแบบ 31/01/2559" type="text" class="form-control" name="reg_date" id="datepicker-th-1" onkeydown="return nextbox(event, 'address')" required>
              	</div>
                     <div class="form-group"> 
                 <label>เลขที่โครงการ &nbsp;</label>
@@ -89,12 +94,20 @@ function nextbox(e, id) {
 			 </div>
                 <div class="form-group">
                     <div class="form-group">
+                        <?php if($_GET[method]!=''){
+ 			$take_date2=$edit_person['dateBegin'];
+ 			edit_date($take_date2);
+                        } ?>
                     <label>ระหว่างวันที่ &nbsp;</label>
-                      <input value='<?=$edit_person[dateBegin];?>' placeholder="รูปแบบ 2015-01-31" type="date" name="Pdates" id="Pdates" class="form-control" required>
+                    <input value='<?=$take_date2?>' placeholder="รูปแบบ 31/01/2559" type="text" name="Pdates" id="datepicker-th-2" class="form-control" required>
                        </div>                 
                     <div class="form-group">
+                        <?php if($_GET[method]!=''){
+ 			$take_date3=$edit_person['dateEnd'];
+ 			edit_date($take_date3);
+                        } ?>
                         <label>ถึงวันที่ &nbsp;</label>
-                      <input value='<?=$edit_person[dateEnd];?>' placeholder="รูปแบบ 2015-01-31" type="date" name="Pdatee" id="Pdatee" class="form-control" required>
+                        <input value='<?=$take_date3?>' placeholder="รูปแบบ 31/01/2559" type="text" name="Pdatee" id="datepicker-th-3" class="form-control" required>
                     </div>
                          </div><br>
                     <div class="form-group"> 

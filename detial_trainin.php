@@ -44,11 +44,18 @@ if($date >= $bdate and $date <= $edate){
                         inner join trainingin t on p.pjid=t.idpi
                         where type_id='$empno' and (bdate between '$date01' and '$date02') and (edate between '$date01' and '$date02') order by p.bdate desc");
 
-            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME 
+            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME,
+                t.stdate,t.etdate 
     from plan_out p 
         inner join training_out t on t.tuid=p.idpo
         inner join province p2 on p2.PROVINCE_ID=t.provenID
 where p.empno='$empno' and p.status_out='Y' and (begin_date between '$date01' and '$date02') order by t.memberbook desc");
+            
+            $detiatl2 = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME 
+    from plan_out p 
+        inner join training_out t on t.tuid=p.idpo
+        inner join province p2 on p2.PROVINCE_ID=t.provenID
+where p.empno='$empno' and p.status_out='Y' and t.dt='9' and (begin_date between '$date01' and '$date02') order by t.memberbook desc");
 
             $count_pj = mysql_query("select count(pjid) as pjid,
                                    (select sum(amount) from plan p where p.type_id='$empno' and (bdate between '$date01' and '$date02') and (edate between '$date01' and '$date02'))amount
@@ -63,16 +70,43 @@ where p.empno='$empno' and p.status_out='Y' and (begin_date between '$date01' an
 (select sum(other) from plan_out p4 where p4.empno='$empno' and p4.status_out='Y' and (begin_date between '$date01' and '$date02'))sum_other,
 (select sum(amount) from plan_out p5 where p5.empno='$empno' and p5.status_out='Y' and (begin_date between '$date01' and '$date02'))sum_amount 
  from plan_out where empno='$empno' and status_out='Y' and (begin_date between '$date01' and '$date02')");
+            
+             $sum_abode2 = mysql_query("select sum(abode) as sum_abode,
+(select sum(reg) from plan_out p1
+inner join training_out tout on tout.tuid=p1.idpo 
+where p1.empno='$empno' and p1.status_out='Y' and (begin_date between '$date01' and '$date02') and tout.dt='9')sum_reg,
+(select sum(allow) from plan_out p2
+inner join training_out tout on tout.tuid=p2.idpo 
+where p2.empno='$empno' and p2.status_out='Y' and (begin_date between '$date01' and '$date02') and tout.dt='9')sum_allow,
+(select sum(travel) from plan_out p3
+inner join training_out tout on tout.tuid=p3.idpo 
+where p3.empno='$empno' and p3.status_out='Y' and (begin_date between '$date01' and '$date02') and tout.dt='9')sum_travel,
+(select sum(other) from plan_out p4
+inner join training_out tout on tout.tuid=p4.idpo 
+where p4.empno='$empno' and p4.status_out='Y' and (begin_date between '$date01' and '$date02') and tout.dt='9')sum_other,
+(select sum(p5.amount) from plan_out p5
+inner join training_out tout on tout.tuid=p5.idpo 
+where p5.empno='$empno' and p5.status_out='Y' and (begin_date between '$date01' and '$date02') and tout.dt='9')sum_amount 
+from plan_out p0
+inner join training_out tout on tout.tuid=p0.idpo 
+where p0.empno='$empno' and p0.status_out='Y' and (p0.begin_date between '$date01' and '$date02') and tout.dt='9'");
         } else {
             $detial = mysql_query("SELECT p.*,t.in1,t.in2 from plan p
                         inner join trainingin t on p.pjid=t.idpi
                         where type_id='$empno' and p.bdate BETWEEN '$y-10-01' and '$Yy-09-30' order by p.bdate desc");
 
-            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME 
+            $detiatl = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME,
+                t.stdate,t.etdate 
     from plan_out p 
         inner join training_out t on t.tuid=p.idpo
         inner join province p2 on p2.PROVINCE_ID=t.provenID
 where p.empno='$empno' and p.status_out='Y'  and p.begin_date BETWEEN '$y-10-01' and '$Yy-09-30' order by t.memberbook desc");
+            
+            $detiatl2 = mysql_query("SELECT p.*,t.projectName,t.anProject,t.Beginedate,t.endDate,t.stantee,p2.PROVINCE_NAME 
+    from plan_out p 
+        inner join training_out t on t.tuid=p.idpo
+        inner join province p2 on p2.PROVINCE_ID=t.provenID
+        where p.empno='$empno' and p.status_out='Y' and t.dt='9'  and p.begin_date BETWEEN '$y-10-01' and '$Yy-09-30' order by t.memberbook desc");
 
             $count_pj = mysql_query("select count(pjid) as pjid,
                                     (select sum(amount) from plan p where p.type_id='$empno' and (p.bdate BETWEEN '$y-10-01' and '$Yy-09-30'))amount
@@ -87,6 +121,26 @@ where p.empno='$empno' and p.status_out='Y'  and p.begin_date BETWEEN '$y-10-01'
 (select sum(other) from plan_out p4 where p4.empno='$empno' and p4.status_out='Y' and p4.begin_date BETWEEN '$y-10-01' and '$Yy-09-30')sum_other,
 (select sum(amount) from plan_out p5 where p5.empno='$empno' and p5.status_out='Y' and p5.begin_date BETWEEN '$y-10-01' and '$Yy-09-30')sum_amount 
  from plan_out where empno='$empno' and status_out='Y' and begin_date BETWEEN '$y-10-01' and '$Yy-09-30'");
+            
+            $sum_abode2 = mysql_query("select sum(p0.abode) as sum_abode,
+(select sum(reg) from plan_out p1 
+inner join training_out tout on tout.tuid=p1.idpo
+where p1.empno='$empno' and p1.status_out='Y'  and p1.begin_date BETWEEN '$y-10-01' and '$Yy-09-30' and tout.dt='9')sum_reg,
+(select sum(allow) from plan_out p2 
+inner join training_out tout on tout.tuid=p2.idpo
+where p2.empno='$empno' and p2.status_out='Y' and p2.begin_date BETWEEN '$y-10-01' and '$Yy-09-30' and tout.dt='9')sum_allow,
+(select sum(travel) from plan_out p3 
+inner join training_out tout on tout.tuid=p3.idpo
+where p3.empno='$empno' and p3.status_out='Y' and p3.begin_date BETWEEN '$y-10-01' and '$Yy-09-30' and tout.dt='9')sum_travel,
+(select sum(other) from plan_out p4 
+inner join training_out tout on tout.tuid=p4.idpo
+where p4.empno='$empno' and p4.status_out='Y' and p4.begin_date BETWEEN '$y-10-01' and '$Yy-09-30' and tout.dt='9')sum_other,
+(select sum(p5.amount) from plan_out p5
+inner join training_out tout on tout.tuid=p5.idpo 
+where p5.empno='$empno' and p5.status_out='Y' and (p5.begin_date BETWEEN '$y-10-01' and '$Yy-09-30') and tout.dt='9')sum_amount 
+from plan_out p0
+inner join training_out tout on tout.tuid=p0.idpo
+where p0.empno='$empno' and p0.status_out='Y' and p0.begin_date BETWEEN '$y-10-01' and '$Yy-09-30' and tout.dt='9'");
         }
 }  else {
     if($_REQUEST['train']=='in'){

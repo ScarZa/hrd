@@ -21,18 +21,18 @@ function nextbox(e, id) {
 
         <div class="row">
           <div class="col-lg-12">
-              <? if($_REQUEST[method]=='edit'){?>
+              <?php if($_REQUEST[method]=='edit'){?>
             <h1><font color='blue'>  แก้ไขข้อมูลโครงการ </font></h1> 
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
               <li><a href="pre_trainout.php"><i class="fa fa-edit"></i> บันทึกการฝึกอบรมภายนอกหน่วยงาน</a></li>
               <li class="active"><i class="fa fa-edit"></i> แก้ไขข้อมูลโครงการ</li>
-              <?}else{?>
-            <h1><font color='blue'>  เพิ่มโครงการอบรม </font></h1> 
+              <?php }else{?>
+            <h1><font color='blue'>  เพิ่มโครงการอบรม/ขออนุมัติไปราชการ </font></h1> 
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
               <li class="active"><i class="fa fa-edit"></i> เพิ่มโครงการอบรม</li>
-              <?}?>
+              <?php }?>
             </ol>
           </div>
       </div>
@@ -43,23 +43,30 @@ function nextbox(e, id) {
             where t1.tuid='$edit_id'");
         $edit_person=  mysql_fetch_assoc($edit_per);
     }
-?>
+     include_once'option/DatePicker/index.php'; ?>
 <form class="navbar-form navbar-left" role="form" action='prctraining.php' enctype="multipart/form-data" method='post' onSubmit="return Check_txt()">
 <div class="row">
           <div class="col-lg-12">
               <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">บันทึกประวัติการฝึกอบรมภายนอกหน่วยงาน</h3>
+                    <h3 class="panel-title">บันทึกประวัติการฝึกอบรม/ไปราชการ ภายนอกหน่วยงาน</h3>
                     </div>
                 <div class="panel-body">
+                      <?php if($_SESSION[Status]=='ADMIN'){?>
                     <div class="form-group"> 
+                        <?php
+ 		if($_GET[method]!=''){
+ 			$take_date=$edit_person['datein'];
+ 			edit_date($take_date);
+                        }
+ 		?>
                 <label>วันที่ขออนุมัติ &nbsp;</label>
-                <input value='<?=$edit_person[datein];?>' placeholder="รูปแบบ 2015-01-31" type="date" class="form-control" name="reg_date" id="reg_date" onkeydown="return nextbox(event, 'address')" required>
+                <input value='<?=$take_date?>' placeholder="รูปแบบ 2015-01-31" type="text" class="form-control" name="reg_date" id="datepicker-th" onkeydown="return nextbox(event, 'address')" required>
              	</div>
                     <div class="form-group"> 
                 <label>เลขที่หนังสือ &nbsp;</label>
                 <input value='<?=$edit_person[memberbook];?>' type="text" class="form-control" name="project_no" id="project_no" placeholder="เลขที่หนังสือ" onkeydown="return nextbox(event, 'cidid')" required>
-             	</div><br> 
+                      </div><br> <?php }?>
                     <div class="form-group"> 
                     <label>โครงการ &nbsp;</label>
                 <input value='<?=$edit_person[projectName];?>' type="text" class="form-control" size="100" name="project_name" id="project_name" placeholder="โครงการ" onkeydown="return nextbox(event, 'pname')" required>
@@ -86,24 +93,46 @@ function nextbox(e, id) {
                 <div class="form-group">
                     <b>ฝึกอบรมระหว่างวันที่ &nbsp;</b>
                     <div class="form-group">
-                    
-                      <input value='<?=$edit_person[Beginedate];?>' placeholder="รูปแบบ 2015-01-31" type="date" name="Pdates" id="Pdates" class="form-control" required>
+                    <?php
+ 		if($_GET[method]!=''){
+ 			$take_date1=$edit_person['Beginedate'];
+ 			edit_date($take_date1);
+                        }
+ 		?>
+                        <input value='<?=$take_date1?>' size="12" placeholder="31/01/2559" type="text" name="Pdates" id="datepicker-th-1" class="form-control" required>
                        </div>
                     <b>ถึงวันที่ &nbsp;</b>
                     <div class="form-group">
-                        
-                      <input value='<?=$edit_person[endDate];?>' placeholder="รูปแบบ 2015-01-31" type="date" name="Pdatee" id="Pdatee" class="form-control" required>
+                     <?php
+ 		if($_GET[method]!=''){
+ 			$take_date2=$edit_person['endDate'];
+ 			edit_date($take_date2);
+                        }
+ 		?>   
+                        <input value='<?=$take_date2?>' size="12" placeholder="31/01/2559" type="text" name="Pdatee" id="datepicker-th-2" class="form-control" required>
                     </div>
                          </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                          <div class="form-group">
                              <b>เดินทางไปราชการตั้งแต่วันที่ &nbsp;</b>
                     <div class="form-group">
-                      <input value='<?=$edit_person[stdate];?>' placeholder="รูปแบบ 2015-01-31" type="date" name="stdate" id="stdate" class="form-control" required>
+                        <?php
+ 		if($_GET[method]!=''){
+ 			$take_date3=$edit_person['stdate'];
+ 			edit_date($take_date3);
+                        }
+ 		?>
+                        <input value='<?=$take_date3?>' size="12" placeholder="31/01/2559" type="text" name="stdate" id="datepicker-th-3" class="form-control" required>
                        </div> 
                              <b>ถึงวันที่ &nbsp;</b>
                     <div class="form-group">
-                      <input value='<?=$edit_person[etdate];?>' placeholder="รูปแบบ 2015-01-31" type="date" name="etdate" id="etdate" class="form-control" required>
+                        <?php
+ 		if($_GET[method]!=''){
+ 			$take_date4=$edit_person['etdate'];
+ 			edit_date($take_date4);
+                        }
+ 		?>
+                        <input value='<?=$take_date4?>' size="12" placeholder="31/01/2559" type="text" name="etdate" id="datepicker-th-4" class="form-control" required>
                     </div>
                          </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <label>ใช้พาหนะโรงพยาบาล&nbsp;&nbsp;</label>
@@ -177,7 +206,7 @@ function nextbox(e, id) {
              	</div>
                   <div class="form-group">
          			<label>แหล่งงบประมาณ &nbsp;</label>
- 				<select name="source" id="source" required  class="form-control"  onkeydown="return nextbox(event, 'dep');"> 
+ 				<select name="source" id="source" class="form-control"  onkeydown="return nextbox(event, 'dep');"> 
 				<?php	$sql = mysql_query("SELECT *  FROM trainingmoney order by id");
 				 echo "<option value=''>--เลือกงบประมาณ--</option>";
 				 while( $result = mysql_fetch_assoc( $sql ) ){
@@ -191,13 +220,13 @@ function nextbox(e, id) {
               </div>
           </div>
 </div>
-    <? if($_REQUEST[method]=='edit'){?>
+      <?php if($_REQUEST[method]=='edit'){?>
     <input type="hidden" name="method" id="method" value="edit_trainout">
     <input type="hidden" name="edit_id" id="edit_id" value="<?=$edit_person[tuid];?>">
    <input class="btn btn-warning" type="submit" name="Submit" id="Submit" value="แก้ไข">
-   <?}else{?> 
+   <?php }else{?> 
    <input type="hidden" name="method" id="method" value="add_trainout">
    <input class="btn btn-success" type="submit" name="Submit" id="Submit" value="บันทึก">
-   <?}?>
+   <?php }?>
 </form>
          
