@@ -1,5 +1,18 @@
 <?php @session_start(); ?>
-<?php include 'connection/connect.php';?>
+<?php include 'connection/connect.php';
+//===ชื่อโรงพยาบาล
+                    if($con){
+                    $sql = mysql_query("select * from  hospital");
+                    $resultHos = mysql_fetch_assoc($sql);
+                    }
+                    if ($resultHos[logo] != '') {
+        $pic = $resultHos[logo];
+        $fol = "logo/";
+    } else {
+        $pic = 'agency.ico';
+        $fol = "images/";
+    }
+                    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +22,7 @@
 <meta name="author" content="">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 <title>ระบบข้อมูลบุคคลากรโรงพยาบาล</title>
-<LINK REL="SHORTCUT ICON" HREF="images/logo.png">
+<LINK REL="SHORTCUT ICON" HREF="<?= $fol . $pic; ?>">
 <!-- Bootstrap core CSS -->
 <link href="option/css/bootstrap.css" rel="stylesheet">
 <!--<link href="option/css2/templatemo_style.css" rel="stylesheet">-->
@@ -121,13 +134,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <?php
-//===ชื่อโรงพยาบาล
-                    if($con){
-                    $sql = mysql_query("select * from  hospital");
-                    $resultHos = mysql_fetch_assoc($sql);
-                    }
-                    ?>
+                    
                     <a class="navbar-brand logo-mini" href="./"><img alt="Brand" src="images/kuser.ico" width='35'> 
                         <font color='#ffff00'><b>HRD S</b>ystem V.1.8</font>
                     </a>

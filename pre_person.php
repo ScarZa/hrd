@@ -3,6 +3,13 @@
 <?php
 if ($_REQUEST['del_id'] != "") { //ถ้า ค่า del_id ไม่เท่ากับค่าว่างเปล่า
     $del_id = $_REQUEST['del_id'];
+                $del_photo=mysql_query("select photo from emppersonal where empno='$del_id'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['photo'])){
+                $location="photo/".$del_photo['photo'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
     $sql_del = "delete from emppersonal where empno = '$del_id';";
     mysql_query($sql_del) or die(mysql_error());
     $sqle_del = "delete from educate where empno = '$del_id';";

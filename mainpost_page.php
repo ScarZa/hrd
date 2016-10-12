@@ -29,6 +29,13 @@ $db->close();
 
 }elseif ($_REQUEST[del_id]!='') {
  $del_id=$_REQUEST[del_id];
+                $del_photo=mysqli_query($db,"select photo_post from topic_post where topic_id='$del_id'");
+                $del_photo=mysqli_fetch_assoc($del_photo);
+                if(!empty($del_photo['photo_post'])){
+                $location="post/".$del_photo['photo_post'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+ 
 $sql=$db->prepare("delete from topic_post where topic_id=?");
 $sql->bind_param("i",$del_id);
 $sql->execute();

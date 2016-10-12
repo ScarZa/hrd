@@ -118,6 +118,13 @@ if (trim($_FILES["image"]["name"] == "")) {
                              where empno='$empno'");
     
 }else{
+                $del_photo=mysql_query("select photo from emppersonal where empno='$empno'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['photo'])){
+                $location="photo/".$del_photo['photo'];
+                include 'function/delet_file.php';
+                fulldelete($location);
+    
     if (move_uploaded_file($_FILES["image"]["tmp_name"], "photo/" . removespecialchars(date("d-m-Y/") . "1" . $_FILES["image"]["name"]))) {
         $file1 = date("d-m-Y/") . "1" . $_FILES["image"]["name"];
         $image = removespecialchars($file1);
@@ -125,6 +132,7 @@ if (trim($_FILES["image"]["name"] == "")) {
 } else{
     $image ='';
 }
+                }
 $edit = mysql_query("update emppersonal set pid='$empid', idcard='$cid', pcode='$pname', firstname='$fname',
                 lastname='$lname', sex='$sex', birthdate='$bday', address='$address', baan='$hname', provice='$Province',
                    empure='$Amphur', tambol='$district', zipcode='$postcode', emp_status='$status', telephone='$htell',

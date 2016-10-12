@@ -352,6 +352,13 @@ if($image==''){
                       comment='$comment', book='$book', paper='$paper', cd='$cd' , join_amount='$join_amount', complacency='$complacency' 
                         where empno='$empno' and idpo='$idpo'");
 }else{
+    $del_photo=mysql_query("select OPI from plan_out where empno='$empno' and idpo='$idpo'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['OPI'])){
+                $location="OPI/".$del_photo['OPI'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
     $add = mysql_query("update plan_out set pj_obj='$pj_obj', abode=' $abode',reg='$reg',
                    allow='$allow', travel='$travel', other='$other', abstract='$abstract',
                       comment='$comment', book='$book', paper='$paper', cd='$cd', OPI='$image' , join_amount='$join_amount', complacency='$complacency'  

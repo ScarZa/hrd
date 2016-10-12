@@ -15,6 +15,13 @@ if ($_REQUEST[work_id] != '') {
     
 } elseif ($_REQUEST[time_id] != '') {
     $time_id = $_REQUEST[time_id];
+    $del_photo=mysql_query("select pics_t from timela where id='$time_id'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['pics_t'])){
+                $location="time_l/".$del_photo['pics_t'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
     $sql_delt = "delete from timela where id='$time_id'";
     mysql_query($sql_delt) or die(mysql_error());
 }

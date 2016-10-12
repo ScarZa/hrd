@@ -356,6 +356,13 @@ if (trim($_FILES["image"]["name"] != "")) {
     $image ='';
 }
     if($image !=''){
+        $del_photo=mysql_query("select pics from work where enpid='$empno' and workid='$Lno'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['pics'])){
+                $location="myfile/".$del_photo['pics'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+        
     $update_leave=  mysql_query("update work set enpid='$empno', reg_date='$date_reg', leave_no='$leave_no', begindate='$date_s', enddate='$date_e',
                                 amount='$amount', abnote='$reason_l', address='$add_conn', tel='$tell',
                                     check_comment='$cert', comment='$note',idAdmin='$adminId',pics='$image'
@@ -420,6 +427,13 @@ if (trim($_FILES["image"]["name"] != "")) {
     $image ='';
 }
 if($image !=''){
+    $del_photo=mysql_query("select pics_t from timela where empno='$empno' and id='$Lno'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['pics_t'])){
+                $location="time_l/".$del_photo['pics_t'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
 $update_leave=  mysql_query("update timela set idno='$leave_no', vstdate='$date_reg', 
                                    comment='$reason_l',datela='$date_l',starttime='$time_s',endtime='$time_e',
                                        total='$amount',pics_t='$image'

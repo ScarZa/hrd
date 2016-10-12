@@ -106,6 +106,13 @@ $sql=$db->prepare('update topic_post set post=? , post_date=? , link=? where top
 $sql->bind_param('sssi',$post,$date_pos,$link,$topic_id);
 $sql->execute();    
 }else{
+                $del_photo=mysqli_query($db,"select photo_post from topic_post where topic_id='$topic_id'");
+                $del_photo=mysqli_fetch_assoc($del_photo);
+                if(!empty($del_photo['photo_post'])){
+                $location="post/".$del_photo['photo_post'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
 $sql=$db->prepare('update topic_post set post=? , post_date=? , photo_post=?,link=? where topic_id=?');
 $sql->bind_param('ssssi',$post,$date_pos, $image, $link,$topic_id);
 $sql->execute();
@@ -209,6 +216,13 @@ if($image ==''){
     $sql=$db->prepare('update regularity set topic_regu=? where regu_id=? ');
     $sql->bind_param('si',$regu, $regu_id);
 }else{ 
+                $del_photo=mysqli_query($db,"select regu_file from regularity where regu_id='$regu_id'");
+                $del_photo=mysqli_fetch_assoc($del_photo);
+                if(!empty($del_photo['regu_file'])){
+                $location="regu_file/".$del_photo['regu_file'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
     $sql=$db->prepare('update regularity set topic_regu=? , regu_file=?  where regu_id=? ');
     $sql->bind_param('ssi',$regu, $image, $regu_id);
 }

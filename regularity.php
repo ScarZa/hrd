@@ -27,8 +27,14 @@
     $method=$_GET['method'];
     if($method=='delete'){
     $regu_id=$_REQUEST['regu_id'];
+                $del_photo=mysqli_query($db,"select regu_file from regularity where regu_id='$regu_id'");
+                $del_photo=mysqli_fetch_assoc($del_photo);
+                if(!empty($del_photo['regu_file'])){
+                $location="regu_file/".$del_photo['regu_file'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
     $del_regu= mysqli_query($db, "delete from regularity WHERE regu_id='$regu_id'");
-    mysqli_fetch_assoc($del_regu);
     }elseif ($method=='edit') {
     $regu_id=$_REQUEST['regu_id'];
     $sql_regu=  mysqli_query($db,"SELECT regu_id, topic_regu FROM regularity WHERE regu_id='$regu_id'");

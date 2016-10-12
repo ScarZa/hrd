@@ -23,6 +23,13 @@
     $image ='';
 }
             if($image !=''){
+                $del_photo=mysql_query("select logo from hospital");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['logo'])){
+                $location="logo/".$del_photo['logo'];
+                include 'function/delet_file.php';
+                fulldelete($location);
+                }
 		$sqlUpdate=mysql_query("update hospital  SET name='$name',manager='$m_name', url='$url',logo='$image'  "); 	
             }else{
                $sqlUpdate=mysql_query("update hospital  SET name='$name',manager='$m_name', url='$url'");  
