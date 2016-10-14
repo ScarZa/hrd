@@ -35,7 +35,14 @@
 <script src="option/js/excellentexport.js"></script>
  
 <!-- InstanceBeginEditable name="head" -->
-    
+    <style type="text/css">
+html{
+-moz-filter:grayscale(100%);
+-webkit-filter:grayscale(100%);
+filter:gray;
+filter:grayscale(100%);
+}
+</style>
      <script type="text/javascript">
         function resizeIframe(obj)// auto height iframe
     {
