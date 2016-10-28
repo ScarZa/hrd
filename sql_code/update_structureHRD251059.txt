@@ -1,0 +1,45 @@
+DROP TABLE IF EXISTS fingerprint;
+CREATE TABLE `fingerprint` (
+`finger_id`  int(7) NOT NULL AUTO_INCREMENT ,
+`empno`  int(7) NOT NULL ,
+`reg_date`  date NOT NULL ,
+`forget_date`  date NOT NULL ,
+`work_scan`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
+`finish_work_scan`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
+`register`  int(7) NOT NULL ,
+`see`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`reason_forget`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
+`explain_date`  date NULL ,
+`exponent`  int(7) NULL ,
+`explanation`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
+`exp_status`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`editer`  int(7) NULL ,
+`editdate`  date NULL ,
+PRIMARY KEY (`finger_id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=3;
+
+DROP TABLE IF EXISTS late;
+CREATE TABLE `late` (
+`late_id`  int(7) NOT NULL AUTO_INCREMENT ,
+`empno`  int(7) NOT NULL ,
+`reg_date`  date NOT NULL ,
+`late_date`  date NOT NULL ,
+`late_time`  time NOT NULL ,
+`register`  int(7) NOT NULL ,
+`see`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`reason_late`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`explain_date`  date NULL DEFAULT NULL ,
+`exponent`  int(7) NULL DEFAULT NULL ,
+`explanation`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`exp_status`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`editer`  int(7) NULL ,
+`editdate`  date NULL ,
+PRIMARY KEY (`late_id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=3
+ROW_FORMAT=COMPACT;

@@ -143,7 +143,7 @@ filter:grayscale(100%);
                     </button>
                     
                     <a class="navbar-brand logo-mini" href="./"><img alt="Brand" src="images/kuser.ico" width='35'> 
-                        <font color='#ffff00'><b>HRD S</b>ystem V.1.8</font>
+                        <font color='#ffff00'><b>HRD S</b>ystem V.1.8.1</font>
                     </a>
                 </div>
                     </div>

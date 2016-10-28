@@ -6,8 +6,15 @@ if (empty($_SESSION[user])) {
 }
 ?>
 <?php
-if ($_REQUEST[work_id] != '') {
-    $work_id = $_REQUEST[work_id];
+if (!empty($_REQUEST['work_id'])) {
+    $work_id = $_REQUEST['work_id'];
+    $del_photo=mysql_query("select pics from work where workid ='$work_id'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['pics'])){
+                $location="myfile/".$del_photo['pics'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+                
     $sql_delw = "delete from work where workid ='$work_id'";
     mysql_query($sql_delw) or die(mysql_error());
     $del_event = "delete from tbl_event where workid ='$work_id'";
@@ -23,6 +30,28 @@ if ($_REQUEST[work_id] != '') {
                 fulldelete($location);}
     
     $sql_delt = "delete from timela where id='$time_id'";
+    mysql_query($sql_delt) or die(mysql_error());
+}elseif (!empty($_REQUEST['late_id'])) {
+    $late_id = $_REQUEST['late_id'];
+    $del_photo=mysql_query("select explanation from late where late_id='$late_id'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['explanation'])){
+                $location="explanation/".$del_photo['explanation'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
+    $sql_delt = "delete from late where late_id='$late_id'";
+    mysql_query($sql_delt) or die(mysql_error());
+}elseif (!empty ($_REQUEST['finger_id'])) {
+    $finger_id = $_REQUEST['finger_id'];
+    $del_photo=mysql_query("select explanation from fingerprint where finger_id='$finger_id'");
+                $del_photo=mysql_fetch_assoc($del_photo);
+                if(!empty($del_photo['explanation'])){
+                $location="explanation/".$del_photo['explanation'];
+                include 'function/delet_file.php';
+                fulldelete($location);}
+    
+    $sql_delt = "delete from fingerprint where finger_id='$finger_id'";
     mysql_query($sql_delt) or die(mysql_error());
 }
 ?>
@@ -40,9 +69,9 @@ $name_detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname)
                             inner join department d1 on e1.depid=d1.depId
                             inner join posid p2 on e1.posid=p2.posId
                             where e1.empno='$empno'");
-if ($_SESSION[check_dl] == 'check_detial_leave') {
-    $date01 = $_SESSION[leave_date1];
-    $date02 = $_SESSION[leave_date2];
+if (!empty($_POST['check_date01'])) {
+    $date01 = $_POST['check_date01'];
+    $date02 = $_POST['check_date02'];
 
     $detial = mysql_query("SELECT * from work w1
                         inner join typevacation t1 on w1.typela=t1.idla
@@ -50,6 +79,11 @@ if ($_SESSION[check_dl] == 'check_detial_leave') {
                             AND statusla='Y' order by workid desc");
 
     $detiatl = mysql_query("SELECT * from timela where empno='$empno' and (datela between '$date01' and '$date02') and status='N' order by id desc");
+    $detialscan = mysql_query("SELECT f.* FROM fingerprint f 
+LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
+LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
+WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$empno' and (f.forget_date between '$date01' and '$date02') order by f.finger_id desc");
+    $detiallate = mysql_query("SELECT * from late where empno='$empno' and (late_date between '$date01' and '$date02') order by late_id desc");
 } elseif(!empty($_POST['year'])){
         $y = $_POST['year'] - 543;
         $Y = $y - 1;
@@ -58,6 +92,11 @@ if ($_SESSION[check_dl] == 'check_detial_leave') {
                         where enpid='$empno' AND statusla='Y'  and w1.begindate BETWEEN '$Y-10-01' and '$y-09-30' order by workid desc");
 
     $detiatl = mysql_query("SELECT * from timela where empno='$empno' and status='N'  and datela BETWEEN '$Y-10-01' and '$y-09-30' order by id desc");
+    $detialscan = mysql_query("SELECT f.* FROM fingerprint f 
+LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
+LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
+WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$empno' and (f.forget_date between '$Y-10-01' and '$y-09-30') order by f.finger_id desc");
+    $detiallate = mysql_query("SELECT * from late where empno='$empno' and (late_date between '$Y-10-01' and '$y-09-30') order by late_id desc");
     }else{
         if($date >= $bdate and $date <= $edate){
     $detial = mysql_query("SELECT * from work w1
@@ -65,12 +104,22 @@ if ($_SESSION[check_dl] == 'check_detial_leave') {
                         where enpid='$empno' AND statusla='Y'  and w1.begindate BETWEEN '$y-10-01' and '$Yy-09-30' order by workid desc");
 
     $detiatl = mysql_query("SELECT * from timela where empno='$empno' and status='N'  and datela BETWEEN '$y-10-01' and '$Yy-09-30' order by id desc");
+    $detialscan = mysql_query("SELECT f.* FROM fingerprint f 
+LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
+LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
+WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$empno' and (f.forget_date between '$y-10-01' and '$Yy-09-30') order by f.finger_id desc");
+    $detiallate = mysql_query("SELECT * from late where empno='$empno' and (late_date between '$y-10-01' and '$Yy-09-30') order by late_id desc");
     }else{
     $detial = mysql_query("SELECT * from work w1
                         inner join typevacation t1 on w1.typela=t1.idla
                         where enpid='$empno' AND statusla='Y'  and w1.begindate BETWEEN '$Y-10-01' and '$y-09-30' order by workid desc");
 
     $detiatl = mysql_query("SELECT * from timela where empno='$empno' and status='N'  and datela BETWEEN '$Y-10-01' and '$y-09-30' order by id desc");
+    $detialscan = mysql_query("SELECT f.* FROM fingerprint f 
+LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
+LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
+WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$empno' and (f.forget_date between '$Y-10-01' and '$y-09-30') order by f.finger_id desc");
+    $detiallate = mysql_query("SELECT * from late where empno='$empno' and (late_date between '$Y-10-01' and '$y-09-30') order by late_id desc");
 }}
 $NameDetial = mysql_fetch_assoc($name_detial);
 
@@ -82,7 +131,7 @@ include_once ('option/funcDateThai.php');
         <ol class="breadcrumb alert-success">
             <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
 <?php if ($_SESSION[Status] != 'USER') {
-    if ($_REQUEST[method] == 'check_page') {
+    if ($_REQUEST['method'] == 'check_page') {
         $depno = $_REQUEST[depno];
         ?> 
 
@@ -107,7 +156,7 @@ include_once ('option/funcDateThai.php');
             <div class="panel-body">
                 <div class="alert alert-info alert-dismissable">
                     <div class="form-group" align="right"> 
-                        <form method="post" action="session.php" class="navbar-form navbar-right">
+                        <form method="post" action="" class="navbar-form navbar-right" enctype="multipart/form-data">
                             <label> เลือกช่วงเวลา : </label>
                             <div class="form-group">
                                 <input type="date"   name='check_date01' class="form-control" value='' > 
@@ -181,7 +230,7 @@ include_once ('option/funcDateThai.php');
                                             <td colspan="9" align="center"> ปีงบประมาณ <?= $_POST['year']?></td>
                                         </tr>
                                         <?php }?>
-                                                <?php if ($_SESSION[check_dl] == 'check_detial_leave') { ?>
+                                                <?php if (!empty($_POST['check_date01'])) { ?>
                                             <tr>
                                                 <td colspan="9" align="center">ตั้งแต่วันที่
     <?= DateThai1($date01); ?>
@@ -344,6 +393,128 @@ $check_tl = mysql_fetch_assoc($count_check);
                                     </form>
                                 </div>
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">ข้อมูลการลืมลงเวลา</h3>
+                                </div>
+                                 <div class="panel-body">
+                                        <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">
+                                            <tr align="center" bgcolor="#898888">
+                                                <td align="center" width="5%"><b>ลำดับ</b></td>
+                                                <td align="center" width="10%"><b>วันที่ลืม</b></td>
+                                                <td align="center" width="10%"><b>ลืมลงมา</b></td>
+                                                <td align="center" width="10%"><b>ลืมลงกลับ</b></td>
+                                                <td align="center" width="10%"><b>ชี้แจง</b></td>
+                                                <td align="center" width="10%"><b>ใบชี้แจง</b></td>
+                                                <td align="center" width="10%"><b>สถานะ</b></td>
+                                                <?php if ($_SESSION[Status] == 'ADMIN') { ?>
+                                                    <td width="10%" align="center"><b>ผู้ลืม</b></td>
+                                                    <td width="6%" align="center"><b>แก้ไข</b></td>
+                                                    <td align="center" width="6%"><b>ลบ</b></td>
+                                                <?php }?>
+                                            </tr>
+                                            <?php $i = 1;
+                                                        while ($result = mysql_fetch_assoc($detialscan)) {?>
+                                                <tr>
+                                                    <td align="center"><?= $i?></td>
+                                                    <td align="center"><?= DateThai1($result['forget_date'])?></td>
+                                                    <td align="center"><?php if(!empty($result['work_scan'])){?><img src="images/Symbol_-_Check.ico" width="30"><?php }?></td>
+                                                    <td align="center"><?php if(!empty($result['finish_work_scan'])){?><img src="images/Symbol_-_Check.ico" width="30"><?php }?></td>
+                                                    <td align="center"><?php if(empty($result['exponent'])){?>
+                                                    <a href="#" onClick="return popup('add_sign.php?id=<?=$result['empno']?>&scan_id=<?= $result['finger_id']?>&method=exp_sign', popup, 450, 500);" title="เขียนใบชี้แจง">
+                                                    <img src="images/exclamation-circle_red.ico" width="30"></a><?php }else{?>
+                                                    <a href="#" onClick="window.open('explanationPDF.php?empno=<?= $empno; ?>&amp;id=<?= $result['finger_id']?>&method=exp_sign','','width=700,height=900'); return false;" title="พิมพ์ใบชี้แจง">
+                                                    <img src='images/printer.ico' alt="" width='30' /></a><?php }?></td> 
+                                                    <td align="center"><?php if (!empty($result['explanation'])) {
+                                                    echo "<a href='explanation/".$result['explanation']."' target='_blank'><span class='fa fa-download'></span> ใบชี้แจง" . "<br />";
+                                                        }?></td>
+                                                    <td align="center">
+                                                    <?php if($result['exp_status']=='W'){ ?>
+                            <i class="fa fa-spinner fa-spin" title="รอรับใบชี้แจง"></i></a>
+                            <?php } elseif ($result['exp_status']=='A') {?>
+                            <img src="images/email.ico" width="20" title="รออนุมัติใบชี้แจง"></a>
+                            <?php } elseif ($result['exp_status']=='Y') {?>
+                                    <img src="images/Symbol_-_Check.ico" width="20"  title="อนุมัติ">
+                                     <?php } elseif ($result['exp_status']=='N') {?>
+                                    <img src="images/button_cancel.ico" width="20" title="ไม่อนุมัติ">
+                                     <?php }?>
+                                                </td>
+                                                    <?php if ($_SESSION[Status] == 'ADMIN') { ?>
+                                                <td align="center"><?php if($result['see']=='N'){ echo 'ยังไม่เห็น';} else { echo 'เห็นแล้ว'; }?></td>
+                                                <td align="center">
+                                                    <a href="#" onClick="return popup('add_sign.php?id=<?=$result['empno']?>&method=edit_sign&method_id=<?= $result['finger_id']?>', popup, 450, 600);" title="แก้ไข">
+                                                    <img src='images/tool.png' alt="" width='30' /></a></td>
+                                                <td align="center" width="12%"><a href='detial_leave.php?id=<?= $empno; ?>&finger_id=<?= $result['finger_id']; ?>' onclick="return confirm('กรุณายืนยันการลบอีกครั้ง !!!')"><img src='images/bin1.png' alt="" width='30' /></a></td>
+                                            <?php } ?>
+                                                </tr>
+                                        <?php $i++; }?>
+                                        </table>
+                                 </div>
+                                </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">ข้อมูลการลงเวลาสาย</h3>
+                                </div>
+                                 <div class="panel-body">
+                                        <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">
+                                            <tr align="center" bgcolor="#898888">
+                                                <td align="center" width="5%"><b>ลำดับ</b></td>
+                                                <td align="center" width="10%"><b>วันที่สาย</b></td>
+                                                <td align="center" width="10%"><b>เวลาที่ลง</b></td>
+                                                <td align="center" width="10%"><b>ชี้แจง</b></td>
+                                                <td align="center" width="10%"><b>ใบชี้แจง</b></td>
+                                                <td align="center" width="10%"><b>สถานะ</b></td>                                                
+                                                <?php if ($_SESSION[Status] == 'ADMIN') { ?>
+                                                    <td width="10%" align="center"><b>ผู้ลืม</b></td>
+                                                    <td width="6%" align="center"><b>แก้ไข</b></td>
+                                                    <td align="center" width="6%"><b>ลบ</b></td>
+                                                <?php }?>
+                                            </tr>
+                                             <?php $i = 1;
+                                                        while ($result = mysql_fetch_assoc($detiallate)) {?>
+                                                <tr>
+                                                    <td align="center"><?= $i?></td>
+                                                    <td align="center"><?= DateThai1($result['late_date'])?></td>
+                                                    <td align="center"><?= substr($result['late_time'], 0,5)?> น.</td>
+                                                    <td align="center"><?php if(empty($result['exponent'])){?>
+                                                    <a href="#" onClick="return popup('add_sign.php?id=<?=$result['empno']?>&late_id=<?= $result['late_id']?>&method=exp_late', popup, 450, 500);" title="เขียนใบชี้แจง">
+                                                    <img src="images/exclamation-circle_red.ico" width="30"></a><?php }else{?>
+                                                    <a href="#" onClick="window.open('explanationPDF.php?empno=<?= $empno; ?>&amp;id=<?= $result['late_id']?>&method=exp_late','','width=700,height=900'); return false;" title="พิมพ์ใบชี้แจง">
+                                                    <img src='images/printer.ico' alt="" width='30' /></a><?php }?></td> 
+                                                    <td align="center"><?php if (!empty($result['explanation'])) {
+                                                    echo "<a href='explanation/".$result['explanation']."' target='_blank'><span class='fa fa-download'></span> ใบชี้แจง" . "<br />";
+                                                        }?></td>
+                                                    <td align="center">
+                                                    <?php if($result['exp_status']=='W'){ ?>
+                            <i class="fa fa-spinner fa-spin" title="รอรับใบชี้แจง"></i></a>
+                            <?php } elseif ($result['exp_status']=='A') {?>
+                            <img src="images/email.ico" width="20" title="รออนุมัติใบชี้แจง"></a>
+                            <?php } elseif ($result['exp_status']=='Y') {?>
+                                    <img src="images/Symbol_-_Check.ico" width="20"  title="อนุมัติ">
+                                     <?php } elseif ($result['exp_status']=='N') {?>
+                                    <img src="images/button_cancel.ico" width="20" title="ไม่อนุมัติ">
+                                     <?php }?>
+                                                </td>
+                                                    <?php if ($_SESSION[Status] == 'ADMIN') { ?>
+                                                <td align="center"><?php if($result['see']=='N'){ echo 'ยังไม่เห็น';} else { echo 'เห็นแล้ว'; }?></td>
+                                                <td align="center">
+                                                <a href="#" onClick="return popup('add_sign.php?id=<?=$result['empno']?>&method=edit_late&method_id=<?= $result['late_id']?>', popup, 450, 600);" title="แก้ไข">
+                                                <img src='images/tool.png' alt="" width='30' /></a></td>
+                                                <td align="center" width="12%"><a href='detial_leave.php?id=<?= $empno; ?>&late_id=<?= $result['late_id']; ?>' onclick="return confirm('กรุณายืนยันการลบอีกครั้ง !!!')"><img src='images/bin1.png' alt="" width='30' /></a></td>
+                                            <?php } ?>
+                                                </tr>
+                                                <?php $i++; }?>
+                                        </table>
+                                 </div>
+                                </div>
                         </td>
                     </tr>
                 </table>

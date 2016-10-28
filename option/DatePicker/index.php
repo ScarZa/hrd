@@ -48,7 +48,16 @@
  			$pyear=$take_date[0]+543;
  			$take_date="$take_date[2]/$take_date[1]/$pyear";
                 }
+                function edit_date2($take_date)
+                {
+                
+ 			$take_date=explode("-", $take_date);
+ 			$pyear=$take_date[0]+543;
+ 			$take_date="$take_date[2]/$take_date[1]/$pyear";
+                         return $take_date;
+                }
                         ?>
+
                 
                 
 

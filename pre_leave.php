@@ -113,18 +113,20 @@ echo mysql_error();
 <?php if($_SESSION[Status]=='ADMIN'){?>แสดงคำที่ค้นหา : <?=$Search_word;?><?php }?>
                         <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">
                             <tr align="center" bgcolor="#898888">
-                                <td align="center" width="6%"><b>ลำดับ</b></td>
+                                <td align="center" width="5%"><b>ลำดับ</b></td>
                                 <td align="center" width="9%"><b>เลขที่</b></td>
-                                <td align="center" width="29%"><b>ชื่อ-นามสกุล</b></td>
-                                <td align="center" width="20%"><b>ตำแหน่ง</b></td>
-                                <td align="center" width="11%"><b>บันทึกการลา</b></td>
-                                <td align="center" width="11%"><b>บันทึกการลาชั่วโมง</b></td>
-                                <?if($_SESSION[Status]=='ADMIN'){?>
-                                <td align="center" width="11%"><b>เพิ่มวันลา</b></td>
-                                <?}?>
+                                <td align="center" width="20%"><b>ชื่อ-นามสกุล</b></td>
+                                <td align="center" width="15%"><b>ตำแหน่ง</b></td>
+                                <td align="center" width="10%"><b>บันทึกการลา</b></td>
+                                <td align="center" width="10%"><b>บันทึกการลาชั่วโมง</b></td>
+                                <?php if($_SESSION[Status]=='ADMIN'){?>
+                                <td align="center" width="10%"><b>เพิ่มวันลา</b></td>
+                                <td align="center" width="10%"><b>ลงเวลา</b></td>
+                                <td align="center" width="10%"><b>สาย</b></td>
+                                <?php }?>
                             </tr>
                             
-                            <?
+                            <?php
                              $i=1;
 while($result=mysql_fetch_assoc($qr)){?>
     <tr>
@@ -132,13 +134,19 @@ while($result=mysql_fetch_assoc($qr)){?>
                                 <td align="center"><?=$result[pid];?></td>
                                 <td><a href="detial_leave.php?id=<?=$result[empno];?>"><?=$result[fullname];?></a></td>
                                 <td align="center"><?=$result[posname];?></td>
-                                <td width="11%" align="center"><a href="main_leave.php?id=<?=$result[empno];?>"><img src='images/Letter.png' width='30'></a></td>
-                                <td width="12%" align="center"><a href='time_leave.php?id=<?=$result[empno];?>'><img src='images/Time.png' width='30'></a></td>
-                                <?if($_SESSION[Status]=='ADMIN'){?>
+                                <td align="center"><a href="main_leave.php?id=<?=$result[empno];?>"><img src='images/Letter.png' width='30'></a></td>
+                                <td align="center"><a href='time_leave.php?id=<?=$result[empno];?>'><img src='images/Time.png' width='30'></a></td>
+                                <?php if($_SESSION[Status]=='ADMIN'){?>
                                 <td align="center"><a href="add_leave.php?id=<?=$result[empno];?>"><img src='images/edit_add.ico' width='30'></a></td>
-                                <?}?>
+                                <td align="center">
+                                    <a href="#" onClick="return popup('add_sign.php?id=<?=$result['empno'];?>&method=sign', popup, 450, 500);" title="ลืมลงเวลา">
+                                    <img src='images/crossroads.ico' width='30'></a></td>
+                                    <td align="center">
+                                    <a href="#" onClick="return popup('add_sign.php?id=<?=$result['empno'];?>&method=late', popup, 450, 500);" title="ลืมลงเวลา">
+                                        <img src='images/hourglass.ico' width='30'></a></td>
+                                <?php }?>
     </tr>
-    <? $i++; } ?>
+    <?php $i++; } ?>
                                 
                         </table>
 <?php if($total>0){
@@ -160,4 +168,4 @@ echo mysql_error();
           </div>
 </div>
 
-    <? include 'footer.php';?>
+    <?php include 'footer.php';?>

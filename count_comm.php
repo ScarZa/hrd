@@ -28,7 +28,7 @@ $sql = mysqli_query($db,"select count(re.recomm_id) AS countrecomm from re_comme
                                                     <span class="time"><i class="fa fa-clock-o"></i> <?php
                                                         include_once ('option/funcDateThai.php');
                                                         echo DateThai1($result2['recomm_date']) ; //-----แปลงวันที่เป็นภาษาไทย  
-                                                        ?>
+                                                        ?></span>
                                                     </a></li><li class="divider"></li>
                                             <?php } ?>
                                             
@@ -63,7 +63,80 @@ $sql3 = mysqli_query($db,"select count(comm.comm_id) AS countcomm from comment c
                                                     <span class="time"><i class="fa fa-clock-o"></i> <?php
                                                         include_once ('option/funcDateThai.php');
                                                         echo DateThai1($result4['comm_date']) ; //-----แปลงวันที่เป็นภาษาไทย  
-                                                        ?>
+                                                        ?></span>
+                                                    </a></li><li class="divider"></li>
+                                            <?php } ?>
+                                            
+                                            <!--<li><a href="index.php?page=car/pre_request">ดูทั้งหมด</a></li>-->
+                                        </ul>
+</li>
+<?php }
+$sql5 = mysqli_query($db,"select count(f.finger_id) AS countfinger from fingerprint f
+LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
+LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
+WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$_SESSION[user]' and f.see='N'");
+                                    $result5 = mysqli_fetch_assoc($sql5);
+                                    echo mysqli_error($db);
+                                    if($result5['countfinger']!='0'){
+                                ?>
+<li class="dropdown alerts-dropdown">
+<a href="JavaScript:doCallAjax('countrecomm')" class="dropdown-toggle" data-toggle="dropdown"><img src='images/Bell.ico' width='18'> ลืมลงเวลา   
+<span class="badge_alert" ><?php echo $result5['countfinger']; ?></span><b class="caret"></b></a>
+
+<ul class="dropdown-menu">
+                                            <?php include_once ('option/funcDateThai.php');
+                                            $sql6 = mysqli_query($db,"SELECT f.finger_id,f.empno, f.forget_date,if(work_scan='N','ไม่ลงเวลามา','')as wscan,
+                                                                    if(finish_work_scan='N','ไม่ลงเวลากลับ','')as fwscan
+                                                                        FROM fingerprint f 
+                                                                        LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
+                                                                        LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
+                                                                        WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$_SESSION[user]' and f.see='N'
+                                                                        ORDER BY f.finger_id desc");
+                                            while ($result6 = mysqli_fetch_assoc($sql6)) {
+                                                ?>
+                                                <li><a href="#" onClick="return popup('add_sign.php?id=<?=$result6['empno']?>&scan_id=<?= $result6['finger_id']?>&method=exp_sign', popup, 450, 500);" title="เขียนใบชี้แจง">
+                                                        <span class="name"><b>ลืมลงเวลา วันที่ <?php echo DateThai1($result6['forget_date']); ?></b></span><br>
+                                                        <?php if(!empty($result6['wscan'])){?>
+                                                    <span class="message"><?php echo $result6['wscan']; ?></span><br>
+                                                        <?php } if(!empty($result6['fwscan'])){?>
+                                                    <span class="message"><?php echo $result6['fwscan']; ?></span><br>
+                                                        <?php }?>
+                                                    <span class="time"><i class="fa fa-clock-o"></i> <?php
+                                                        
+                                                        //echo DateThai1($result6['comm_date']) ; //-----แปลงวันที่เป็นภาษาไทย  
+                                                        ?></span>
+                                                    </a></li><li class="divider"></li>
+                                            <?php } ?>
+                                            
+                                            <!--<li><a href="index.php?page=car/pre_request">ดูทั้งหมด</a></li>-->
+                                        </ul>
+</li>
+<?php }
+$sql5 = mysqli_query($db,"select count(l.late_id) AS countlate from late l
+WHERE l.empno='$_SESSION[user]' and l.see='N'");
+                                    $result5 = mysqli_fetch_assoc($sql5);
+                                    echo mysqli_error($db);
+                                    if($result5['countlate']!='0'){
+                                ?>
+<li class="dropdown alerts-dropdown">
+<a href="JavaScript:doCallAjax('countrecomm')" class="dropdown-toggle" data-toggle="dropdown"><img src='images/Bell.ico' width='18'> ลืมลงเวลา   
+<span class="badge_alert" ><?php echo $result5['countlate']; ?></span><b class="caret"></b></a>
+
+<ul class="dropdown-menu">
+                                            <?php include_once ('option/funcDateThai.php');
+                                            $sql6 = mysqli_query($db,"SELECT l.late_id,l.empno, l.late_date,l.late_time
+                                                                        FROM late l
+                                                                        WHERE l.empno='$_SESSION[user]' and l.see='N'
+                                                                        ORDER BY l.late_id desc");
+                                            while ($result6 = mysqli_fetch_assoc($sql6)) {
+                                                ?>
+                                                <li><a href="#" onClick="return popup('add_sign.php?id=<?=$result6['empno']?>&late_id=<?= $result6['late_id']?>&method=exp_late', popup, 450, 500);" title="เขียนใบชี้แจง">
+                                                        <span class="name"><b>ลงเวลาสาย วันที่ <?php echo DateThai1($result6['late_date']); ?></b></span><br>
+                                                        <span class="message">ลงเวลา <?php echo substr($result6['late_time'], 0,5); ?> น.</span><br>
+                                                        <span class="time"><i class="fa fa-clock-o"></i> <?php
+                                                        
+                                                        //echo DateThai1($result6['comm_date']) ; //-----แปลงวันที่เป็นภาษาไทย  
+                                                        ?></span>
                                                     </a></li><li class="divider"></li>
                                             <?php } ?>
                                             
@@ -71,3 +144,4 @@ $sql3 = mysqli_query($db,"select count(comm.comm_id) AS countcomm from comment c
                                         </ul>
 </li>
 <?php }?>
+
