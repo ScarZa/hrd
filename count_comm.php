@@ -91,24 +91,20 @@ WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$_SESSION[user]' and f.se
                                                                         LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
                                                                         LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
                                                                         WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and f.empno='$_SESSION[user]' and f.see='N'
-                                                                        ORDER BY f.finger_id desc");
+                                                                        ORDER BY f.finger_id desc limit 10");
                                             while ($result6 = mysqli_fetch_assoc($sql6)) {
                                                 ?>
                                                 <li><a href="#" onClick="return popup('add_sign.php?id=<?=$result6['empno']?>&scan_id=<?= $result6['finger_id']?>&method=exp_sign', popup, 450, 500);" title="เขียนใบชี้แจง">
                                                         <span class="name"><b>ลืมลงเวลา วันที่ <?php echo DateThai1($result6['forget_date']); ?></b></span><br>
                                                         <?php if(!empty($result6['wscan'])){?>
-                                                    <span class="message"><?php echo $result6['wscan']; ?></span><br>
+                                                    <span class="message"><i class="fa fa-clock-o"></i> <?php echo $result6['wscan']; ?></span><br>
                                                         <?php } if(!empty($result6['fwscan'])){?>
-                                                    <span class="message"><?php echo $result6['fwscan']; ?></span><br>
+                                                    <span class="message"><i class="fa fa-clock-o"></i> <?php echo $result6['fwscan']; ?></span><br>
                                                         <?php }?>
-                                                    <span class="time"><i class="fa fa-clock-o"></i> <?php
-                                                        
-                                                        //echo DateThai1($result6['comm_date']) ; //-----แปลงวันที่เป็นภาษาไทย  
-                                                        ?></span>
                                                     </a></li><li class="divider"></li>
                                             <?php } ?>
                                             
-                                            <!--<li><a href="index.php?page=car/pre_request">ดูทั้งหมด</a></li>-->
+                                                    <li><a href="detial_leave.php">ดูทั้งหมด</a></li>
                                         </ul>
 </li>
 <?php }
@@ -127,20 +123,16 @@ WHERE l.empno='$_SESSION[user]' and l.see='N'");
                                             $sql6 = mysqli_query($db,"SELECT l.late_id,l.empno, l.late_date,l.late_time
                                                                         FROM late l
                                                                         WHERE l.empno='$_SESSION[user]' and l.see='N'
-                                                                        ORDER BY l.late_id desc");
+                                                                        ORDER BY l.late_id desc limit 10");
                                             while ($result6 = mysqli_fetch_assoc($sql6)) {
                                                 ?>
                                                 <li><a href="#" onClick="return popup('add_sign.php?id=<?=$result6['empno']?>&late_id=<?= $result6['late_id']?>&method=exp_late', popup, 450, 500);" title="เขียนใบชี้แจง">
                                                         <span class="name"><b>ลงเวลาสาย วันที่ <?php echo DateThai1($result6['late_date']); ?></b></span><br>
-                                                        <span class="message">ลงเวลา <?php echo substr($result6['late_time'], 0,5); ?> น.</span><br>
-                                                        <span class="time"><i class="fa fa-clock-o"></i> <?php
-                                                        
-                                                        //echo DateThai1($result6['comm_date']) ; //-----แปลงวันที่เป็นภาษาไทย  
-                                                        ?></span>
+                                                        <span class="message"><i class="fa fa-clock-o"></i> ลงเวลา <?php echo substr($result6['late_time'], 0,5); ?> น.</span><br>
                                                     </a></li><li class="divider"></li>
                                             <?php } ?>
                                             
-                                            <!--<li><a href="index.php?page=car/pre_request">ดูทั้งหมด</a></li>-->
+                                                    <li><a href="detial_leave.php">ดูทั้งหมด</a></li>
                                         </ul>
 </li>
 <?php }?>
