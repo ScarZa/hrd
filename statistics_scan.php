@@ -138,7 +138,7 @@ foreach($allEmpData as $empCode=>$empName){
 	echo '<td>&nbsp;&nbsp;'. $empName .'</td>';
 	//เรียกข้อมูลการจองของพนักงานแต่ละคน ในเดือนนี้
 	for($j=1;$j<=$lastDay;$j++){
-		$numBook = isset($allReportData[$empCode][$j]) ? '<div>'.$allReportData[$empCode][$j].'</div>' : 0;
+		$numBook = isset($allReportData[$empCode][$j]) ? '<div>'.$allReportData[$empCode][$j].'</div>' : _;
                 $check = ($checkReportData[$empCode][$j]=='W') ? "class='number'" : "align='center'";
 		echo "<td $check>".$numBook."</td>";
 	}
