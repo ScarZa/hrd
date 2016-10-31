@@ -1,0 +1,2 @@
+ALTER TABLE `emppersonal`
+MODIFY COLUMN `empno`  int(4) NOT NULL AUTO_INCREMENT FIRST;

@@ -287,6 +287,7 @@ filter:grayscale(100%);
                                     <li><a href="conclude_transfer.php"><img src='images/folder_sent.ico' width='25'> โอนลาชั่วโมง</a></li>
                                     <li class="divider"></li>
                                     <li><a href="Lperson_report.php"><img src='images/kchart.ico' width='25'> สถิติการลาแยกหน่วยงาน</a></li>
+                                    <li><a href="statistics_scan.php"><img src='images/kchart.ico' width='25'> สถิติการลืมลงเวลา</a></li>
                                     <!--<li><a href="statistics_leave.php"><img src='images/kchart.ico' width='25'> สถิติการลา</a></li>-->
                                     <li><a href="Lperson_report_sum.php?screen=1"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกหน่วยงาน</a></li>
                                     <li><a href="Lperson_report_sum.php?screen=2"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกประเภทบุคลากร</a></li>
@@ -435,4 +436,4 @@ function KillMe()
 setTimeout("self.close()",StayAlive * 1000); 
 } 
 </script>            
-<div id="page-wrapper"><br>
+<div id="page-wrapper">
