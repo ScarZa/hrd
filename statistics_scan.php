@@ -108,7 +108,7 @@ while($row = mysql_fetch_assoc($qry)){
 
 //เรียกข้อมูลการจองของเดือนที่ต้องการ
 $allReportData = array();
-$strSQL = "SELECT f.empno,DAY(f.forget_date)forget_date,if(f.work_scan!='','มม','')work_scan,if(f.finish_work_scan!='','มก','')finish_work_scan
+$strSQL = "SELECT f.empno,DAY(f.forget_date)forget_date,if(f.work_scan!='','มม','')work_scan,if(f.finish_work_scan!='','มก','')finish_work_scan,f.exp_status
     FROM fingerprint f 
 LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
 LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
@@ -117,6 +117,7 @@ order by f.empno;";
 $qry = mysql_query($strSQL) or die('ไม่สามารถเชื่อมต่อฐานข้อมูลได้ Error : '. mysql_error());
 while($row = mysql_fetch_assoc($qry)){
 	$allReportData[$row['empno']][$row['forget_date']] = $row['work_scan'].'/'.$row['finish_work_scan'];
+        $checkReportData[$row['empno']][$row['forget_date']] = $row['exp_status'];
 }
 echo "<tr><td align='center'><b> เดือน ".$month_name['month_name']." ปี พ.ศ. ".($year+543)."</b></td></tr><tr><td>";
 echo "<table width='100%' border='0' id='test_report' cellpadding='0' cellspacing='0'>";
@@ -134,11 +135,12 @@ for($day=1;$day<=$lastDay;$day++){
 echo "</tr>";
 foreach($allEmpData as $empCode=>$empName){
 	echo '<tr>';//เปิดแถวใหม่ ตาราง HTML
-	echo '<td>'. $empName .'</td>';
+	echo '<td>&nbsp;&nbsp;'. $empName .'</td>';
 	//เรียกข้อมูลการจองของพนักงานแต่ละคน ในเดือนนี้
 	for($j=1;$j<=$lastDay;$j++){
 		$numBook = isset($allReportData[$empCode][$j]) ? '<div>'.$allReportData[$empCode][$j].'</div>' : 0;
-		echo "<td class='number'>".$numBook."</td>";
+                $check = ($checkReportData[$empCode][$j]=='W') ? "class='number'" : "align='center'";
+		echo "<td $check>".$numBook."</td>";
 	}
 	echo '</tr>';//ปิดแถวตาราง HTML
 }
