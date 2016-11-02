@@ -31,10 +31,10 @@ if (empty($_SESSION[user])) {
 </style>
 <div class="row">
     <div class="col-lg-12">
-        <h1><font color='blue'>  สถิติการลืมลงเวลา </font></h1> 
+        <h1><font color='blue'>  สถิติการลงเวลาสาย </font></h1> 
         <ol class="breadcrumb alert-success">
             <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
-            <li class="active"><i class="fa fa-edit"></i> สถิติการลืมลงเวลา</li>
+            <li class="active"><i class="fa fa-edit"></i> สถิติการลงเวลาสาย</li>
         </ol>
     </div>
 </div>
@@ -42,13 +42,13 @@ if (empty($_SESSION[user])) {
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">ตารางสถิติการลืมลงเวลาของบุคลากร</h3>
+                <h3 class="panel-title">ตารางสถิติการลงเวลาสายของบุคลากร</h3>
             </div>
             <div class="panel-body"><div class="col-lg-12">
                     <div class="alert alert-info alert-dismissable row">
                         <?php if ($_SESSION[Status] == 'ADMIN') { ?>
                             <div class="form-group" align="right"> 
-                                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="navbar-form navbar-right" enctype="multipart/form-data">
+                                <form method="POST" action="" class="navbar-form navbar-right" enctype="multipart/form-data">
                                     <label> ระบุเดือน-ปี : </label>
                                     <div class="form-group">
                                         <select name="txt_month" class="form-control">
@@ -88,7 +88,7 @@ if (empty($_SESSION[user])) {
                                     <input type="submit" class="btn btn-success" value="ตกลง" />
                                 </form></div>
                         </div></div>
-                    <a class="btn btn-success" download="scan<?= $_POST['txt_month'] . '_' . ($_POST['txt_year'] + 543) ?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', '<?= $_POST['txt_month'] . '/' . ($_POST['txt_year'] + 543) ?>');">Export to Excel</a>
+                    <a class="btn btn-success" download="late<?= $_POST['txt_month'] . '_' . ($_POST['txt_year'] + 543) ?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', '<?= $_POST['txt_month'] . '/' . ($_POST['txt_year'] + 543) ?>');">Export to Excel</a>
                     <div class='table-responsive'>
                         <table class="table table-responsive"  id="datatable" width="100%" border="0" cellspacing="0" cellpadding="0">
                         <?php
@@ -109,7 +109,7 @@ if (empty($_SESSION[user])) {
                             $strSQL = "SELECT e.empno,CONCAT(p.pname,e.firstname,'  ',e.lastname)as fullname
 FROM emppersonal e
 INNER JOIN pcode p ON p.pcode=e.pcode
-INNER JOIN fingerprint f on f.empno=e.empno
+INNER JOIN late l on l.empno=e.empno
 ORDER BY e.firstname";
                             $qry = mysql_query($strSQL) or die('ไม่สามารถเชื่อมต่อฐานข้อมูลได้ Error : ' . mysql_error());
                             while ($row = mysql_fetch_assoc($qry)) {
@@ -118,16 +118,14 @@ ORDER BY e.firstname";
 
 //เรียกข้อมูลการจองของเดือนที่ต้องการ
                             $allReportData = array();
-                            $strSQL = "SELECT f.empno,DAY(f.forget_date)forget_date,if(f.work_scan!='','มม','')work_scan,if(f.finish_work_scan!='','มก','')finish_work_scan,f.exp_status
-    FROM fingerprint f 
-LEFT JOIN `work` w ON f.empno=w.enpid AND f.forget_date BETWEEN w.begindate AND w.enddate AND w.statusla='Y'
-LEFT JOIN plan_out p ON f.empno=p.empno AND f.forget_date BETWEEN p.begin_date AND p.end_date
-WHERE ISNULL(w.enpid) AND ISNULL(p.empno) and (f.forget_date LIKE '$year-$month%')
-order by f.empno";
+                            $strSQL = "SELECT l.empno,DAY(l.late_date)late_date,SUBSTR(l.late_time,2,4)late_time,l.exp_status
+    FROM late l
+WHERE l.late_date LIKE '$year-$month%'
+order by l.empno";
                             $qry = mysql_query($strSQL) or die('ไม่สามารถเชื่อมต่อฐานข้อมูลได้ Error : ' . mysql_error());
                             while ($row = mysql_fetch_assoc($qry)) {
-                                $allReportData[$row['empno']][$row['forget_date']] = $row['work_scan'] . '/' . $row['finish_work_scan'];
-                                $checkReportData[$row['empno']][$row['forget_date']] = $row['exp_status'];
+                                $allReportData[$row['empno']][$row['late_date']] = $row['late_time'];
+                                $checkReportData[$row['empno']][$row['late_date']] = $row['exp_status'];
                             }
                             echo "<tr><td align='center'><b> เดือน " . $month_name['month_name'] . " ปี พ.ศ. " . ($year + 543) . "</b></td></tr><tr><td>";
                             echo "<table class='table-responsive' width='100%' border='0' id='test_report' cellpadding='0' cellspacing='0'>";
@@ -160,7 +158,7 @@ order by f.empno";
                            $i++; }
                             echo "</table>";
                         }
-                        ?><br><b style="color: red"> * มม = ไม่ลงเวลามา<br> &nbsp; มก = ไม่ลงเวลากลับ</b>
+                        ?>
                         </td></tr></table></div>
             </div></div></div></div>
 <?php include 'footer.php'; ?>

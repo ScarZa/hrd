@@ -264,6 +264,54 @@ if (empty($sql)) {
             //echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=mainpost_page.php'>";
 }
 
+}elseif($method=='approve_scan'){
+    
+    $empno=$_POST['empno'];
+    $finger_id=$_POST['id'];
+    $exp_status=$_POST['exp_status'];
+    $editdate=date("Y-m-d");   
+    $editer=$_SESSION[user];
+
+$sql=$db->prepare('update fingerprint set exp_status=?, editer=? ,  editdate=?  
+        where empno=? and finger_id=?');
+$sql->bind_param('sisii',$exp_status,$editer,$editdate,$empno,$finger_id);
+$sql->execute();
+if (empty($sql)) {
+    echo "<p>";
+        echo "Insert not complete" .mysqli_error ($sql);
+        echo "<br />";
+        echo "<br />";
+
+        echo "	<span class='glyphicon glyphicon-remove'></span>";
+        echo "<a href='add_sign.php?id=$empno' >กลับ</a>";
+}else {
+            //echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=mainpost_page.php'>";
+}
+
+}elseif($method=='approve_late'){
+    
+    $empno=$_POST['empno'];
+    $late_id=$_POST['id'];
+    $exp_status=$_POST['exp_status'];
+    $editdate=date("Y-m-d");   
+    $editer=$_SESSION[user];
+
+$sql=$db->prepare('update late set exp_status=?, editer=? ,  editdate=?  
+        where empno=? and late_id=?');
+$sql->bind_param('sisii',$exp_status,$editer,$editdate,$empno,$late_id);
+$sql->execute();
+if (empty($sql)) {
+    echo "<p>";
+        echo "Insert not complete" .mysqli_error ();
+        echo "<br />";
+        echo "<br />";
+
+        echo "	<span class='glyphicon glyphicon-remove'></span>";
+        echo "<a href='add_sign.php?id=$empno' >กลับ</a>";
+}else {
+            //echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=mainpost_page.php'>";
+}
+
 }
 }
   include 'footeri.php';?>

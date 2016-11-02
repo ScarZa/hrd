@@ -35,15 +35,24 @@
 <script src="option/js/excellentexport.js"></script>
  
 <!-- InstanceBeginEditable name="head" -->
-    <style type="text/css">
+<!--<style type="text/css">
 html{
 -moz-filter:grayscale(100%);
 -webkit-filter:grayscale(100%);
 filter:gray;
 filter:grayscale(100%);
 }
-</style>
-     <script type="text/javascript">
+</style>-->
+<style type="text/css">
+.black-ribbon {   position: fixed;   z-index: 9999;   width: 70px; }
+@media only all and (min-width: 768px) { .black-ribbon { width: auto; } }
+
+.stick-left { left: 0; }
+.stick-right { right: 0; }
+.stick-top { top: 0; }
+.stick-bottom { bottom: 0; }
+</style>     
+<script type="text/javascript">
         function resizeIframe(obj)// auto height iframe
     {
         {
@@ -128,6 +137,8 @@ filter:grayscale(100%);
                      <?php }else{ ?>
     <body Onload="bodyOnload();">    
                      <?php }?>
+                <!-- Top Left -->
+<img src="https://goo.gl/Yl6KNg" class="black-ribbon stick-top stick-left"/>
         <!--<div id="wrapper">-->
             <!-- Sidebar -->
             <script src="option/js/jquery.min.js"></script>

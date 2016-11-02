@@ -430,13 +430,16 @@ $check_tl = mysql_fetch_assoc($count_check);
                                                     <a href="#" onClick="window.open('explanationPDF.php?empno=<?= $empno; ?>&amp;id=<?= $result['finger_id']?>&method=exp_sign','','width=700,height=900'); return false;" title="พิมพ์ใบชี้แจง">
                                                     <img src='images/printer.ico' alt="" width='30' /></a><?php }?></td> 
                                                     <td align="center"><?php if (!empty($result['explanation'])) {
-                                                    echo "<a href='explanation/".$result['explanation']."' target='_blank'><span class='fa fa-download'></span> ใบชี้แจง" . "<br />";
+                                                    echo "<a href='explanation/".$result['explanation']."' target='_blank'><span class='fa fa-download'></span> ใบชี้แจง" . "</a><br />";
                                                         }?></td>
                                                     <td align="center">
                                                     <?php if($result['exp_status']=='W'){ ?>
-                            <i class="fa fa-spinner fa-spin" title="รอรับใบชี้แจง"></i></a>
-                            <?php } elseif ($result['exp_status']=='A') {?>
-                            <img src="images/email.ico" width="20" title="รออนุมัติใบชี้แจง"></a>
+                            <i class="fa fa-spinner fa-spin" title="รอรับใบชี้แจง"></i>
+                            <?php } elseif ($result['exp_status']=='A') {
+                                if ($_SESSION[Status] == 'ADMIN') { ?>
+                            <a href="#" onClick="return popup('approve_sign.php?id=<?=$result['empno']?>&scan_id=<?= $result['finger_id']?>&method=approve_sign', popup, 450, 500);" title="อนุมัติใบชี้แจง">
+                                <?php }?>
+                                <img src="images/email.ico" width="20" title="รออนุมัติใบชี้แจง"></a>
                             <?php } elseif ($result['exp_status']=='Y') {?>
                                     <img src="images/Symbol_-_Check.ico" width="20"  title="อนุมัติ">
                                      <?php } elseif ($result['exp_status']=='N') {?>
@@ -495,7 +498,10 @@ $check_tl = mysql_fetch_assoc($count_check);
                                                     <td align="center">
                                                     <?php if($result['exp_status']=='W'){ ?>
                             <i class="fa fa-spinner fa-spin" title="รอรับใบชี้แจง"></i></a>
-                            <?php } elseif ($result['exp_status']=='A') {?>
+                            <?php } elseif ($result['exp_status']=='A') {
+                                if ($_SESSION[Status] == 'ADMIN') { ?>
+                            <a href="#" onClick="return popup('approve_sign.php?id=<?=$result['empno']?>&late_id=<?= $result['late_id']?>&method=approve_late', popup, 450, 500);" title="อนุมัติใบชี้แจง">
+                                <?php }?>
                             <img src="images/email.ico" width="20" title="รออนุมัติใบชี้แจง"></a>
                             <?php } elseif ($result['exp_status']=='Y') {?>
                                     <img src="images/Symbol_-_Check.ico" width="20"  title="อนุมัติ">

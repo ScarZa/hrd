@@ -35,13 +35,22 @@
 <script src="option/js/excellentexport.js"></script>
  
 <!-- InstanceBeginEditable name="head" -->
-    <style type="text/css">
+    <!--<style type="text/css">
 html{
 -moz-filter:grayscale(100%);
 -webkit-filter:grayscale(100%);
 filter:gray;
 filter:grayscale(100%);
 }
+</style>-->
+<style type="text/css">
+.black-ribbon {   position: fixed;   z-index: 9999;   width: 70px; }
+@media only all and (min-width: 768px) { .black-ribbon { width: auto; } }
+
+.stick-left { left: 0; }
+.stick-right { right: 0; }
+.stick-top { top: 0; }
+.stick-bottom { bottom: 0; }
 </style>
      <script type="text/javascript">
         function resizeIframe(obj)// auto height iframe
@@ -128,6 +137,8 @@ filter:grayscale(100%);
                      <?php }else{ ?>
     <body Onload="bodyOnload();">    
                      <?php }?>
+        <!-- Top Left -->
+<img src="https://goo.gl/Yl6KNg" class="black-ribbon stick-top stick-left"/>
         <!--<div id="wrapper">-->
             <!-- Sidebar -->
             <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -287,10 +298,13 @@ filter:grayscale(100%);
                                     <li><a href="conclude_transfer.php"><img src='images/folder_sent.ico' width='25'> โอนลาชั่วโมง</a></li>
                                     <li class="divider"></li>
                                     <li><a href="Lperson_report.php"><img src='images/kchart.ico' width='25'> สถิติการลาแยกหน่วยงาน</a></li>
-                                    <li><a href="statistics_scan.php"><img src='images/kchart.ico' width='25'> สถิติการลืมลงเวลา</a></li>
                                     <!--<li><a href="statistics_leave.php"><img src='images/kchart.ico' width='25'> สถิติการลา</a></li>-->
                                     <li><a href="Lperson_report_sum.php?screen=1"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกหน่วยงาน</a></li>
                                     <li><a href="Lperson_report_sum.php?screen=2"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกประเภทบุคลากร</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="statistics_scan.php"><img src='images/kchart.ico' width='25'> สถิติการลืมลงเวลา</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="statistics_late.php"><img src='images/kchart.ico' width='25'> สถิติการลงสาย</a></li>
                             <?php }else{?> 
                                     <li><a href="pre_leave.php"><img src='images/Lfolder.ico' width='25'> บันทึกการลาบุคลากร</a></li>
                             <?php } if($_SESSION[Status]=='SUSER' or $_SESSION[Status]=='USUSER'){?>
