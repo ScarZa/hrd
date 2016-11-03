@@ -153,6 +153,7 @@ order by f.empno";
                                      if($checkReportData[$empCode][$j] == 'W') {$check = "class='number' style='color: red'";}
                                             elseif ($checkReportData[$empCode][$j] == 'A'){$check = "class='number2' style='color: blue'";}
                                             elseif ($checkReportData[$empCode][$j] == 'N'){$check = "align='center' style='color: #b79191'";} 
+                                            elseif ($checkReportData[$empCode][$j] == 'Y'){$check = "align='center' style='color: green'";} 
                                             else{$check = "align='center'";}
                                     echo "<td $check>" . $numBook . "</td>";
                                 }
@@ -160,7 +161,11 @@ order by f.empno";
                            $i++; }
                             echo "</table>";
                         }
-                        ?><br><b style="color: red"> * มม = ไม่ลงเวลามา<br> &nbsp; มก = ไม่ลงเวลากลับ</b>
+                        ?><br><b style="color: red"> * มม = ไม่ลงเวลามา<br> &nbsp; มก = ไม่ลงเวลากลับ</b><br>
+                        &nbsp; <b style="background-color: yellow;color: red">&nbsp;มม&nbsp;</b> = ยังไม่ชี้แจง<br>
+                        &nbsp; <b style="background-color: green;color: white">&nbsp;มก&nbsp;</b> = ชี้แจงแล้วแต่ยังไม่อนุมัติ<br>
+                        &nbsp; <b style="color: green">&nbsp;มม&nbsp;</b> = อนุมัติ<br>
+                        &nbsp; <b style="color: #b79191">&nbsp;มก&nbsp;</b> = ไม่อนุมัติ
                         </td></tr></table></div>
             </div></div></div></div>
 <?php include 'footer.php'; ?>
