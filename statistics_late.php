@@ -109,7 +109,7 @@ if (empty($_SESSION[user])) {
                             $strSQL = "SELECT e.empno,CONCAT(p.pname,e.firstname,'  ',e.lastname)as fullname
 FROM emppersonal e
 INNER JOIN pcode p ON p.pcode=e.pcode
-INNER JOIN late l on l.empno=e.empno
+INNER JOIN late l on l.empno=e.empno and l.late_date LIKE '$year-$month%'
 ORDER BY e.firstname";
                             $qry = mysql_query($strSQL) or die('ไม่สามารถเชื่อมต่อฐานข้อมูลได้ Error : ' . mysql_error());
                             while ($row = mysql_fetch_assoc($qry)) {
