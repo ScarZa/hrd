@@ -24,8 +24,9 @@
                             from emppersonal e1 
                             inner join pcode p1 on e1.pcode=p1.pcode
                             inner join department d1 on e1.depid=d1.depId
-                            inner join posid p2 on e1.posid=p2.posId
-                            where e1.empno='$empno'");
+                            INNER JOIN work_history wh ON wh.empno=e1.empno
+                            inner join posid p2 on wh.posid=p2.posId
+                            where e1.empno='$empno' and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))");
 include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
     if($_REQUEST['train']=='in'){

@@ -101,7 +101,7 @@ LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30') and t.chek='1'
+where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30')
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
@@ -131,7 +131,7 @@ order by Beginedate desc";
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
                                 where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION['user']."'
-                                    or t.nameAdmin='".$_SESSION['user']."') and t.chek='1'
+                                    or t.nameAdmin='".$_SESSION['user']."')
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
@@ -158,7 +158,7 @@ LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$Y-10-01' and '$y-09-30') and t.chek='1'
+where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$Y-10-01' and '$y-09-30') 
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
@@ -188,7 +188,7 @@ order by Beginedate desc";
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count, p.status_out as status_out from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
                                 where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION['user']."'
-                                or t.nameAdmin='".$_SESSION['user']."') and t.chek='1'
+                                or t.nameAdmin='".$_SESSION['user']."') 
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){

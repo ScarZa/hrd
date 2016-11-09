@@ -35,18 +35,15 @@ if (empty($_SESSION[user])) {
                         <h3 class="panel-title">ข้อมูลตำแหน่งบุคลากร</h3>
                     </div>
                     <div class="panel-body">
-                        <?
-                            $sql=  mysql_query("SELECT p.posname as posname,e2.TypeName as typename,COUNT(e1.emptype) as sum
+                        <?php
+                            $sql=  mysql_query("SELECT p.posname as posname,e2.TypeName as typename,COUNT(wh.emptype) as sum
 FROM posid p
-INNER JOIN emppersonal e1 on e1.posid=p.posId
-INNER JOIN emptype e2 on e1.emptype=e2.EmpType
-where e1.status='1' and e1.status ='1'
+INNER JOIN work_history wh ON p.posId=wh.posid and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))
+INNER JOIN emppersonal e1 on e1.empno=wh.empno
+INNER JOIN emptype e2 on wh.emptype=e2.EmpType
+where e1.status='1' 
 GROUP BY p.posId,e2.EmpType
-ORDER BY p.posId,e2.EmpType ");
-                            
-                            
-                            
-                        ?>
+ORDER BY p.posId,e2.EmpType"); ?>
                       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">
                           <tr bgcolor="#898888">
                               <th>ลำดับ</th>
@@ -54,7 +51,7 @@ ORDER BY p.posId,e2.EmpType ");
                               <th>ประเภทพนักงาน</th>
                               <th>จำนวน</th>
                           </tr>
-                          <?
+                          <?php
                               $i = 1;
                                 while ($detial_type=  mysql_fetch_assoc($sql)){
                               ?>
@@ -64,12 +61,10 @@ ORDER BY p.posId,e2.EmpType ");
                               <td><?=$detial_type[typename]?></td>
                               <td align="center"><?=$detial_type[sum]?></td>
                           </tr>
-                          <?
-                                $i++; }
-                              ?>
+                          <?php $i++; }?>
                       </table>
                     </div>
                 </div>
             </div>
         </div>
-<? include 'footer.php'; ?>
+<?php include 'footer.php'; ?>

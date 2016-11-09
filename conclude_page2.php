@@ -29,10 +29,11 @@
     $project_id=$_REQUEST[pro_id];
     $sql_person=  mysql_query("select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname, po.status_out as status_out 
         from emppersonal e1 
-INNER JOIN posid p1 on e1.posid=p1.posId
+INNER JOIN work_history wh ON wh.empno=e1.empno
+inner join posid p1 on wh.posid=p1.posId
 inner join pcode p2 on e1.pcode=p2.pcode
 inner join plan_out po on po.empno=e1.empno
-where e1.posid=p1.posId and e1.status ='1' and po.idpo='$project_id'
+where e1.posid=p1.posId and e1.status ='1' and po.idpo='$project_id' and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))
 ORDER BY empno");
     require_once('option/library/MPDF54/mpdf.php'); //ที่อยู่ของไฟล์ mpdf.php ในเครื่องเรานะครับ
 ob_start(); // ทำการเก็บค่า html นะครับ*/

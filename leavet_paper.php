@@ -36,8 +36,9 @@ INNER JOIN pcode p on p.pcode=e.pcode");
             inner join pcode p1 on e1.pcode=p1.pcode
             inner join department d1 on e1.depid=d1.depId
             inner join department_group d2 on d2.main_dep=d1.main_dep
-            inner join posid p2 on e1.posid=p2.posId
-            where t1.empno='$empno' and t1.id='$workid'");
+            INNER JOIN work_history wh ON wh.empno=e1.empno
+            inner join posid p2 on wh.posid=p2.posId
+            where t1.empno='$empno' and t1.id='$workid' and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))");
     $work=  mysql_fetch_assoc($sql);
     
     $sql_leave=  mysql_query("select ty.nameLa,w.begindate,w.enddate,w.amount FROM print_leave p

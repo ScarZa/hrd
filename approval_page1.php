@@ -36,8 +36,9 @@ $sql_per = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as 
                                                         from emppersonal e1 
                                                         inner join pcode p1 on e1.pcode=p1.pcode
                                                         inner join department d1 on e1.depid=d1.depId
-                                                        inner join posid p2 on e1.posid=p2.posId
-                                                        where e1.empno='$empno'");
+                                                        INNER JOIN work_history wh ON wh.empno=e1.empno
+                                                        inner join posid p2 on wh.posid=p2.posId
+                                                        where e1.empno='$empno' and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))");
     $sql_pro = mysql_query("SELECT t.*, p.PROVINCE_NAME,t2.tName as tname FROM training_out t
             inner join province p on t.provenID=p.PROVINCE_ID
             inner join trainingtype t2 on t2.tid=t.dt

@@ -4,8 +4,7 @@ if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
 }
-?>
-<?
+
 if ($_REQUEST[work_id] != '') {
     $work_id = $_REQUEST[work_id];
     echo $work_id;
@@ -16,8 +15,7 @@ if ($_REQUEST[work_id] != '') {
     $sql_delt = "delete from timela where id='$time_id'";
     mysql_query($sql_delt) or die(mysql_error());
 }
-?>
-<?
+
 $empno = $_REQUEST[id];
 if ($_SESSION[emp] != '') {
     $empno = $_SESSION[emp];
@@ -29,9 +27,10 @@ $name_detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname)
                             from emppersonal e1 
                             inner join pcode p1 on e1.pcode=p1.pcode
                             inner join department d1 on e1.depid=d1.depId
-                            inner join posid p2 on e1.posid=p2.posId
-                            inner join emptype e2 on e2.EmpType=e1.emptype
-                            where e1.empno='$empno'");
+                            inner JOIN work_history wh ON wh.empno=e1.empno
+                            inner JOIN posid p2 ON p2.posId=wh.posid
+                            inner join emptype e2 on e2.EmpType=wh.emptype
+                            where e1.empno='$empno' and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))");
 $NameDetial = mysql_fetch_assoc($name_detial);
 
 $sql_leave=  mysql_query("SELECT empno FROM leave_day WHERE empno='$empno'");

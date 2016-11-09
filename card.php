@@ -27,8 +27,9 @@
 <?php $empno=$_REQUEST[id];
 include 'connection/connect_i.php';
 $sql = $db->prepare("SELECT CONCAT(e1.firstname,' ',e1.lastname) as fullname,p1.posname as posion,e1.photo as photo FROM emppersonal e1
-INNER JOIN posid p1 on e1.posid=p1.posId
-WHERE e1.empno= ?");
+inner JOIN work_history wh ON wh.empno=e1.empno
+inner JOIN posid p1 ON p1.posId=wh.posid
+WHERE e1.empno= ?  and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))");
 $sql->bind_param("i",$empno);
 $sql->execute();
 $sql->bind_result($name,$posion,$photo);

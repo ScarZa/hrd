@@ -99,11 +99,12 @@ if (empty($_SESSION[user])) {
                 $q="SELECT CONCAT(p.pname,e.firstname,' ',e.lastname) as fullname,p1.posname as position ,e1.TypeName as type,e.empno as empno, e.pid as pid
 FROM emppersonal e
 LEFT OUTER JOIN pcode p ON e.pcode=p.pcode
-LEFT OUTER JOIN emptype  e1 ON e1.EmpType=e.emptype
-LEFT OUTER JOIN posid p1 ON p1.posId=e.posid
+LEFT OUTER JOIN work_history wh ON wh.empno=e.empno
+LEFT OUTER JOIN posid p1 ON p1.posId=wh.posid
+LEFT OUTER JOIN emptype  e1 ON e1.EmpType=wh.emptype
 $code_mdep1
-WHERE e.status='1' $code_mdep2
-ORDER BY position";
+WHERE e.status='1' $code_mdep2 and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))
+ORDER BY wh.his_id desc";
                 if($_SESSION[Status]!='ADMIN'){
              if ($_SESSION[Status]=='SUSER') {   
                 $sql_dep=  mysql_query("select depName as name from department where depId='$depno'");

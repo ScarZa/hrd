@@ -110,30 +110,34 @@ $Search_word=($_SESSION[Keyword_per_to]);
 //คำสั่งค้นหา
      $q="select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname, po.status_out as status_out, tout.dt 
          from emppersonal e1 
-INNER JOIN posid p1 on e1.posid=p1.posId
+inner JOIN work_history wh ON wh.empno=e1.empno
+inner JOIN posid p1 ON p1.posId=wh.posid
 inner join pcode p2 on e1.pcode=p2.pcode
 inner join plan_out po on po.empno=e1.empno
 inner join training_out tout on tout.tuid=po.idpo
-         WHERE e1.posid=p1.posId and (firstname LIKE '%$Search_word%' or empno LIKE '%$Search_word%' or pid LIKE '%$Search_word%') and e1.status ='1' order by empno"; 
+         WHERE wh.posid=p1.posId and (firstname LIKE '%$Search_word%' or empno LIKE '%$Search_word%' or pid LIKE '%$Search_word%')
+             and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and e1.status ='1' order by empno"; 
  }else{
  $q="select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname, po.status_out as status_out, tout.dt 
      from emppersonal e1 
-INNER JOIN posid p1 on e1.posid=p1.posId
+inner JOIN work_history wh ON wh.empno=e1.empno
+inner JOIN posid p1 ON p1.posId=wh.posid
 inner join pcode p2 on e1.pcode=p2.pcode
 inner join plan_out po on po.empno=e1.empno
 inner join training_out tout on tout.tuid=po.idpo
-where e1.posid=p1.posId and e1.status ='1' and po.idpo='$project_id'
+where wh.posid=p1.posId and e1.status ='1' and po.idpo='$project_id'  and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))
 ORDER BY empno";
  }
 }else{
     $empno=$_SESSION[user];
     $q="select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname, po.status_out as status_out, tout.dt 
         from emppersonal e1 
-INNER JOIN posid p1 on e1.posid=p1.posId
+inner JOIN work_history wh ON wh.empno=e1.empno
+inner JOIN posid p1 ON p1.posId=wh.posid
 inner join pcode p2 on e1.pcode=p2.pcode
 inner join plan_out po on po.empno=e1.empno
 inner join training_out tout on tout.tuid=po.idpo
-where e1.posid=p1.posId and po.empno='$empno' and po.idpo='$project_id'
+where wh.posid=p1.posId and po.empno='$empno' and po.idpo='$project_id'  and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))
 ORDER BY empno";
 }
 $qr=mysql_query($q);

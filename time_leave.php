@@ -60,8 +60,9 @@ if($_REQUEST[method]=='edit_Tleave'){
                                                         from emppersonal e1 
                                                         inner join pcode p1 on e1.pcode=p1.pcode
                                                         inner join department d1 on e1.depid=d1.depId
-                                                        inner join posid p2 on e1.posid=p2.posId
-                                                        where e1.empno='$empno'");
+                                                        inner JOIN work_history wh ON wh.empno=e1.empno
+                                                        inner JOIN posid p2 ON p2.posId=wh.posid
+                                                        where e1.empno='$empno' and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))");
                             $detial_l= mysql_fetch_assoc($select_det);
                             include_once'option/DatePicker/index.php';
                         ?>
