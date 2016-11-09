@@ -86,7 +86,7 @@ $Search_word=($_SESSION[txtKeyword]);
 inner JOIN work_history wh ON wh.empno=e1.empno
 inner JOIN posid p1 ON p1.posId=wh.posid
 inner join pcode p2 on e1.pcode=p2.pcode
-         WHERE e1.posid=p1.posId and (firstname LIKE '%$Search_word%' or empno LIKE '%$Search_word%' or pid LIKE '%$Search_word%')
+         WHERE wh.posid=p1.posId and (firstname LIKE '%$Search_word%' or e1.empno LIKE '%$Search_word%' or pid LIKE '%$Search_word%')
              and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and e1.status ='1' order by empno"; 
  }else{
  $q="select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname from emppersonal e1 
