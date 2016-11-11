@@ -84,7 +84,7 @@
                 <div class="row">  
                 <div class="form-group col-lg-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
                 <div class="form-group sm"> 
-                <select name="take_hour_st" id="take_hour" class="form-control">
+                <select name="take_hour_st" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
                     <?php for($i=0;$i<=23;$i++){
                         if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],0,2))){$selected='selected';}else{$selected='';}
@@ -96,7 +96,7 @@
                 </select>
                 </div>
                     <div class="form-group">
-                <select name="take_minute_st" id="take_minute" class="form-control">
+                <select name="take_minute_st" id="take_minute" class="form-control" required>
                     <option value="">นาที</option>
                     <?php for($i=0;$i<=59;$i++){
                         if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],3,2))){$selected='selected';}else{$selected='';}
@@ -109,7 +109,7 @@
                     </div></div>
                 <div class="form-group col-lg-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
                 <div class="form-group"> 
-                <select name="take_hour_en" id="take_hour" class="form-control">
+                <select name="take_hour_en" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
                     <?php for($i=0;$i<=23;$i++){
                         if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],0,2))){$selected='selected';}else{$selected='';}
@@ -121,7 +121,7 @@
                 </select>
                 </div>
                     <div class="form-group"> 
-                <select name="take_minute_en" id="take_minute" class="form-control">
+                <select name="take_minute_en" id="take_minute" class="form-control" required>
                     <option value="">นาที</option>
                     <?php for($i=0;$i<=59;$i++){
                         if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],3,2))){$selected='selected';}else{$selected='';}
@@ -134,7 +134,7 @@
                     </div></div></div>
                      <div class="form-group">
                         <label for="amount_date">จำนวนวันที่ไป</label>
-                        <input name="amount_date" id="amount_date" type="text" value="<?= $amount?>" size="1" onkeyup="javascript:inputDigits(this);" class="form-control" placeholder='จำนวนวัน'>
+                        <input name="amount_date" id="amount_date" type="text" value="<?= $amount?>" size="1" onkeyup="javascript:inputDigits(this);" class="form-control" placeholder='จำนวนวัน' required>
                         <font color="red"><b>** หากไม่ถึงครึ่งวัน ไม่ต้องใส่</b></font>
                      </div>
                 <div class="form-group" > 
@@ -161,10 +161,10 @@
                     <div>
                         <b>การใช้รถครั้งนี้ขอให้พนักงานขับรถ</b><br>
                     <div class="form-group">
-                        <input type="radio" name="wait" id="wait" value="N"> 
+                        <input type="radio" name="wait" id="wait" value="N" required> 
                         ไม่รอรับ </div>
                     <div class="form-group">
-                                <input type="radio" name="wait" id="wait" value="Y"> 
+                                <input type="radio" name="wait" id="wait" value="Y" required> 
                     รอรับ </div>
                     </div>
                     <div align="center">
