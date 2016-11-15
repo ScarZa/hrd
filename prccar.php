@@ -37,7 +37,7 @@ function KillMe()
 setTimeout("self.close()",StayAlive * 1000); 
 } 
 </script>
-<body onLoad="KillMe();self.focus();window.opener.location.reload();">
+<body onLoad="KillMe();self.focus();window.opener.location;">
     <?php
 echo	 "<p>&nbsp;</p>	"; 
 echo	 "<p>&nbsp;</p>	";
