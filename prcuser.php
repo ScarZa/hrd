@@ -1,13 +1,14 @@
-<?PHP include'header.php';?>
+<?PHP include'header.php';include 'function/string_to_ascii.php';?>
 <?PHP
  echo "<br><br><br><br>";
  
       $user_name=$_POST[name];	 	  	 
       $admin=$_POST[admin];	
-      $user_account=md5(trim($_POST[user_account]));
+      //เข้ารหัส ascii//$user_account=md5(string_to_ascii(trim($_POST['user_account'])));
+      $user_account=md5(trim($_POST['user_account']));
       $username=$_POST[user_account];
-      $user_pwd= md5(trim($_POST[user_pwd]));
- 	 
+      //เข้ารหัส ascii//$user_pwd= md5(string_to_ascii(trim($_POST['user_pwd'])));
+      $user_pwd= md5(trim($_POST['user_pwd']));
 
  	  
 	if($_POST[method]=='update'){

@@ -1,9 +1,10 @@
-<?php @session_start(); ?>
+<?php @session_start();include 'function/string_to_ascii.php'; ?>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <?php
-$user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_ENCODED)));
-$user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_ENCODED)));
-
+//เข้ารหัส ascii//$user_account = md5(string_to_ascii(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_STRING))));
+//เข้ารหัส ascii//$user_pwd = md5(string_to_ascii(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_STRING))));
+$user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_STRING)));
+$user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_STRING)));
 include 'header.php';
 echo "<DIV  align='center'><IMG src='images/tororo_dance.gif' width='300'>
     <p>&nbsp;</p>
