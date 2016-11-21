@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';if(isset($_GET['unset'])){ unset_session();} ?>
 <?php
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
@@ -84,9 +84,9 @@ if (empty($_SESSION[user])) {
                 }
                 include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
-                if ($_SESSION[check_rec] != "") {
-                    $date01=$_SESSION[receive_date1];
-                    $date02=$_SESSION[receive_date2];
+                if ($_SESSION['check_rec'] != "") {
+                    $date01=$_SESSION['check_date01'];
+                    $date02=$_SESSION['check_date02'];
 //คำสั่งค้นหา
                     if($_REQUEST[method]=='status_leave' and $_REQUEST[select_status]!=''){
                         $regis=$_REQUEST[select_status];
@@ -150,9 +150,9 @@ order by w.workid desc,reg_date desc";
                     
                 }
 }else{
-                if ($_SESSION[check_rec] != "") {
-                    $date01=$_SESSION[receive_date1];
-                    $date02=$_SESSION[receive_date2];
+                if ($_SESSION['check_rec'] != "") {
+                    $date01=$_SESSION['check_date01'];
+                    $date02=$_SESSION['check_date02'];
 //คำสั่งค้นหา
                     if($_REQUEST[method]=='status_leave' and $regis=$_REQUEST[select_status]!=''){
                         $regis=$_REQUEST[select_status]."111";
@@ -247,14 +247,14 @@ order by w.workid desc,reg_date desc";
                 echo mysql_error();
                 ?>
 
-                <? include_once ('option/funcDateThai.php'); ?>
+                <?php include_once ('option/funcDateThai.php'); ?>
                 <a class="btn btn-success" download="report_leave.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
                 <table id="datatable" align="center" width="100%" border="1">
-                    <? if ($_SESSION[check_rec] == 'check_receive') { ?>
+                    <?php if ($_SESSION['check_rec'] == 'check_receive') { ?>
                         <tr>
                             <td colspan="9" align="center">ตั้งแต่วันที่ <?= DateThai1($date01); ?> ถึง <?= DateThai1($date02); ?></td>
                         </tr>
-                    <? } ?>
+                    <?php } ?>
                     <tr align="center" bgcolor="#898888">
                         <td width="4%" align="center"><b>ลำดับ</b></td>
                         <td width="10%" align="center"><b>เลขทะเบียนรับ</b></td>
@@ -282,16 +282,16 @@ order by w.workid desc,reg_date desc";
                             <td align="center"><?= $result[namela]; ?></td>
                             <td align="center"><?= DateThai1($result[begindate]); ?> <b>ถึง</b> <?= DateThai1($result[enddate]); ?></td>
                             <td align="center">
-                           <? if($result[regis_leave]=='W'){ ?>
+                           <?php if($result[regis_leave]=='W'){ ?>
                             <a href="#" onClick="return popup('regis_leave.php?id=<?= $result[enpid]?>&Lno=<?= $result[workid]?>', popup, 450, 600);" title="รอลงทะเบียนรับใบลา"><i class="fa fa-spinner fa-spin"></i></a>
-                            <? } elseif ($result[regis_leave]=='A') {?>
+                            <?php } elseif ($result[regis_leave]=='A') {?>
                             <a href="#" onClick="return popup('regis_leave.php?method=confirm_leave&id=<?= $result[enpid]?>&Lno=<?= $result[workid]?>', popup, 450, 600);" title="รออนุมัติใบลา">
                                     <img src="images/email.ico" width="20"></a>
-                            <? } elseif ($result[regis_leave]=='Y') {?>
+                            <?php } elseif ($result[regis_leave]=='Y') {?>
                                     <img src="images/Symbol_-_Check.ico" width="20"  title="อนุมัติ">
                                      <?} elseif ($result[regis_leave]=='N') {?>
                                     <img src="images/button_cancel.ico" width="20" title="ไม่อนุมัติ">
-                                     <?}?>
+                                     <?php }?>
                                         </td>
                         </tr>
                         <?php
@@ -317,11 +317,11 @@ order by w.workid desc,reg_date desc";
                 </div>
                 <a class="btn btn-success" download="report_time_leave.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable2', 'Sheet Name Here');">Export to Excel</a><br><br>
                 <table id="datatable2" align="center" width="100%" border="1">
-                        <? if ($_SESSION[check_rec] == 'check_receive') { ?>
+                        <?php if ($_SESSION['check_rec'] == 'check_receive') { ?>
                         <tr>
                             <td colspan="9" align="center">ตั้งแต่วันที่ <?= DateThai1($date01); ?> ถึง <?= DateThai1($date02); ?></td>
                         </tr>
-<? } ?>
+<?php } ?>
                     <tr align="center" bgcolor="#898888">
                         <td width="4%" align="center"><b>ลำดับ</b></td>
                         <td width="10%" align="center"><b>เลขทะเบียนรับ</b></td>
@@ -335,7 +335,7 @@ order by w.workid desc,reg_date desc";
 
                     </tr>
 
-                    <?
+                    <?php
                     $i = 1;
                     while ($result2 = mysql_fetch_assoc($qr2)) {
                         ?>
@@ -349,22 +349,19 @@ order by w.workid desc,reg_date desc";
                             <td align="center">ลาชั่วโมง</td>
                             <td align="center"><?= DateThai1($result2[datela]); ?>&nbsp; <?= $result2[starttime]; ?> <b>ถึง</b> <?= $result2[endtime]; ?></td>
                             <td align="center">
-                           <? if($result2[regis_time]=='W'){ ?>
+                           <?php if($result2[regis_time]=='W'){ ?>
                             <a href="#" onClick="return popup('regis_tleave.php?id=<?= $result2[empno]?>&Lno=<?= $result2[id]?>', popup, 450, 550);" title="รอลงทะเบียนรับใบลา"><i class="fa fa-spinner fa-spin"></i></a>
-                            <? } elseif ($result2[regis_time]=='A') {?>
+                            <?php } elseif ($result2[regis_time]=='A') {?>
                             <a href="#" onClick="return popup('regis_tleave.php?method=confirm_tleave&id=<?= $result2[empno]?>&Lno=<?= $result2[id]?>', popup, 450, 580);" title="รออนุมัติใบลา">
                                     <img src="images/email.ico" width="20"></a>
-                            <? } elseif ($result2[regis_time]=='Y') {?>
+                            <?php } elseif ($result2[regis_time]=='Y') {?>
                                     <img src="images/Symbol_-_Check.ico" width="20"  title="อนุมัติ">
-                                     <?} elseif ($result2[regis_time]=='N') {?>
+                                     <?php } elseif ($result2[regis_time]=='N') {?>
                                     <img src="images/button_cancel.ico" width="20" title="ไม่อนุมัติ">
-                                     <?}?>
+                                     <?php }?>
                                         </td>
                         </tr>
-                        <?
-                        $i++;
-                    }
-                    ?>
+                        <?php $i++;}?>
 
                 </table>
                 <?php

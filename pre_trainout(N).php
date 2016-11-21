@@ -1,5 +1,4 @@
-<?php include 'header.php'; ?>
-<?php
+<?php include 'header.php'; if(isset($_GET['unset'])){ unset_session();}
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
@@ -69,9 +68,9 @@ if (empty($_SESSION[user])) {
 
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_trainout] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_trainout]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT tro.memberbook, tro.projectName, tro.anProject, tro.Beginedate, tro.endDate, tro.tuid,

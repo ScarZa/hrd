@@ -1,5 +1,8 @@
 <?php
 include 'header.php';
+if(isset($_GET['unset'])){
+    unset_session();
+}
 ?>
 <?php
 if (!$db or ! $con) {

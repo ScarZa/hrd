@@ -1,4 +1,5 @@
-<?php include 'header.php';?>
+<?php include 'header.php';if(isset($_GET['unset'])){
+    unset_session();}?>
 <?php if(empty($_SESSION[user])){echo "<meta http-equiv='refresh' content='0;url=index.php'/>";exit();} ?>
 <?php
 if ($_REQUEST['del_id'] != "") { //ถ้า ค่า del_id ไม่เท่ากับค่าว่างเปล่า
@@ -77,9 +78,9 @@ function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){
 	}
 }   
  if($_POST[method]=='txtKeyword'){
-$_SESSION[txtKeyword]=$_POST[txtKeyword];
+$_SESSION['txtKeyword']=$_POST[txtKeyword];
  }
-$Search_word=($_SESSION[txtKeyword]);
+$Search_word=($_SESSION['txtKeyword']);
  if($Search_word != ""){
 //คำสั่งค้นหา
      $q="select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname from emppersonal e1 

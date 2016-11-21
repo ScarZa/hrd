@@ -13,8 +13,8 @@
         if(!empty($_REQUEST[id])){
         $empno = $_REQUEST[id];
         }else{
-        if($_SESSION[emp]!=''){
-        $empno = $_SESSION[emp];
+        if($_SESSION['emp']!=''){
+        $empno = $_SESSION['emp'];
             
         }elseif ($_SESSION[Status]=='USER' or $_SESSION[Status]=='SUSER') {
     $empno = $_SESSION[user];
@@ -30,14 +30,14 @@
 include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
     if($_REQUEST['train']=='in'){
-            $date01=$_SESSION[pro_date1];
-            $date02=$_SESSION[pro_date2];
+            $date01=$_SESSION['check_date01'];
+            $date02=$_SESSION['check_date02'];
             }elseif ($_REQUEST['train']=='out') {
-            $date01=$_SESSION[out_date1];
-            $date02=$_SESSION[out_date2];
+            $date01=$_SESSION['check_date01'];
+            $date02=$_SESSION['check_date02'];
         }  else {                    
-            $date01=$_SESSION[stat_date1];
-            $date02=$_SESSION[stat_date2];
+            $date01=$_SESSION['check_date01'];
+            $date02=$_SESSION['check_date02'];
         }
         if ($date01!='' and $date02!='') {
             
@@ -145,14 +145,14 @@ where p0.empno='$empno' and p0.status_out='Y' and p0.begin_date BETWEEN '$y-10-0
         }
 }  else {
     if($_REQUEST['train']=='in'){
-            $date01=$_SESSION[pro_date1];
-            $date02=$_SESSION[pro_date2];
+            $date01=$_SESSION['check_date01'];
+            $date02=$_SESSION['check_date02'];
             }elseif ($_REQUEST['train']=='out') {
-            $date01=$_SESSION[out_date1];
-            $date02=$_SESSION[out_date2];
+            $date01=$_SESSION['check_date01'];
+            $date02=$_SESSION['check_date02'];
         }  else {                    
-            $date01=$_SESSION[stat_date1];
-            $date02=$_SESSION[stat_date2];
+            $date01=$_SESSION['check_date01'];
+            $date02=$_SESSION['check_date02'];
         }
         if ($date01!='' and $date02!='') {
             

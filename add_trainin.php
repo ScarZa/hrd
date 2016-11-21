@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'header.php';if(isset($_GET['unset'])){ unset_session();}?>
 <?php if(empty($_SESSION[user])){echo "<meta http-equiv='refresh' content='0;url=index.php'/>";exit();} ?>
 <?php
     $trainin_id = $_REQUEST['id'];
@@ -8,7 +8,7 @@
             <h1><font color='blue'>  บันทึกประวัติการอบรมภายใน </font></h1> 
             <ol class="breadcrumb alert-success">
               <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
-              <li><a href="pre_trainin.php"><i class="fa fa-home"></i> บันทึกการฝึกอบรมภายในหน่วยงาน</a></li>
+              <li><a href="pre_trainin.php?unset=1"><i class="fa fa-home"></i> บันทึกการฝึกอบรมภายในหน่วยงาน</a></li>
               <li class="active"><i class="fa fa-edit"></i> บันทึกประวัติการอบรมภายใน</li>
             </ol>
           </div>
@@ -68,9 +68,9 @@ function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){
 	}
 }   
  if($_POST['method']=='txtKeyword'){
-$_SESSION['Keyword_addT']=$_POST['txtKeyword'];
+$_SESSION['txtKeyword']=$_POST['txtKeyword'];
  }
-$Search_word=($_SESSION['Keyword_addT']);
+$Search_word=($_SESSION['txtKeyword']);
  if($Search_word != ""){
 //คำสั่งค้นหา
      $q="select e1.empno as empno, e1.pid as pid, concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname, p1.posname as posname from emppersonal e1 
