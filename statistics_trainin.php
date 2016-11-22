@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';if(isset($_GET['unset'])){ unset_session();}?>
 <?php
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
@@ -99,12 +99,12 @@ if (empty($_SESSION[user])) {
         
 include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
-                if ($_SESSION[check_pro] == '') {
+                if ($_SESSION['check_pro'] == '') {
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_project] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_project]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
@@ -128,18 +128,18 @@ where e1.status ='1' and (p.bdate BETWEEN '$y-10-01' and '$Yy-09-30') $code_dep
 GROUP BY e1.empno";
                     }
                 } else {
-                    $date01 = $_SESSION[pro_date1];
-                    $date02 = $_SESSION[pro_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_project] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_project]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
-(SELECT COUNT(p.pjid) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')and(p.edate between '$date01' and '$date02')) project,
-(SELECT SUM(p.amount) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')and(p.edate between '$date01' and '$date02')) amount
+(SELECT COUNT(p.pjid) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')) project,
+(SELECT SUM(p.amount) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')) amount
 FROM emppersonal e1
 LEFT OUTER JOIN plan p on e1.empno=p.type_id
 INNER JOIN pcode p2 on e1.pcode=p2.pcode
@@ -147,8 +147,8 @@ INNER JOIN pcode p2 on e1.pcode=p2.pcode
          GROUP BY e1.empno";
                     } else {
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
-(SELECT COUNT(p.pjid) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')and(p.edate between '$date01' and '$date02')) project,
-(SELECT SUM(p.amount) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')and(p.edate between '$date01' and '$date02')) amount
+(SELECT COUNT(p.pjid) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')) project,
+(SELECT SUM(p.amount) FROM plan p WHERE p.type_id=e1.empno and (p.bdate between '$date01' and '$date02')) amount
 FROM emppersonal e1
 LEFT OUTER JOIN plan p on e1.empno=p.type_id
 INNER JOIN pcode p2 on e1.pcode=p2.pcode $code_inner where 1 $code_dep
@@ -157,12 +157,12 @@ INNER JOIN pcode p2 on e1.pcode=p2.pcode $code_inner where 1 $code_dep
 }
 
                     }  else {
-                    if ($_SESSION[check_pro] == '') {
+                    if ($_SESSION['check_pro'] == '') {
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_project] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_project]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
@@ -186,13 +186,13 @@ where e1.status ='1' and (p.bdate BETWEEN '$Y-10-01' and '$y-09-30') $code_dep
 GROUP BY e1.empno";
                     }
                 } else {
-                    $date01 = $_SESSION[pro_date1];
-                    $date02 = $_SESSION[pro_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_project] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_project]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
@@ -239,21 +239,21 @@ INNER JOIN pcode p2 on e1.pcode=p2.pcode $code_inner where 1 $code_dep
                 echo mysql_error();
                 ?>
 
-                    <? include_once ('option/funcDateThai.php'); ?>
+                    <?php include_once ('option/funcDateThai.php'); ?>
                 แสดงคำที่ค้นหา : <?= $Search_word; ?>
                 <table align="center" width="100%" border="1">
-                    <? if ($_SESSION[check_pro] == 'check_pro_trainin') { ?>
+                    <?php if ($_SESSION['check_pro'] == 'check_pro_trainin') { ?>
                         <tr>
                             <td colspan="5" align="center">ตั้งแต่วันที่ <?= DateThai1($date01); ?> ถึง <?= DateThai1($date02); ?></td>
                         </tr>
-<? } ?>
+<?php } ?>
                     <tr align="center" bgcolor="#898888">
                         <td width="16%" align="center"><b>ลำดับ</b></td>
                         <td width="40%" align="center"><b>ชื่อ-นามสกุล</b></td>
                         <td width="22%" align="center"><b>จำนวนโครงการ</b></td>
                         <td width="22%" align="center"><b>จำนวนชั่วโมง</b></td>
                     </tr>
-                    <?
+                    <?php
                     $i = 1;
                     while ($result = mysql_fetch_assoc($qr)) {
                         ?>
@@ -263,7 +263,7 @@ INNER JOIN pcode p2 on e1.pcode=p2.pcode $code_inner where 1 $code_dep
                             <td align="center"><?= $result[project]; ?></td>
                             <td align="center"><?= $result[amount]; ?></td>
                         </tr>
-                    <? $i++;
+                    <?php $i++;
                 }
                 ?>
 
@@ -286,4 +286,4 @@ if ($total > 0) {
             </div>
         </div>
     </div>
-<? include 'footer.php'; ?>
+<?php include 'footer.php'; ?>

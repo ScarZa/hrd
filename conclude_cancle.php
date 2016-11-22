@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';if(isset($_GET['unset'])){ unset_session();} ?>
 <?php if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
@@ -50,7 +50,7 @@ include_once ('option/funcDateThai.php');
                         <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">
                             <?php include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
-                            if($_SESSION[check_cancle]==''){
+                            if($_SESSION['check_cancle']==''){
 $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as fullname,e1.empno as empno,w.*,c.*,t1.*
                             from emppersonal e1 
                             inner join pcode p1 on e1.pcode=p1.pcode
@@ -59,8 +59,8 @@ $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as f
                             inner join typevacation t1 on w.typela=t1.idla
                             where statusla='N' and begindate BETWEEN '$y-10-01' and '$Yy-09-30' order by fullname");
 }else{
-    $dates=$_SESSION[cancle_date1];
-    $datee=$_SESSION[cancle_date2];
+    $dates=$_SESSION['check_date01'];
+    $datee=$_SESSION['check_date02'];
    $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as fullname,e1.empno as empno,w.*,c.*,t1.*
                             from emppersonal e1 
                             inner join pcode p1 on e1.pcode=p1.pcode
@@ -69,7 +69,7 @@ $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as f
                             inner join typevacation t1 on w.typela=t1.idla
                             where statusla='N' and cancledate between '$dates' and '$datee' order by fullname"); 
 }}  else {
-                            if($_SESSION[check_cancle]==''){
+                            if($_SESSION['check_cancle']==''){
 $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as fullname,e1.empno as empno,w.*,c.*,t1.*
                             from emppersonal e1 
                             inner join pcode p1 on e1.pcode=p1.pcode
@@ -78,8 +78,8 @@ $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as f
                             inner join typevacation t1 on w.typela=t1.idla
                             where statusla='N'and begindate BETWEEN '$Y-10-01' and '$y-09-30' order by fullname");
 }else{
-    $dates=$_SESSION[cancle_date1];
-    $datee=$_SESSION[cancle_date2];
+    $dates=$_SESSION['check_date01'];
+    $datee=$_SESSION['check_date02'];
    $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as fullname,e1.empno as empno,w.*,c.*,t1.*
                             from emppersonal e1 
                             inner join pcode p1 on e1.pcode=p1.pcode
@@ -88,7 +88,7 @@ $detial = mysql_query("select concat(p1.pname,e1.firstname,' ',e1.lastname) as f
                             inner join typevacation t1 on w.typela=t1.idla
                             where statusla='N' and cancledate between '$dates' and '$datee' order by fullname"); 
 }}
-                            if($_SESSION[check_cancle]!=''){?>
+                            if($_SESSION['check_cancle']!=''){?>
                             <tr>
                                 <td colspan="9" align="center"><b>ตั้งแต่วันที่ <?=DateThai1($dates)?> ถึง <?=DateThai1($dates)?> </b></td>
                             </tr>

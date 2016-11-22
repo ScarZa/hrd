@@ -1,5 +1,4 @@
-<?php include 'header.php';?>
-<?php
+<?php include 'header.php';if(isset($_GET['unset'])){ unset_session();}
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
@@ -68,16 +67,16 @@ if (empty($_SESSION[user])) {
                   <?php }?>
 
  <?php         
-   		$take_date1=$_SESSION[Lperson_date1];
-                $take_date2=$_SESSION[Lperson_date2];
+   		$take_date1=$_SESSION['check_date01'];
+                $take_date2=$_SESSION['check_date02'];
                 include_once ('option/funcDateThai.php');
 		$take_rec_date= "$result[take_rec_date]";
 		DateThai1($take_date1); //-----แปลงวันที่เป็นภาษาไทย
 		DateThai2($take_date2); //-----แปลงวันที่เป็นภาษาไทย
                
                 if($_SESSION[Status]=='ADMIN' or $_SESSION[Status]=='USUSER'){
-               if($_SESSION[dep_Lperson]=='Lperson_dep'){ 
-               $depno=$_REQUEST[depname];}else{$depno='';}
+               if($_SESSION['dep_Lperson']=='Lperson_dep'){ 
+               $depno=$_REQUEST['depname'];}else{$depno='';}
                 }elseif ($_SESSION[Status]=='SUSER') {
                     $depno=$_SESSION[dep];
                 }
@@ -151,7 +150,7 @@ $depname = mysql_fetch_assoc($sql_dep);
 <div class="table-responsive">
     <a class="btn btn-success" download="report_dep_leave.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
 <table  id="datatable" align="center" width="100%" border="1">
-    <?php if ($_SESSION[check_Lperson]=='Lperson_date') { ?>
+    <?php if ($_SESSION['check_Lperson']=='Lperson_date') { ?>
                         <tr>
                             <td colspan="18" align="center">ตั้งแต่วันที่ <?= DateThai1($take_date1); ?> ถึง <?= DateThai2($take_date2); ?></td>
                         </tr>

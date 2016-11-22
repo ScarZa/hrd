@@ -1,5 +1,4 @@
-<?php include 'header.php'; ?>
-<?php
+<?php include 'header.php';if(isset($_GET['unset'])){ unset_session();}
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
@@ -35,14 +34,14 @@ if (empty($_SESSION[user])) {
                             <button type="submit" class="btn btn-success">ตกลง</button>
                         </form>
                     </div>
-                    <br><? //} ?><br></div>
+                    <br><br></div>
                 <?php if($_SESSION[Status]=='ADMIN'){ ?>
-                <form class="navbar-form navbar-right" name="frmSearch" role="search" method="post" action="pre_trainout.php">
+                <form class="navbar-form navbar-right" name="frmSearch" role="search" method="post" action="pre_trainout.php" enctype="multipart/form-data">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" placeholder="ค้นหา" name='txtKeyword' class="form-control" value="<?php echo $Search_word; ?>" >
+                                    <input type="text" placeholder="ค้นหา" name='txtKeyword' class="form-control" value="<?php echo $_POST['txtKeyword']?>" >
                                     <input type='hidden' name='method'  value='txtKeyword'>
                                 </div> <button type="submit" class="btn btn-warning"><i class="fa fa-search"></i> Search</button> </td>
 
@@ -85,12 +84,12 @@ if (empty($_SESSION[user])) {
                 }
 include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
-                if ($_SESSION[check_trainout] == '') {
+                if ($_SESSION['check_trainout'] == '') {
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_trainout] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_trainout]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
@@ -101,7 +100,7 @@ LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30')
+where (p.empno='".$_SESSION[user]."' or t.nameAdmin='".$_SESSION[user]."') and  (t.Beginedate  BETWEEN '$y-10-01' and '$Yy-09-30')
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
@@ -112,13 +111,13 @@ GROUP BY t.tuid
 order by Beginedate desc";
                     }
                 } else {
-                    $date01 = $_SESSION[trainout_date1];
-                    $date02 = $_SESSION[trainout_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_trainout] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_trainout]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
@@ -130,8 +129,8 @@ order by Beginedate desc";
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
-                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION['user']."'
-                                    or t.nameAdmin='".$_SESSION['user']."')
+                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION[user]."'
+                                    or t.nameAdmin='".$_SESSION[user]."')
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
@@ -142,12 +141,12 @@ order by Beginedate desc";
                                 order by Beginedate desc";
                     }
 }}else{
-if ($_SESSION[check_trainout] == '') {
+if ($_SESSION['check_trainout'] == '') {
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_trainout] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_trainout]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
@@ -158,7 +157,7 @@ LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count from training_out t 
 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo
-where (p.empno='".$_SESSION['user']."' or t.nameAdmin='".$_SESSION['user']."') and  (t.Beginedate  BETWEEN '$Y-10-01' and '$y-09-30') 
+where (p.empno='".$_SESSION[user]."' or t.nameAdmin='".$_SESSION[user]."') and  (t.Beginedate  BETWEEN '$Y-10-01' and '$y-09-30') 
 GROUP BY t.tuid 
 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
@@ -169,13 +168,13 @@ GROUP BY t.tuid
 order by Beginedate desc";
                     }
                 } else {
-                    $date01 = $_SESSION[trainout_date1];
-                    $date02 = $_SESSION[trainout_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_trainout] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_trainout]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count, p.status_out as status_out from training_out t 
@@ -187,8 +186,8 @@ order by Beginedate desc";
                     } elseif($_SESSION[Status]=='USER') {
                         $q = "SELECT p.status_out, t.*,COUNT(p.empno) as count, p.status_out as status_out from training_out t 
                                 LEFT OUTER JOIN plan_out p on t.tuid=p.idpo 
-                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION['user']."'
-                                or t.nameAdmin='".$_SESSION['user']."') 
+                                where (t.Beginedate between '$date01' and '$date02') and (t.endDate between '$date01' and '$date02') and (p.empno='".$_SESSION[user]."'
+                                or t.nameAdmin='".$_SESSION[user]."') 
                                 GROUP BY t.tuid                                 
                                 order by Beginedate desc";
                     }elseif($_SESSION[Status]=='ADMIN'){
@@ -230,7 +229,7 @@ order by Beginedate desc";
                 แสดงคำที่ค้นหา : <?= $Search_word; ?>
                 <?php }?>
                 <table align="center" width="100%" border="1">
-                    <?php if ($_SESSION[check_trainout] == 'check_trainout') { ?>
+                    <?php if ($_SESSION['check_trainout'] == 'check_trainout') { ?>
                         <tr>
                             <td colspan="9" align="center">ตั้งแต่วันที่ <?= DateThai1($date01); ?> ถึง <?= DateThai1($date02); ?></td>
                         </tr>

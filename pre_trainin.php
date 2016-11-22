@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php'; if(isset($_GET['unset'])){ unset_session();}?>
 <?php
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
@@ -83,12 +83,12 @@ if (empty($_SESSION[user])) {
                 }
 include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
-                if ($_SESSION[check_trainin] == '') {
+                if ($_SESSION['check_trainin'] == '') {
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_train] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_train]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT * from trainingin 
@@ -98,13 +98,13 @@ if($date >= $bdate and $date <= $edate){
                         $q = "SELECT * from trainingin where dateBegin BETWEEN '$y-10-01' and '$Yy-09-30' order by dateBegin desc";
                     }
                 } else {
-                    $date01 = $_SESSION[trainin_date1];
-                    $date02 = $_SESSION[trainin_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_train] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_train]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT * from trainingin 
@@ -118,12 +118,12 @@ if($date >= $bdate and $date <= $edate){
                     }
                 }
 }else{
-                    if ($_SESSION[check_trainin] == '') {
+                    if ($_SESSION['check_trainin'] == '') {
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_train] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_train]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT * from trainingin 
@@ -133,13 +133,13 @@ if($date >= $bdate and $date <= $edate){
                         $q = "SELECT * from trainingin where dateBegin BETWEEN '$Y-10-01' and '$y-09-30' order by dateBegin desc";
                     }
                 } else {
-                    $date01 = $_SESSION[trainin_date1];
-                    $date02 = $_SESSION[trainin_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'txtKeyword') {
-                        $_SESSION[Keywords_train] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keywords_train]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT * from trainingin 
@@ -181,11 +181,11 @@ if($date >= $bdate and $date <= $edate){
                     <? include_once ('option/funcDateThai.php'); ?>
                 แสดงคำที่ค้นหา : <?= $Search_word; ?>
                 <table align="center" width="100%" border="1">
-                    <? if ($_SESSION[check_trainin] == 'check_trainin') { ?>
+                    <?php if ($_SESSION['check_trainin'] == 'check_trainin') { ?>
                         <tr>
                             <td colspan="19" align="center">ตั้งแต่วันที่ <?= DateThai1($date01); ?> ถึง <?= DateThai1($date02); ?></td>
                         </tr>
-<? } ?>
+<?php } ?>
                     <tr align="center" bgcolor="#898888">
                         <td width="5%" align="center"><b>ลำดับ</b></td>
                         <td width="45%" align="center"><b>ชื่อโครงการ</b></td>
@@ -195,7 +195,7 @@ if($date >= $bdate and $date <= $edate){
                         <td width="6%" align="center"><b>แก้ไข</b></td>
                     </tr>
 
-                    <?
+                    <?php
                     $i = 1;
                     while ($result = mysql_fetch_assoc($qr)) {
                         ?>
@@ -208,7 +208,7 @@ if($date >= $bdate and $date <= $edate){
                             <td align="center"><a href="add_project.php?method=edit&&id=<?=$result[idpi];?>"><img src='images/tool.png' width='30'></a></td>
                             
                         </tr>
-                    <? $i++;
+                    <?php $i++;
                 }
                 ?>
 
@@ -232,4 +232,4 @@ if ($total > 0) {
         </div>
     </div>
 
-<? include 'footer.php'; ?>
+<?php include 'footer.php'; ?>

@@ -153,7 +153,7 @@ filter:grayscale(100%);
                         <span class="icon-bar"></span>
                     </button>
                     
-                    <a class="navbar-brand logo-mini" href="./"><img alt="Brand" src="images/kuser.ico" width='35'> 
+                    <a class="navbar-brand logo-mini" href="index.php?unset=1"><img alt="Brand" src="images/kuser.ico" width='35'> 
                         <font color='#ffff00'><b>HRD S</b>ystem V.1.8.1</font>
                     </a>
                 </div>
@@ -268,22 +268,22 @@ filter:grayscale(100%);
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/kuser.ico' width='25'> บุคลากร <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <?php if($_SESSION[Status]=='ADMIN'){?>
-                                    <li><a href="add_person.php"><img src='images/adduser.ico' width='25'> เพิ่มข้อมูลบุคลากร</a></li>
-                                    <li><a href="pre_person.php"><img src='images/identity.png' width='25'> ข้อมูลบุคลากร</a></li>
-                                    <li><a href="pre_educate.php"><img src='images/Student.ico' width='25'> ประวัติการศึกษา</a></li>
-                                    <li><a href="pre_Whistory.php"><img src='images/work.ico' width='25'> ประวัติการทำงาน</a></li>
-                                    <li><a href="resign_person.php"><img src='images/identity-x.png' width='25'> ข้อมูลบุคลากรย้าย/ลาออก</a></li>
+                                    <li><a href="add_person.php?unset=1"><img src='images/adduser.ico' width='25'> เพิ่มข้อมูลบุคลากร</a></li>
+                                    <li><a href="pre_person.php?unset=1"><img src='images/identity.png' width='25'> ข้อมูลบุคลากร</a></li>
+                                    <li><a href="pre_educate.php?unset=1"><img src='images/Student.ico' width='25'> ประวัติการศึกษา</a></li>
+                                    <li><a href="pre_Whistory.php?unset=1"><img src='images/work.ico' width='25'> ประวัติการทำงาน</a></li>
+                                    <li><a href="resign_person.php?unset=1"><img src='images/identity-x.png' width='25'> ข้อมูลบุคลากรย้าย/ลาออก</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="statistics_person.php"><img src='images/kchart.ico' width='25'> สถิติบุคลากร</a></li>
+                                    <li><a href="statistics_person.php?unset=1"><img src='images/kchart.ico' width='25'> สถิติบุคลากร</a></li>
                                     <li><a href="#" onClick="window.open('detial_type.php','','width=470,height=520'); return false;" title="สถิติประเภทพนักงาน"><img src='images/kchart.ico' width='25'> สถิติประเภทพนักงาน</a></li>
                                     <li><a href="#" onClick="window.open('detial_position.php','','width=600,height=680'); return false;" title="สถิติตำแหน่งพนักงาน"><img src='images/kchart.ico' width='25'> สถิติตำแหน่งพนักงาน</a></li>
                                         <?php }else{?>
                                     <li><a href="#" onClick="window.open('detial_person.php','','width=700,height=500'); return false;" title="ข้อมูลบุคลากร"><img src='images/identity.ico' width='25'> ข้อมูลบุคลากร</a></li>
-                                    <li><a href="detial_educate.php"><img src='images/Student.ico' width='25'> ประวัติการศึกษา</a></li>
-                                    <li><a href="detial_Whistory.php"><img src='images/work.ico' width='25'> ประวัติการทำงาน</a></li>
+                                    <li><a href="detial_educate.php?unset=1"><img src='images/Student.ico' width='25'> ประวัติการศึกษา</a></li>
+                                    <li><a href="detial_Whistory.php?unset=1"><img src='images/work.ico' width='25'> ประวัติการทำงาน</a></li>
                                         <?php } if($_SESSION[Status]=='SUSER' or $_SESSION[Status]=='USUSER'){?>
                                     <li class="divider"></li>
-                                    <li><a href="statistics_person.php"><img src='images/kchart.ico' width='25'> สถิติบุคลากรในหน่วยงาน</a></li>
+                                    <li><a href="statistics_person.php?unset=1"><img src='images/kchart.ico' width='25'> สถิติบุคลากรในหน่วยงาน</a></li>
                                         <?php }?>
                                 </ul>            
                             </li>
@@ -292,24 +292,24 @@ filter:grayscale(100%);
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/Letter.png' width='25'> การลา <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <?php if($_SESSION[Status]=='ADMIN'){?>
-                                    <li><a href="receive_leave.php"><img src='images/kwrite.ico' width='25'> บันทึกทะเบียนรับใบลา</a></li>
-                                    <li><a href="pre_leave.php"><img src='images/Lfolder.ico' width='25'> บันทึกการลาบุคลากร</a></li>
-                                    <li><a href="conclude_cancle.php"><img src='images/Cfolder.ico' width='25'> ยกเลิกการลา</a></li>
-                                    <li><a href="conclude_transfer.php"><img src='images/folder_sent.ico' width='25'> โอนลาชั่วโมง</a></li>
+                                    <li><a href="receive_leave.php?unset=1"><img src='images/kwrite.ico' width='25'> บันทึกทะเบียนรับใบลา</a></li>
+                                    <li><a href="pre_leave.php?unset=1"><img src='images/Lfolder.ico' width='25'> บันทึกการลาบุคลากร</a></li>
+                                    <li><a href="conclude_cancle.php?unset=1"><img src='images/Cfolder.ico' width='25'> ยกเลิกการลา</a></li>
+                                    <li><a href="conclude_transfer.php?unset=1"><img src='images/folder_sent.ico' width='25'> โอนลาชั่วโมง</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="Lperson_report.php"><img src='images/kchart.ico' width='25'> สถิติการลาแยกหน่วยงาน</a></li>
+                                    <li><a href="Lperson_report.php?unset=1"><img src='images/kchart.ico' width='25'> สถิติการลาแยกหน่วยงาน</a></li>
                                     <!--<li><a href="statistics_leave.php"><img src='images/kchart.ico' width='25'> สถิติการลา</a></li>-->
-                                    <li><a href="Lperson_report_sum.php?screen=1"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกหน่วยงาน</a></li>
-                                    <li><a href="Lperson_report_sum.php?screen=2"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกประเภทบุคลากร</a></li>
+                                    <li><a href="Lperson_report_sum.php?screen=1&unset=1"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกหน่วยงาน</a></li>
+                                    <li><a href="Lperson_report_sum.php?screen=2&unset=1"><img src='images/kchart.ico' width='25'> สรุปวันลาแยกประเภทบุคลากร</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="statistics_scan.php"><img src='images/kchart.ico' width='25'> สถิติการลืมลงเวลา</a></li>
+                                    <li><a href="statistics_scan.php?unset=1"><img src='images/kchart.ico' width='25'> สถิติการลืมลงเวลา</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="statistics_late.php"><img src='images/kchart.ico' width='25'> สถิติการลงสาย</a></li>
+                                    <li><a href="statistics_late.php?unset=1"><img src='images/kchart.ico' width='25'> สถิติการลงสาย</a></li>
                             <?php }else{?> 
-                                    <li><a href="pre_leave.php"><img src='images/Lfolder.ico' width='25'> บันทึกการลาบุคลากร</a></li>
+                                    <li><a href="pre_leave.php?unset=1"><img src='images/Lfolder.ico' width='25'> บันทึกการลาบุคลากร</a></li>
                             <?php } if($_SESSION[Status]=='SUSER' or $_SESSION[Status]=='USUSER'){?>
                                     <li class="divider"></li>
-                                    <li><a href="Lperson_report.php"><img src='images/kchart.ico' width='25'> สถิติการลาในหน่วยงาน</a></li>
+                                    <li><a href="Lperson_report.php?unset=1"><img src='images/kchart.ico' width='25'> สถิติการลาในหน่วยงาน</a></li>
                             <?php }?>
                             </ul> 
                         </li>
@@ -317,20 +317,20 @@ filter:grayscale(100%);
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/training.ico' width='25'> อบรมภายนอก <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="add_project_out.php"><img src='images/add.ico' width='25'></i> บันทึกโครงการฝึกอบรมภายนอก</a></li>
-                                    <li><a href="pre_trainout.php"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายนอก</a></li>
+                                    <li><a href="add_project_out.php?unset=1"><img src='images/add.ico' width='25'></i> บันทึกโครงการฝึกอบรมภายนอก</a></li>
+                                    <li><a href="pre_trainout.php?unset=1"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายนอก</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="statistics_trainout.php"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายนอก</a></li>
-                                    <li><a href="pre_trainout(N).php"><img src='images/kchart.ico' width='25'> รายงานผู้ที่ยังไม่ได้สรุป</a></li>
+                                    <li><a href="statistics_trainout.php?unset=1"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายนอก</a></li>
+                                    <li><a href="pre_trainout(N).php?unset=1"><img src='images/kchart.ico' width='25'> รายงานผู้ที่ยังไม่ได้สรุป</a></li>
                                 </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/trainin.ico' width='25'> อบรมภายใน <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                    <li><a href="add_project.php"><img src='images/add.ico' width='25'> บันทึกโครงการฝึกอบรมภายใน</a></li>
-                                    <li><a href="pre_trainin.php"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายใน</a></li>
+                                    <li><a href="add_project.php?unset=1"><img src='images/add.ico' width='25'> บันทึกโครงการฝึกอบรมภายใน</a></li>
+                                    <li><a href="pre_trainin.php?unset=1"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายใน</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="statistics_trainin.php"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายใน</a></li>
+                                    <li><a href="statistics_trainin.php?unset=1"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายใน</a></li>
                                 </ul>
                         </li>
                         
@@ -338,14 +338,14 @@ filter:grayscale(100%);
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/trainin.ico' width='25'> ประวัติระบบฝึกอบรม <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="add_project_out.php"><img src='images/add.ico' width='25'></i> บันทึกโครงการฝึกอบรมภายนอก</a></li>
-                                        <li><a href="pre_trainout.php"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายนอก</a></li>
+                                        <li><a href="add_project_out.php?unset=1"><img src='images/add.ico' width='25'></i> บันทึกโครงการฝึกอบรมภายนอก</a></li>
+                                        <li><a href="pre_trainout.php?unset=1"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายนอก</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="detial_trainin.php"><img src='images/training.ico' width='25'> ประวัติระบบฝึกอบรม</a></li>
+                                        <li><a href="detial_trainin.php?unset=1"><img src='images/training.ico' width='25'> ประวัติระบบฝึกอบรม</a></li>
                             <?php if($_SESSION[Status]=='SUSER' or $_SESSION[Status]=='USUSER'){?>
                                         <li class="divider"></li>
-                                    <li><a href="statistics_trainout.php"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายนอก</a></li>
-                                    <li><a href="statistics_trainin.php"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายใน</a></li>
+                                    <li><a href="statistics_trainout.php?unset=1"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายนอก</a></li>
+                                    <li><a href="statistics_trainin.php?unset=1"><img src='images/kchart.ico' width='25'> รายงานการฝึกอบรมภายใน</a></li>
                             <?php }?>
                                 </ul>
                         </li><?php }?>
@@ -370,14 +370,14 @@ filter:grayscale(100%);
                                         <li><a href="Add_User.php?user_id=<?= $_SESSION[user] ?>"><img src='images/personal.ico' width='25'> แก้ไขข้อมูลส่วนตัว</a></li>
                                         <?php if($_SESSION[Status]=='ADMIN'){?>
                                         <li class="divider"></li>
-                                        <li><a href="Add_Hos.php"><img src='images/Settings.ico' width='25'> ตั้งค่าองค์กร/ผู้บริหาร</a></li>
-                                    <li><a href="Add_User.php"><img src='images/Settings.ico' width='25'> ตั้งค่าผู้ใช้งาน</a></li>
-                                    <li><a href="Add_Department.php"><img src='images/Settings.ico' width='25'> ตั้งค่าฝ่าย/ศูนย์/กลุ่มงาน</a></li>
-                                    <li><a href="Add_Position.php"><img src='images/Settings.ico' width='25'> ตั้งค่าตำแหน่ง</a></li>
+                                        <li><a href="Add_Hos.php?unset=1"><img src='images/Settings.ico' width='25'> ตั้งค่าองค์กร/ผู้บริหาร</a></li>
+                                    <li><a href="Add_User.php?unset=1"><img src='images/Settings.ico' width='25'> ตั้งค่าผู้ใช้งาน</a></li>
+                                    <li><a href="Add_Department.php?unset=1"><img src='images/Settings.ico' width='25'> ตั้งค่าฝ่าย/ศูนย์/กลุ่มงาน</a></li>
+                                    <li><a href="Add_Position.php?unset=1"><img src='images/Settings.ico' width='25'> ตั้งค่าตำแหน่ง</a></li>
                                     <li class="divider"></li>
                                     <li><a href="#" onClick="window.open('regularity.php','','width=1200,height=700'); return false;" title="เพิ่มระเบียบ"><img src='images/sticky-notes.ico' width='25'> ระเบียบ/ข้อบังคับ</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="backup.php" onclick="return confirm('กรุณายืนยันการสำรองข้อมูลอีกครั้ง !!!')"><img src='images/backup-restore.ico' width='25'> สำรองข้อมูล</a></li>
+                                    <li><a href="backup.php?unset=1" onclick="return confirm('กรุณายืนยันการสำรองข้อมูลอีกครั้ง !!!')"><img src='images/backup-restore.ico' width='25'> สำรองข้อมูล</a></li>
                                     <li><a href="#" onClick="window.open('openDB.php','','width=400,height=350'); return false;" title="ข้อมูลสำรอง"><img src='images/database.ico' width='25'> ข้อมูลสำรอง</a></li>
                                     <li class="divider"></li> <?php }?>
                                     <li><a href="#" onClick="return popup('fullcalendar/fullcalendar4.php', popup, 820, 710);" title="ดูกิจกรรมส่วนตัว"><img src='images/calendar-clock.ico' width='25'> ปฏิทินกิจกรรมส่วนตัว</a></li>
@@ -441,6 +441,37 @@ filter:grayscale(100%);
                          $take_date=explode("/",$take_date_conv);
 			 $take_date_year=$take_date[2]-543;
 			 $take_date="$take_date_year-$take_date[1]-$take_date[0]";
+                    }
+                    
+                    function unset_session(){
+                        if(!empty($_SESSION['check_date01'])){
+                        unset($_SESSION['check_date01']);}
+                        if(!empty($_SESSION['check_date02'])){
+                        unset($_SESSION['check_date02']);}
+                        if(!empty($_SESSION['txtKeyword'])){
+                        unset($_SESSION['txtKeyword']);}
+                        if(!empty($_SESSION['check_rec'])){
+                        unset($_SESSION['check_rec']);}
+                        if(!empty($_SESSION['check_cancle'])){
+                        unset($_SESSION['check_cancle']);}
+                        if(!empty($_SESSION['check_Lperson'])){
+                        unset($_SESSION['check_Lperson']);}
+                        if(!empty($_SESSION['dep_Lperson'])){
+                        unset($_SESSION['dep_Lperson']);}
+                        if(!empty($_SESSION['depname'])){
+                        unset($_SESSION['depname']);}
+                        if(!empty($_SESSION['check_trainout'])){
+                        unset($_SESSION['check_trainout']);}
+                        if(!empty($_SESSION['check_out'])){
+                        unset($_SESSION['check_out']);}
+                        if(!empty($_SESSION['check_trainin'])){
+                        unset($_SESSION['check_trainin']);}
+                        if(!empty($_SESSION['check_pro'])){
+                        unset($_SESSION['check_pro']);}
+                        if(!empty($_SESSION['check_stat'])){
+                        unset($_SESSION['check_stat']);}
+                        if(!empty($_SESSION['empno'])){
+                        unset($_SESSION['empno']);}
                     }
 ?>
 <script language="JavaScript" type="text/javascript"> 

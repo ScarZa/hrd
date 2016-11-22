@@ -1,5 +1,4 @@
-<?php include 'header.php'; ?>
-<?php
+<?php include 'header.php'; if(isset($_GET['unset'])){ unset_session();}
 if (empty($_SESSION[user])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
@@ -35,9 +34,9 @@ if (empty($_SESSION[user])) {
                             <button type="submit" class="btn btn-success">ตกลง</button>
                         </form>
                     </div>
-                    <br><? //} ?><br></div>
+                    <br><br></div>
                 <?php if($_SESSION[Status]=='ADMIN'){?>
-                <form class="navbar-form navbar-right" name="frmSearch" role="search" method="post" action="statistics_trainout.php">
+                <form class="navbar-form navbar-right" name="frmSearch" role="search" method="post" action="statistics_trainout.php" enctype="multipart/form-data">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
@@ -97,12 +96,12 @@ if (empty($_SESSION[user])) {
         }       
 include 'option/function_date.php';
 if($date >= $bdate and $date <= $edate){
-                if ($_SESSION[check_out] == '') {
+                if ($_SESSION['check_out'] == '') {
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_out] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_out]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
@@ -135,13 +134,13 @@ where e1.status ='1'  and (p.begin_date BETWEEN '$y-10-01' and '$Yy-09-30') and 
 GROUP BY e1.empno";
                     }
                 } else {
-                    $date01 = $_SESSION[out_date1];
-                    $date02 = $_SESSION[out_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_out] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_out]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
@@ -175,12 +174,12 @@ where  tout.dt!='9' $code_dep
                     }
                 }
 }else{
-    if ($_SESSION[check_out] == '') {
+    if ($_SESSION['check_out'] == '') {
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_out] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_out]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
@@ -213,13 +212,13 @@ where e1.status ='1'  and (p.begin_date BETWEEN '$Y-10-01' and '$y-09-30') and t
 GROUP BY e1.empno";
                     }
                 } else {
-                    $date01 = $_SESSION[out_date1];
-                    $date02 = $_SESSION[out_date2];
+                    $date01 = $_SESSION['check_date01'];
+                    $date02 = $_SESSION['check_date02'];
 
                     if ($_POST[method] == 'Keyword_project') {
-                        $_SESSION[Keyword_out] = $_POST[txtKeyword];
+                        $_SESSION['txtKeyword'] = $_POST[txtKeyword];
                     }
-                    $Search_word = ($_SESSION[Keyword_out]);
+                    $Search_word = ($_SESSION['txtKeyword']);
                     if ($Search_word != "") {
 //คำสั่งค้นหา
                         $q = "SELECT e1.empno as empno,  concat(p2.pname,e1.firstname,'  ',e1.lastname) as fullname,
@@ -281,11 +280,11 @@ where  tout.dt!='9' $code_dep
                     <? include_once ('option/funcDateThai.php'); ?>
                 แสดงคำที่ค้นหา : <?= $Search_word; ?>
                 <table align="center" width="100%" border="1">
-                    <? if ($_SESSION[check_out] == 'check_pro_trainout') { ?>
+                    <?php if ($_SESSION['check_out'] == 'check_pro_trainout') { ?>
                         <tr>
                             <td colspan="5" align="center">ตั้งแต่วันที่ <?= DateThai1($date01); ?> ถึง <?= DateThai1($date02); ?></td>
                         </tr>
-<? } ?>
+<?php } ?>
                     <tr align="center" bgcolor="#898888">
                         <td width="16%" align="center"><b>ลำดับ</b></td>
                         <td width="40%" align="center"><b>ชื่อ-นามสกุล</b></td>
@@ -326,4 +325,4 @@ if ($total > 0) {
         </div>
     </div>
 
-<? include 'footer.php'; ?>
+<?php include 'footer.php'; ?>
