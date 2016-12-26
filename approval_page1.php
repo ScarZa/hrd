@@ -109,16 +109,16 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
                         <td>&nbsp;จาก................. ถึง................. </td>
                     </tr>
                 </table><br>
-                โดยมีเหตุความจำเป็นในกรณีที่ขอเดินทางโดยเครื่องบินดังนี้...........................................................................<br><br>
+                โดยมีเหตุความจำเป็นในกรณีที่ขอเดินทางโดยเครื่องบินดังนี้...........................................................................<p>
                 ..................................................................................................................................................................<br><br>
                 
                 ในการเดินทางไปราชการครั้งนี้ข้าพเจ้าประมาณการค่าใช้จ่าย จาก<?=$hospital['name']?> ดังต่อไปนี้<br>
                 <table width="100%" border="0">
                     <tr>
                         <td height="25" width="16%"><?php if(!empty($Project_detial['m3'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าเบี้ยเลี้ยง</td>
-                        <td width="31%" align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m3'])){echo number_format($Project_detial['m3']);}else{?>.........................<?php }?> บาท</td>
-                        <td width="17%"><?php if(!empty($Project_detial['m2'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าลงทะเบียน</td>
-                        <td width="36%" align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m2'])){echo number_format($Project_detial['m2']);}else{?>.........................<?php }?> บาท</td>
+                        <td width="36%" align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m3'])){echo number_format($Project_detial['m3']);}else{?>.........................<?php }?> บาท</td>
+                        <td width="11%"><?php if(!empty($Project_detial['m2'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าลงทะเบียน</td>
+                        <td width="29%" align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m2'])){echo number_format($Project_detial['m2']);}else{?>.........................<?php }?> บาท</td>
                     </tr>
                     <tr>
                         <td height="25"><?php if(!empty($Project_detial['m1'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าที่พัก</td>
@@ -139,7 +139,7 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
                 </table>
                 และได้แนบเอกสารมาพร้อมนี้ [ ] หนังสือเชิญ &nbsp;&nbsp;&nbsp;&nbsp;[ ] &nbsp;&nbsp; เอกสารโครงการ<br><br>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จึงเรียนมาเพื่อโปรดพิจารณาอนุมัติ
-            <br><br><br>
+            <br><br>
             <table width="100%" border="0">
                 <tr>
                     <td width="30%" align="center" valign="top">&nbsp;</td>
