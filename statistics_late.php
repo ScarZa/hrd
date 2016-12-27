@@ -118,7 +118,7 @@ ORDER BY e.firstname";
 
 //เรียกข้อมูลการจองของเดือนที่ต้องการ
                             $allReportData = array();
-                            $strSQL = "SELECT l.empno,DAY(l.late_date)late_date,SUBSTR(l.late_time,2,4)late_time,l.exp_status
+                            $strSQL = "SELECT l.empno,DAY(l.late_date)late_date,IF(l.late='Y',CONCAT(SUBSTR(l.late_time,2,4),' ส'),SUBSTR(l.late_time,2,4))late_time,l.exp_status
     FROM late l
 WHERE l.late_date LIKE '$year-$month%'
 order by l.empno";
@@ -161,10 +161,11 @@ order by l.empno";
                         }
                         ?>
                         <b style="color: red"> **</b><br>
-                        &nbsp; <b style="background-color: yellow;color: red">&nbsp;8:36&nbsp;</b> = ยังไม่ชี้แจง<br>
-                        &nbsp; <b style="background-color: green;color: white">&nbsp;8:36&nbsp;</b> = ชี้แจงแล้วแต่ยังไม่อนุมัติ<br>
-                        &nbsp; <b style="color: green">&nbsp;8:36&nbsp;</b> = อนุมัติ<br>
-                        &nbsp; <b style="color: #b79191">&nbsp;8:36&nbsp;</b> = ไม่อนุมัติ
+                        &nbsp; <b>&nbsp;ส&nbsp;</b> = ลงเวลาเกิน 8:35<br>
+                        &nbsp; <b style="background-color: yellow;color: red">&nbsp;8:35&nbsp;</b> = ยังไม่ชี้แจง<br>
+                        &nbsp; <b style="background-color: green;color: white">&nbsp;8:35&nbsp;</b> = ชี้แจงแล้วแต่ยังไม่อนุมัติ<br>
+                        &nbsp; <b style="color: green">&nbsp;8:35&nbsp;</b> = อนุมัติ<br>
+                        &nbsp; <b style="color: #b79191">&nbsp;8:35&nbsp;</b> = ไม่อนุมัติ
                         </td></tr></table></div>
             </div></div></div></div>
 <?php include 'footer.php'; ?>

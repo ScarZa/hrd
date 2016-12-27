@@ -1,0 +1,4 @@
+ALTER TABLE `late`
+ADD COLUMN `late`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `exp_status`;
+
+UPDATE late SET late='N';

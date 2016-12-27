@@ -106,7 +106,15 @@ include 'option/DatePicker/index.php';
                         echo "<option value='".$i."' $selected>".$i."</option>";}
                     }?>
                 </select>
-                    </div>
+                    </div><p>
+                            <?php if(!empty($detial['late'])){$late=$detial['late'];}?>
+                            <div class="form-group"><label for="take_minute">&nbsp;สายจริง</label>
+                                <input type="radio" name="late_true" value="Y" <?php if(!empty($detial['late']) and $late=='Y'){echo $checked='checked';}else{echo $checked='';}?>>
+                            </div>
+                            <div class="form-group"><label for="take_minute">&nbsp;ไม่สายจริง</label>
+                                <input type="radio" name="late_true" value="N" 
+                                    <?php if(!empty($detial['late'])){if($late=='N'){echo $checked='checked';}else{echo $checked='';}}else{?> checked<?php }?>>
+                            </div>
                             <?php if($method=='edit_late'){?>
                         <div class="form-group">
                 <label>เหตุผล</label>

@@ -143,13 +143,14 @@ if (empty($sql)) {
     $take_date_conv=$_POST['late_date'];
     $late_date=insert_date($take_date_conv);
     $late_time=$_POST['take_hour'].':'.$_POST['take_minute'];
+    $late=$_POST['late_true'];
     $register=$_SESSION[user];
     $see='N';
     $exp_status='W';
 
 $sql=$db->prepare('insert into late set empno=? , reg_date=? , late_date=? , late_time=? , register=?,
-        see=?,exp_status=?');
-$sql->bind_param('isssiss',$empno,$regdate,$late_date, $late_time,$register,$see,$exp_status);
+        see=?,exp_status=?,late=?');
+$sql->bind_param('isssisss',$empno,$regdate,$late_date, $late_time,$register,$see,$exp_status,$late);
 $sql->execute();
 if (empty($sql)) {
     echo "<p>";
@@ -170,6 +171,7 @@ if (empty($sql)) {
     $late_date=insert_date($_POST['late_date']);
     $late_time=$_POST['take_hour'].':'.$_POST['take_minute'];
     $reason_late=$_POST['reason_late'];
+    $late=$_POST['late_true'];
     $editer=$_SESSION[user];
     $editdate=date("Y-m-d");
 
@@ -186,9 +188,9 @@ if (trim($_FILES["image"]["name"] != "")) {
     $image ='';
 }
 if($image ==''){
-$sql=$db->prepare('update late set late_date=? , late_time=?,reason_late=?,editer=?,editdate=? 
+$sql=$db->prepare('update late set late_date=? , late_time=?,reason_late=?,late=?,editer=?,editdate=? 
         where empno=? and late_id=?');
-$sql->bind_param('sssisii',$late_date,$late_time,$reason_late,$editer,$editdate,$empno,$late_id);
+$sql->bind_param('ssssisii',$late_date,$late_time,$reason_late,$late,$editer,$editdate,$empno,$late_id);
 $sql->execute();    
 }else{
                 $del_photo=mysqli_query($db,"select explanation from late where late_id='$late_id'");
