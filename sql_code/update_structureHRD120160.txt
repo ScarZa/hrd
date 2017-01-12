@@ -1,0 +1,2 @@
+INSERT INTO `count` (`count_name`, `count`) VALUES ('regis_projectout', '0');
+INSERT INTO `count` (`count_name`, `count`) VALUES ('regis_projectin', '0');

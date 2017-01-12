@@ -26,7 +26,7 @@ if($_SESSION[Status]=='ADMIN'){
     $reg_date = date('Y-m-d');
     $check='1';
 }
-    $project_no = $_POST[project_no];
+   
     $project_name = $_POST[project_name];
     $project_dep = $_POST[project_dep];
     $project_obj = $_POST[project_obj];
@@ -64,7 +64,12 @@ if($_SESSION[Status]=='ADMIN'){
 
     if ($_POST[method] == 'add_trainin') {
 
-
+$regis_po=  mysql_query("select count from count where count_name='regis_projectin'");
+$Regis_po=  mysql_fetch_assoc($regis_po);
+$Ln=$Regis_po['count']+1;
+$Y=date('y')+43;
+$project_no="$Y/$Ln";
+$update_count=  mysql_query("update count set count='$Ln' where count_name='regis_projectin'"); 
     $add = mysql_query("insert into trainingin set reg_date='$reg_date', in1='$project_no', in2='$project_name', in3='$project_dep',
                 in4='$project_obj', in5='$project_place', in6='$province', dateBegin='$Pdates', dateEnd='$Pdatee', in8='$amountd',
                    in9='$amounth', in10='$format', in11='$persen', in12='$barrier', in13='$further',
@@ -86,7 +91,7 @@ if($_SESSION[Status]=='ADMIN'){
             echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=pre_trainin.php'>";
         }
     }else if ($_POST[method] == 'edit') {
-    
+        $project_no=$_POST['project_no'];
         $idpi=$_REQUEST[edit_id];
 $edit = mysql_query("update trainingin set reg_date='$reg_date', in1='$project_no', in2='$project_name', in3='$project_dep',
                 in4='$project_obj', in5='$project_place', in6='$province', dateBegin='$Pdates', dateEnd='$Pdatee', in8='$amountd',
@@ -223,7 +228,12 @@ foreach ($check_ps as $key => $value) {
         
     }elseif ($_POST[method] == 'add_trainout') {
 
-
+$regis_po=  mysql_query("select count from count where count_name='regis_projectout'");
+$Regis_po=  mysql_fetch_assoc($regis_po);
+$Ln=$Regis_po['count']+1;
+$Y=date('y')+43;
+$project_no="$Y/$Ln";
+$update_count=  mysql_query("update count set count='$Ln' where count_name='regis_projectout'"); 
     $add = mysql_query("insert into training_out set datein='$reg_date', memberbook='$project_no', projectName='$project_name', anProject='$project_dep',
                 stantee='$project_place', provenID='$province', Beginedate='$Pdates', endDate='$Pdatee', stdate='$stdate', etdate='$etdate', Hos_car='$Hoscar', amount='$amountd',
                    dt='$format', m1='$cost', m2='$meals', m3='$expert', m4='$travel', m5='$material', budget='$source',
@@ -245,7 +255,7 @@ foreach ($check_ps as $key => $value) {
             echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=add_trainout.php?id=$insert_id'>";
     }}
     }else if ($_POST[method] == 'edit_trainout') {
-    
+        $project_no=$_POST['project_no'];
         $idpi=$_REQUEST[edit_id];
 $edit = mysql_query("update training_out set datein='$reg_date', memberbook='$project_no', projectName='$project_name', anProject='$project_dep',
                 stantee='$project_place', provenID='$province', Beginedate='$Pdates', endDate='$Pdatee', stdate='$stdate', etdate='$etdate', Hos_car='$Hoscar', amount='$amountd',

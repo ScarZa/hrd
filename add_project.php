@@ -61,10 +61,11 @@ function nextbox(e, id) {
                 <label>วันที่เขียนโครงการ &nbsp;</label>
                 <input value='<?=$take_date1?>' placeholder="รูปแบบ 31/01/2559" type="text" class="form-control" name="reg_date" id="datepicker-th-1" onkeydown="return nextbox(event, 'address')" required>
              	</div>
+                    <?php if($_REQUEST[method]=='edit'){?>
                     <div class="form-group"> 
                 <label>เลขที่โครงการ &nbsp;</label>
                 <input value='<?=$edit_person[in1];?>' type="text" class="form-control" name="project_no" id="project_no" placeholder="เลขที่โครงการ" onkeydown="return nextbox(event, 'cidid')">
-             	</div><br> 
+                    </div><br><?php }?> 
                     <div class="form-group"> 
                     <label>ชื่อโครงการ &nbsp;</label>
                 <input value='<?=$edit_person[in2];?>' type="text" class="form-control" size="100" name="project_name" id="project_name" placeholder="ชื่อโครงการ" onkeydown="return nextbox(event, 'pname')" required>
