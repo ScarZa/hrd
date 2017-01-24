@@ -110,30 +110,30 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
                     </tr>
                 </table><br>
                 โดยมีเหตุความจำเป็นในกรณีที่ขอเดินทางโดยเครื่องบินดังนี้...........................................................................<p>
-                ..................................................................................................................................................................<br><br>
+                ..................................................................................................................................................................<br>
                 
                 ในการเดินทางไปราชการครั้งนี้ข้าพเจ้าประมาณการค่าใช้จ่าย จาก<?=$hospital['name']?> ดังต่อไปนี้<br>
                 <table width="100%" border="0">
                     <tr>
-                        <td height="25" width="16%"><?php if(!empty($Project_detial['m3'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าเบี้ยเลี้ยง</td>
-                        <td width="36%" align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m3'])){echo number_format($Project_detial['m3']);}else{?>.........................<?php }?> บาท</td>
-                        <td width="11%"><?php if(!empty($Project_detial['m2'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าลงทะเบียน</td>
-                        <td width="29%" align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m2'])){echo number_format($Project_detial['m2']);}else{?>.........................<?php }?> บาท</td>
+                        <td height="25" width="14%"><?php if(!empty($Project_detial['m3'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าเบี้ยเลี้ยง</td>
+                        <td width="30%" align="left">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m3'])){echo number_format($Project_detial['m3']);}else{?>.........................<?php }?> บาท</td>
+                        <td width="16%"><?php if(!empty($Project_detial['m2'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าลงทะเบียน</td>
+                        <td width="40%" align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m2'])){echo number_format($Project_detial['m2']);}else{?>.........................<?php }?> บาท</td>
                     </tr>
                     <tr>
                         <td height="25"><?php if(!empty($Project_detial['m1'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าที่พัก</td>
-                        <td align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m1'])){echo number_format($Project_detial['m1']);}else{?>.........................<?php }?> บาท</td>
+                        <td align="left">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m1'])){echo number_format($Project_detial['m1']);}else{?>.........................<?php }?> บาท</td>
                         <td><?php if(!empty($Project_detial['m5'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าใช้จ่ายอื่นๆ</td>
                         <td align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m5'])){echo number_format($Project_detial['m5']);}else{?>.........................<?php }?> บาท</td>
                     </tr>
                     <tr>
                         <td height="25"><?php if(!empty($Project_detial['m4'])){?>[<img src="images/check.png" width="10">]<?php }else{?>[ ]<?php }?> ค่าพาหนะ</td>
-                        <td align="right">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m4'])){echo number_format($Project_detial['m4']);}else{?>.........................<?php }?> บาท</td>
+                        <td align="left">เป็นจำนวนเงิน <?php if(!empty($Project_detial['m4'])){echo number_format($Project_detial['m4']);}else{?>.........................<?php }?> บาท</td>
                         <td colspan="2">[ ] ไม่ขอเบิกค่าใช้จ่าย</td>
                     </tr>
                     <tr>
                       <td height="25">รวมค่าใช้จ่ายทั้งสิ้น</td>
-                      <td align="right">เป็นจำนวนเงิน........<?= $total_money=number_format($Project_detial['m1']+$Project_detial['m2']+$Project_detial['m3']+$Project_detial['m4']+$Project_detial['m5'])?>...........บาท</td>
+                      <td align="left">เป็นจำนวนเงิน........<?= $total_money=number_format($Project_detial['m1']+$Project_detial['m2']+$Project_detial['m3']+$Project_detial['m4']+$Project_detial['m5'])?>...........บาท</td>
                       <td colspan="2">(<?php if(!empty($total_money)){echo '................'.num2wordsThai("$total_money").'บาทถ้วน................';}else{?>..............................................................................................<?php }?>)</td>
                     </tr>
                 </table>
