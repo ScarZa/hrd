@@ -115,6 +115,18 @@ if ($_POST[checkdate] == '1' and $_POST[check_date01]!='')  {
     echo "<meta http-equiv='refresh' content='0;url=receive_leave.php' />";
 
     
+}elseif ($_POST[method]=='check_receive_app' and $_POST[check_date01]!='') {
+    $_SESSION['check_rec']=$_POST[method];
+    $_SESSION['check_date01']=$_POST[check_date01];
+    $_SESSION['check_date02']=$_POST[check_date02];
+    echo "<meta http-equiv='refresh' content='0;url=receive_trainout.php' />";
+}elseif ($_POST[method]=='check_receive_app' and $_POST[check_date01]=='') {
+    $_SESSION['check_rec'] = '';
+    $_SESSION['check_date01']='';
+    $_SESSION['check_date02']='';
+    echo "<meta http-equiv='refresh' content='0;url=receive_trainout.php' />";
+
+    
 }elseif ($_POST[method]=='Lperson_date' and $_POST[take_date01]!='') {
     $_SESSION['check_Lperson']=$_POST[method];
     $_SESSION['check_date01']=$_POST[take_date01];

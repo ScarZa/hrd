@@ -317,6 +317,7 @@ filter:grayscale(100%);
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/training.ico' width='25'> อบรมภายนอก <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="receive_trainout.php?unset=1"><img src='images/kwrite.ico' width='25'> บันทึกทะเบียนรับอบรมภายนอก/ไปราชการ</a></li>
                                     <li><a href="add_project_out.php?unset=1"><img src='images/add.ico' width='25'></i> บันทึกโครงการฝึกอบรมภายนอก</a></li>
                                     <li><a href="pre_trainout.php?unset=1"><img src='images/kig.ico' width='25'> บันทึกการฝึกอบรมภายนอก</a></li>
                                     <li class="divider"></li>
