@@ -602,20 +602,39 @@ GROUP BY d.main_dep order by dg.main_dep");
                     <div class="panel-body">
                         <center>อบรมภายนอก/ไปราชการในปีงบประมาณ <?= $years ?></center><br>
                         <div class="table-responsive">
-                            <table class="table table-striped table-responsive tablesorter divider" align="center" width="100%" border="0" cellspacing="0" cellpadding="0" rules="rows" frame="below">
+                            <?php if($_SESSION[Status]=='ADMIN'){?>
+                            <a class="btn btn-success" download="report_Governor.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', '<?= $years ?>');">Export to Excel</a><br><br>
+                            <?php } ?>
+                            <table class="table table-striped table-responsive tablesorter divider" id="datatable" align="center" width="100%" border="0" cellspacing="0" cellpadding="0" rules="rows" frame="below">
                                 <thead>
                                     <tr align="center" bgcolor="#898888">
-                                        <TH><CENTER>เดือน</CENTER> </TH>
-                                <TH><CENTER>จำนวนโครงการ</CENTER></TH> 
-                                <TH><CENTER>จำนวนคน</CENTER></TH>
-                                <TH><CENTER>จำนวนวัน</CENTER></TH>
-                                <TH><CENTER>ค่าที่พัก</CENTER></TH>
-                                <TH><CENTER>ค่าลงทะเบียน</CENTER></TH>
-                                <TH><CENTER>ค่าเบี่ยเลี้ยง</CENTER></TH>
-                                <TH><CENTER>ค่าพาหนะเดินทาง</CENTER></TH>
-                                <TH><CENTER>ค่าใช้จ่ายอื่นๆ</CENTER></TH>
-                                <TH><CENTER>รวมค่าใช้จ่าย</CENTER></TH>
+                                        <TH rowspan="2"><CENTER>เดือน</CENTER> </TH>
+                                <TH rowspan="2"><CENTER>
+                                  โครงการ
+                                </CENTER></TH> 
+                                <TH rowspan="2"><CENTER>
+                                  คน
+                                </CENTER></TH>
+                                <TH rowspan="2"><CENTER>
+                                  วัน
+                                </CENTER></TH>
+                                <TH>ประชุม</TH>
+                                <TH>อบรม</TH>
+                                <TH>สัมมนา</TH>
+                                <TH>ดูงาน</TH>
+                                <TH>วิทยากร</TH>
+                                <TH>อื่นๆ</TH>
+                                <TH colspan="5"><CENTER>ค่าใช้จ่าย / เดือน</CENTER></TH>
+                                <TH rowspan="2"><CENTER>รวมค่าใช้จ่าย</CENTER></TH>
                                 </tr>
+                                    <tr align="center" bgcolor="#898888">
+                                      <TH colspan="6">คน / ครั้ง</TH>
+                                      <TH>ที่พัก</TH>
+                                      <TH>ลงทะเบียน</TH>
+                                      <TH>เบี่ยเลี้ยง </TH>
+                                      <TH>พาหนะเดิน </TH>
+                                      <TH>อื่นๆ</TH>
+                                    </tr>
                                 </thead>
         <?php
         $c = 1;
@@ -641,10 +660,28 @@ GROUP BY d.main_dep order by dg.main_dep");
             }
             $sql_train = mysql_query("SELECT COUNT(p.empno) as a2,SUM(p.abode) as a4,
 SUM(reg) as a5,SUM(allow) as a6,SUM(p.travel) as a7,SUM(p.other) as a8,
+(SELECT COUNT(p.empno) FROM plan_out p, training_out t 
+WHERE t.tuid=p.idpo AND t.dt in(1,2) and p.begin_date BETWEEN '$month_start' and '$month_end') pconf,
+(SELECT COUNT(t.tuid) FROM training_out t WHERE dt in(1,2) and t.Beginedate BETWEEN '$month_start' and '$month_end') conf,
+(SELECT COUNT(p.empno) FROM plan_out p, training_out t 
+WHERE t.tuid=p.idpo AND t.dt=3 and p.begin_date BETWEEN '$month_start' and '$month_end') pteach,
+(SELECT COUNT(t.tuid) FROM training_out t WHERE dt=3 and t.Beginedate BETWEEN '$month_start' and '$month_end') teach,
+(SELECT COUNT(p.empno) FROM plan_out p, training_out t 
+WHERE t.tuid=p.idpo AND t.dt=4 and p.begin_date BETWEEN '$month_start' and '$month_end') psee,
+(SELECT COUNT(t.tuid) FROM training_out t WHERE dt=4 and t.Beginedate BETWEEN '$month_start' and '$month_end') see,
+(SELECT COUNT(p.empno) FROM plan_out p, training_out t 
+WHERE t.tuid=p.idpo AND t.dt=5 and p.begin_date BETWEEN '$month_start' and '$month_end') pmeeting,
+(SELECT COUNT(t.tuid) FROM training_out t WHERE dt=5 and t.Beginedate BETWEEN '$month_start' and '$month_end') meeting,
+(SELECT COUNT(p.empno) FROM plan_out p, training_out t 
+WHERE t.tuid=p.idpo AND t.dt in(6,7) and p.begin_date BETWEEN '$month_start' and '$month_end') ptrain,
+(SELECT COUNT(t.tuid) FROM training_out t WHERE dt in(6,7) and t.Beginedate BETWEEN '$month_start' and '$month_end') train,
+(SELECT COUNT(p.empno) FROM plan_out p, training_out t 
+WHERE t.tuid=p.idpo AND t.dt=8 and p.begin_date BETWEEN '$month_start' and '$month_end') pother,
+(SELECT COUNT(t.tuid) FROM training_out t WHERE dt=8 and t.Beginedate BETWEEN '$month_start' and '$month_end') other,
 (SELECT COUNT(t.tuid) FROM training_out t WHERE t.Beginedate BETWEEN '$month_start' and '$month_end') a1,
 (SELECT SUM(t.amount) FROM training_out t WHERE t.Beginedate BETWEEN '$month_start' and '$month_end') a3
-FROM plan_out p
-WHERE p.begin_date BETWEEN '$month_start' and '$month_end'");
+FROM plan_out p, training_out t
+WHERE t.tuid=p.idpo AND p.begin_date BETWEEN '$month_start' and '$month_end'");
             $rs = mysql_fetch_assoc($sql_train);
             ?>
 
@@ -652,7 +689,13 @@ WHERE p.begin_date BETWEEN '$month_start' and '$month_end'");
                                         <td><?php echo $month[month_name]; ?></td>
                                         <td align="center"><?php echo $rs[a1]; ?></td> 
                                         <td align="center"><?php echo $rs[a2]; ?></td> 
-                                        <td align="center"><?php echo $rs[a3]; ?></td> 
+                                        <td align="center"><?php echo $rs[a3]; ?></td>
+                                        <td align="center"><?= $rs['pconf'].'./'.$rs['conf']?></td>
+                                        <td align="center"><?= $rs['ptrain'].'./'.$rs['train']?></td>
+                                        <td align="center"><?= $rs['pmeeting'].'./'.$rs['meeting']?></td>
+                                        <td align="center"><?= $rs['psee'].'./'.$rs['see']?></td>
+                                        <td align="center"><?= $rs['pteach'].'./'.$rs['teach']?></td>
+                                        <td align="center"><?= $rs['pother'].'./'.$rs['other']?></td> 
                                         <td align="center"><?php echo $rs[a4]; ?></td> 
                                         <td align="center"><?php echo $rs[a5]; ?></td> 
                                         <td align="center"><?php echo $rs[a6]; ?></td> 
@@ -679,6 +722,12 @@ WHERE p.begin_date BETWEEN '$date_start' and '$date_end'");
                                         <td align="center"><?php echo $rsum[b1]; ?></td>
                                         <td align="center"><?php echo $rsum[b2]; ?></td>
                                         <td align="center"><?php echo $rsum[b3]; ?></td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
                                         <td align="center"><?php echo $rsum[b4]; ?></td>
                                         <td align="center"><?php echo $rsum[b5]; ?></td>
                                         <td align="center"><?php echo $rsum[b6]; ?></td>
