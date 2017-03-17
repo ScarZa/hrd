@@ -276,7 +276,7 @@ filter:grayscale(100%);
                                     <li class="divider"></li>
                                     <li><a href="statistics_person.php?unset=1"><img src='images/kchart.ico' width='25'> สถิติบุคลากร</a></li>
                                     <li><a href="#" onClick="window.open('detial_type.php','','width=470,height=520'); return false;" title="สถิติประเภทพนักงาน"><img src='images/kchart.ico' width='25'> สถิติประเภทพนักงาน</a></li>
-                                    <li><a href="#" onClick="window.open('detial_position.php','','width=600,height=680'); return false;" title="สถิติตำแหน่งพนักงาน"><img src='images/kchart.ico' width='25'> สถิติตำแหน่งพนักงาน</a></li>
+                                    <li><a href="#" onClick="window.open('detial_position.php','','width=950,height=680'); return false;" title="สถิติตำแหน่งพนักงาน"><img src='images/kchart.ico' width='25'> สถิติตำแหน่งพนักงาน</a></li>
                                         <?php }else{?>
                                     <li><a href="#" onClick="window.open('detial_person.php','','width=700,height=500'); return false;" title="ข้อมูลบุคลากร"><img src='images/identity.ico' width='25'> ข้อมูลบุคลากร</a></li>
                                     <li><a href="detial_educate.php?unset=1"><img src='images/Student.ico' width='25'> ประวัติการศึกษา</a></li>

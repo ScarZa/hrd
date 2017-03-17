@@ -153,7 +153,7 @@ echo mysql_error();
                                 <th align="center" width="20%">หน่วยงาน</th>  
                                 <th align="center" width="7%">ระหว่างวันที่</th>
                                 <th align="center" width="7%">ถึงวันที่</th>
-                                <th align="center" width="10%">จำนวนชั่วโมง</th>
+                                <th align="center" width="10%">จำนวนวัน</th>
                             </tr>
                             
                             <?php

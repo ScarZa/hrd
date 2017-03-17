@@ -105,9 +105,9 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
     <th scope="col">ครั้ง</th>
     <th scope="col">ชั่วโมง</th>
   </tr>
-  <?
+  <?php
   $sql_leave2=  mysql_query("select * FROM print_tleave 
-where empno='$empno' and tleave_id='$workid'");
+where empno='$empno' and tleave_id='$workid' order by printt_id desc limit 1");
   $leave2=mysql_fetch_assoc($sql_leave2);?>
   <tr>
     <td align="center" scope="row"><?=$leave2[last_tleave]?></td>
