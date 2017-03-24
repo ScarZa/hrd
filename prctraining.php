@@ -102,7 +102,7 @@ $edit = mysql_query("update trainingin set reg_date='$reg_date', in1='$project_n
 $date_end=date('Y-m-d', strtotime("$Pdatee+1 days "));
 $update_event=mysql_query("update tbl_event set event_title='$project_no',event_start='$Pdates',event_end='$date_end',
             empno='$respon',typela='$format'
-        where workid='$idpi'");
+        where workid='$idpi' and process='6'");
 
 
     if ($edit == false) {
